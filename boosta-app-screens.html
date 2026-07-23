@@ -1,0 +1,2811 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boosta — App Screens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy-900: #181e2a;
+        --navy-800: #232b3d;
+        --blue-500: #3c7dc2;
+        --cyan-500: #17a3d8;
+        --cyan-400: #2fb4de;
+        --teal-300: #6fd3de;
+        --gray-50: #f7f8fa;
+        --gray-100: #eef1f4;
+        --gray-200: #e2e6eb;
+        --gray-300: #cbd2db;
+        --gray-400: #9aa5b1;
+        --gray-500: #6b7684;
+        --success: #1fae7a;
+        --success-bg: #e7f7f1;
+        --warning: #f5a623;
+        --warning-bg: #fef3e2;
+        --danger: #e5484d;
+        --danger-bg: #fdecec;
+        --info-bg: #e7f6fc;
+        --bg-app: #f5f7fa;
+        --bg-surface: #ffffff;
+        --bg-sunken: #eef1f4;
+        --text-primary: #181e2a;
+        --text-secondary: #5b6472;
+        --text-tertiary: #8b94a3;
+        --text-inverse: #ffffff;
+        --border: #e4e8ed;
+        --border-strong: #cbd2db;
+        --r-xs: 6px;
+        --r-sm: 10px;
+        --r-md: 14px;
+        --r-lg: 20px;
+        --r-xl: 28px;
+        --r-full: 999px;
+        --shadow-sm: 0 2px 8px rgba(24, 30, 42, 0.06);
+        --shadow-md: 0 8px 24px rgba(24, 30, 42, 0.1);
+        --shadow-lg: 0 20px 48px rgba(24, 30, 42, 0.18);
+        --grad-brand: linear-gradient(
+          135deg,
+          var(--blue-500) 0%,
+          var(--cyan-500) 55%,
+          var(--teal-300) 100%
+        );
+      }
+      [data-theme="dark"] {
+        --bg-app: #0c1017;
+        --bg-surface: #151b27;
+        --bg-sunken: #0c1017;
+        --text-primary: #f3f5f7;
+        --text-secondary: #aeb6c2;
+        --text-tertiary: #6d7685;
+        --text-inverse: #181e2a;
+        --border: #2a3140;
+        --border-strong: #3a4356;
+        --success-bg: #12291f;
+        --warning-bg: #2e2310;
+        --danger-bg: #2e1516;
+        --info-bg: #0f2733;
+        --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.4);
+        --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.5);
+        --shadow-lg: 0 24px 56px rgba(0, 0, 0, 0.6);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: var(--bg-app);
+        font-family: "Tajawal", sans-serif;
+        color: var(--text-primary);
+        padding-bottom: 60px;
+      }
+      html[dir="ltr"] body {
+        font-family: "Inter", sans-serif;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Tajawal", sans-serif;
+        font-weight: 800;
+      }
+      html[dir="ltr"] h1,
+      html[dir="ltr"] h2,
+      html[dir="ltr"] h3,
+      html[dir="ltr"] h4 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+      [data-lang="ar"] {
+        display: inline;
+      }
+      [data-lang="en"] {
+        display: none;
+      }
+      html[dir="ltr"] [data-lang="ar"] {
+        display: none;
+      }
+      html[dir="ltr"] [data-lang="en"] {
+        display: inline;
+      }
+      .blk[data-lang="ar"] {
+        display: block;
+      }
+      .blk[data-lang="en"] {
+        display: none;
+      }
+      html[dir="ltr"] .blk[data-lang="ar"] {
+        display: none;
+      }
+      html[dir="ltr"] .blk[data-lang="en"] {
+        display: block;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 80;
+        background: color-mix(in srgb, var(--bg-app) 88%, transparent);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 24px;
+      }
+      .brand-mini {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 17px;
+      }
+      .brand-mini .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--grad-brand);
+      }
+      .toggles {
+        display: flex;
+        gap: 8px;
+      }
+      .toggle-btn {
+        border: 1px solid var(--border-strong);
+        background: var(--bg-surface);
+        color: var(--text-primary);
+        padding: 8px 14px;
+        border-radius: var(--r-full);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .toggle-btn.on {
+        background: var(--navy-900);
+        color: #fff;
+        border-color: var(--navy-900);
+      }
+      [data-theme="dark"] .toggle-btn.on {
+        background: var(--cyan-500);
+        border-color: var(--cyan-500);
+      }
+
+      .section-title {
+        padding: 36px 24px 16px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .section-title .eyebrow {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--cyan-500);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .section-title h2 {
+        font-size: 22px;
+      }
+      .section-title p {
+        color: var(--text-secondary);
+        font-size: 13.5px;
+        margin-top: 4px;
+        max-width: 600px;
+      }
+
+      .gallery {
+        display: flex;
+        gap: 26px;
+        overflow-x: auto;
+        padding: 10px 24px 40px;
+        scroll-snap-type: x proximity;
+      }
+      .phone-col {
+        flex-shrink: 0;
+        scroll-snap-align: start;
+      }
+      .phone-name {
+        font-size: 12.5px;
+        font-weight: 700;
+        color: var(--text-secondary);
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      .phone-frame {
+        width: 296px;
+        height: 620px;
+        background: var(--navy-900);
+        border-radius: 38px;
+        padding: 10px;
+        box-shadow: var(--shadow-lg);
+      }
+      .screen {
+        width: 100%;
+        height: 100%;
+        background: var(--bg-app);
+        border-radius: 28px;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      .statusbar {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 20px 4px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-primary);
+        flex-shrink: 0;
+      }
+      .scr-body {
+        flex: 1;
+        overflow: hidden;
+        position: relative;
+      }
+      .scr-body.scroll {
+        overflow-y: auto;
+      }
+      .pad {
+        padding: 14px 18px;
+      }
+
+      /* shared UI atoms (scaled down) */
+      .btn {
+        border: none;
+        border-radius: var(--r-md);
+        font-weight: 700;
+        font-size: 12.5px;
+        padding: 11px 18px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        font-family: inherit;
+        width: 100%;
+      }
+      .btn-gradient {
+        background: var(--grad-brand);
+        color: #fff;
+      }
+      .btn-primary {
+        background: var(--cyan-500);
+        color: #fff;
+      }
+      .btn-secondary {
+        background: var(--bg-sunken);
+        color: var(--text-primary);
+        border: 1px solid var(--border-strong);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--cyan-500);
+        border: 1px solid var(--cyan-500);
+      }
+      .btn-danger {
+        background: var(--danger);
+        color: #fff;
+      }
+      .btn-auto {
+        width: auto;
+      }
+      .chip {
+        border: 1.3px solid var(--border-strong);
+        border-radius: var(--r-full);
+        padding: 7px 14px;
+        font-size: 11.5px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        background: var(--bg-surface);
+        white-space: nowrap;
+      }
+      .chip.active {
+        background: var(--navy-900);
+        color: #fff;
+        border-color: var(--navy-900);
+      }
+      [data-theme="dark"] .chip.active {
+        background: var(--cyan-500);
+        border-color: var(--cyan-500);
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 9.5px;
+        font-weight: 700;
+        padding: 4px 8px;
+        border-radius: var(--r-full);
+      }
+      .badge-success {
+        background: var(--success-bg);
+        color: var(--success);
+      }
+      .badge-warning {
+        background: var(--warning-bg);
+        color: var(--warning);
+      }
+      .badge-danger {
+        background: var(--danger-bg);
+        color: var(--danger);
+      }
+      .avatar {
+        border-radius: 50%;
+        background: var(--grad-brand);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 800;
+        flex-shrink: 0;
+      }
+      .card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        box-shadow: var(--shadow-sm);
+      }
+      .input {
+        border: 1.3px solid var(--border-strong);
+        background: var(--bg-surface);
+        border-radius: var(--r-md);
+        padding: 12px 14px;
+        font-size: 13px;
+        color: var(--text-primary);
+        font-family: inherit;
+        width: 100%;
+        outline: none;
+      }
+      .stars {
+        color: var(--warning);
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .between {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .hscroll {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+      .tabbar {
+        display: flex;
+        justify-content: space-around;
+        border-top: 1px solid var(--border);
+        background: var(--bg-surface);
+        padding: 10px 6px 8px;
+        flex-shrink: 0;
+      }
+      .tabitem {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        font-size: 9.5px;
+        color: var(--text-tertiary);
+        font-weight: 600;
+      }
+      .tabitem.active {
+        color: var(--cyan-500);
+      }
+      .tabitem .dotic {
+        width: 18px;
+        height: 18px;
+        border-radius: 6px;
+        background: currentColor;
+        opacity: 0.18;
+      }
+      .tabitem.active .dotic {
+        opacity: 1;
+        background: var(--cyan-500);
+      }
+      .topnav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 18px 10px;
+        flex-shrink: 0;
+      }
+      .iconbtn {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+      }
+      .pcard-mini {
+        width: 150px;
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: var(--r-md);
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .pcard-mini .img {
+        height: 78px;
+        background: linear-gradient(135deg, var(--blue-500), var(--cyan-500));
+      }
+      .pcard-mini .b {
+        padding: 10px;
+      }
+      .pcard-mini h5 {
+        font-size: 12px;
+        margin-bottom: 3px;
+      }
+      .pcard-mini .sub {
+        font-size: 10px;
+        color: var(--text-tertiary);
+        margin-bottom: 6px;
+      }
+      .catbox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        font-size: 10.5px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        flex-shrink: 0;
+        width: 64px;
+      }
+      .catbox .ic {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+      }
+      .stat-mini {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: var(--r-md);
+        padding: 12px;
+      }
+      .stat-mini .l {
+        font-size: 9.5px;
+        color: var(--text-tertiary);
+        margin-bottom: 4px;
+      }
+      .stat-mini .v {
+        font-size: 17px;
+        font-weight: 800;
+      }
+      .msg-bubble {
+        max-width: 76%;
+        padding: 9px 13px;
+        border-radius: 14px;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+      .msg-them {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-bottom-left-radius: 4px;
+        align-self: flex-start;
+      }
+      html[dir="rtl"] .msg-them {
+        border-bottom-left-radius: 14px;
+        border-bottom-right-radius: 4px;
+      }
+      .msg-me {
+        background: var(--cyan-500);
+        color: #fff;
+        border-bottom-right-radius: 4px;
+        align-self: flex-end;
+      }
+      html[dir="rtl"] .msg-me {
+        border-bottom-right-radius: 14px;
+        border-bottom-left-radius: 4px;
+      }
+
+      /* desktop */
+      .desktop-wrap {
+        display: none;
+        padding: 0 24px 60px;
+      }
+      .desktop-wrap.show {
+        display: block;
+      }
+      .gallery.mobile-wrap.hide {
+        display: none;
+      }
+      .dframe {
+        max-width: 1180px;
+        margin: 0 auto 50px;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        background: var(--bg-surface);
+      }
+      .dnav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 40px;
+        border-bottom: 1px solid var(--border);
+      }
+      .dnav .links {
+        display: flex;
+        gap: 28px;
+        font-size: 14px;
+        color: var(--text-secondary);
+        font-weight: 600;
+      }
+      .dhero {
+        padding: 80px 60px;
+        display: flex;
+        align-items: center;
+        gap: 60px;
+        background: linear-gradient(180deg, var(--bg-app), var(--bg-surface));
+      }
+      .dhero-txt h1 {
+        font-size: 44px;
+        line-height: 1.25;
+        margin-bottom: 16px;
+        max-width: 520px;
+      }
+      .dhero-txt p {
+        color: var(--text-secondary);
+        font-size: 16px;
+        max-width: 460px;
+        margin-bottom: 26px;
+        line-height: 1.8;
+      }
+      .dhero-visual {
+        flex: 1;
+        height: 340px;
+        border-radius: 24px;
+        background: var(--grad-brand);
+        position: relative;
+        overflow: hidden;
+      }
+      .dcard-float {
+        position: absolute;
+        background: #fff;
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: var(--shadow-md);
+        font-size: 13px;
+        color: var(--navy-900);
+      }
+      .dgrid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 50px 60px;
+      }
+      .dashboard-layout {
+        display: flex;
+        min-height: 640px;
+      }
+      .dsidebar {
+        width: 230px;
+        background: var(--bg-sunken);
+        border-inline-end: 1px solid var(--border);
+        padding: 26px 18px;
+        flex-shrink: 0;
+      }
+      .dsidebar .item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 14px;
+        border-radius: 10px;
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 4px;
+      }
+      .dsidebar .item.active {
+        background: var(--bg-surface);
+        color: var(--cyan-500);
+        box-shadow: var(--shadow-sm);
+      }
+      .dmain {
+        flex: 1;
+        padding: 30px 40px;
+      }
+      footer {
+        text-align: center;
+        padding: 40px;
+        color: var(--text-tertiary);
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="brand-mini">
+        <span class="dot"></span> Boosta
+        <span
+          style="
+            color: var(--text-tertiary);
+            font-weight: 500;
+            font-size: 12.5px;
+          "
+          >— <span data-lang="ar">شاشات التطبيق</span
+          ><span data-lang="en">App Screens</span></span
+        >
+      </div>
+      <div class="toggles">
+        <button class="toggle-btn" id="deviceBtn">
+          <span data-lang="ar">🖥️ سطح المكتب</span
+          ><span data-lang="en">🖥️ Desktop</span>
+        </button>
+        <button class="toggle-btn" id="langBtn">EN</button>
+        <button class="toggle-btn" id="themeBtn">🌙 Dark</button>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <div class="eyebrow blk" data-lang="ar">STEP 4 — واجهات الجوال</div>
+      <div class="eyebrow blk" data-lang="en">STEP 4 — MOBILE UI</div>
+      <h2 class="blk" data-lang="ar">١٤ شاشة رئيسية تغطّي كل رحلة المستخدم</h2>
+      <h2 class="blk" data-lang="en">
+        14 flagship screens covering the full user journey
+      </h2>
+      <p class="blk" data-lang="ar">
+        من الإطلاق إلى الحجز إلى لوحتي العميل والمزوّد — كل شاشة تستخدم نفس
+        المكوّنات والقياسات من ملف نظام التصميم بدون استثناء.
+      </p>
+      <p class="blk" data-lang="en">
+        From splash to booking to both dashboards — every screen consumes the
+        exact tokens and components from the design-system file, with zero
+        drift.
+      </p>
+    </div>
+
+    <div class="gallery mobile-wrap" id="mobileWrap">
+      <!-- 1 SPLASH -->
+      <div class="phone-col">
+        <div class="phone-name">
+          01 · <span data-lang="ar">شاشة الإطلاق</span
+          ><span data-lang="en">Splash</span>
+        </div>
+        <div class="phone-frame">
+          <div
+            class="screen"
+            style="
+              background: var(--grad-brand);
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <div style="text-align: center; color: #fff">
+              <div
+                style="
+                  width: 64px;
+                  height: 64px;
+                  border-radius: 20px;
+                  background: rgba(255, 255, 255, 0.22);
+                  margin: 0 auto 16px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 30px;
+                  font-weight: 800;
+                "
+              >
+                B
+              </div>
+              <div style="font-size: 22px; font-weight: 800">Boosta</div>
+              <div
+                style="font-size: 11px; opacity: 0.85; margin-top: 6px"
+                class="blk"
+                data-lang="ar"
+              >
+                خدماتك، بلمسة واحدة
+              </div>
+              <div
+                style="font-size: 11px; opacity: 0.85; margin-top: 6px"
+                class="blk"
+                data-lang="en"
+              >
+                Every service, one tap away
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 ONBOARDING -->
+      <div class="phone-col">
+        <div class="phone-name">
+          02 · <span data-lang="ar">التعريف بالتطبيق</span
+          ><span data-lang="en">Onboarding</span>
+        </div>
+        <div class="phone-frame">
+          <div class="screen">
+            <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+            <div
+              class="scr-body"
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+              "
+            >
+              <div
+                style="
+                  height: 280px;
+                  background: linear-gradient(160deg, #eaf6fb, var(--bg-app));
+                  margin: 10px 18px;
+                  border-radius: 24px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <div
+                  style="
+                    width: 120px;
+                    height: 120px;
+                    border-radius: 28px;
+                    background: var(--grad-brand);
+                    opacity: 0.9;
+                  "
+                ></div>
+              </div>
+              <div class="pad">
+                <h3
+                  style="font-size: 19px; margin-bottom: 8px"
+                  class="blk"
+                  data-lang="ar"
+                >
+                  مزوّدون موثّقون بالقرب منك
+                </h3>
+                <h3
+                  style="font-size: 19px; margin-bottom: 8px"
+                  class="blk"
+                  data-lang="en"
+                >
+                  Verified providers near you
+                </h3>
+                <p
+                  style="
+                    font-size: 12px;
+                    color: var(--text-secondary);
+                    margin-bottom: 18px;
+                    line-height: 1.7;
+                  "
+                  class="blk"
+                  data-lang="ar"
+                >
+                  كل مزوّد يمر بتحقق من الهوية والتراخيص قبل قبوله في بوستا.
+                </p>
+                <p
+                  style="
+                    font-size: 12px;
+                    color: var(--text-secondary);
+                    margin-bottom: 18px;
+                    line-height: 1.7;
+                  "
+                  class="blk"
+                  data-lang="en"
+                >
+                  Every provider is identity- and license-checked before joining
+                  Boosta.
+                </p>
+                <div
+                  class="row"
+                  style="justify-content: center; gap: 6px; margin-bottom: 16px"
+                >
+                  <div
+                    style="
+                      width: 20px;
+                      height: 6px;
+                      border-radius: 3px;
+                      background: var(--cyan-500);
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 6px;
+                      height: 6px;
+                      border-radius: 3px;
+                      background: var(--border-strong);
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 6px;
+                      height: 6px;
+                      border-radius: 3px;
+                      background: var(--border-strong);
+                    "
+                  ></div>
+                </div>
+                <button class="btn btn-gradient">
+                  <span data-lang="ar">التالي</span
+                  ><span data-lang="en">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 LOGIN -->
+      <div class="phone-col">
+        <div class="phone-name">
+          03 · <span data-lang="ar">تسجيل الدخول</span
+          ><span data-lang="en">Login</span>
+        </div>
+        <div class="phone-frame">
+          <div class="screen">
+            <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+            <div
+              class="scr-body pad"
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+              "
+            >
+              <div
+                style="
+                  width: 44px;
+                  height: 44px;
+                  border-radius: 14px;
+                  background: var(--grad-brand);
+                  margin-bottom: 22px;
+                "
+              ></div>
+              <h3
+                style="font-size: 20px; margin-bottom: 6px"
+                class="blk"
+                data-lang="ar"
+              >
+                أهلًا بك مجددًا
+              </h3>
+              <h3
+                style="font-size: 20px; margin-bottom: 6px"
+                class="blk"
+                data-lang="en"
+              >
+                Welcome back
+              </h3>
+              <p
+                style="
+                  font-size: 12px;
+                  color: var(--text-secondary);
+                  margin-bottom: 22px;
+                "
+                class="blk"
+                data-lang="ar"
+              >
+                أدخل رقم جوالك لتسجيل الدخول
+              </p>
+              <p
+                style="
+                  font-size: 12px;
+                  color: var(--text-secondary);
+                  margin-bottom: 22px;
+                "
+                class="blk"
+                data-lang="en"
+              >
+                Enter your mobile number to continue
+              </p>
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 600;
+                  color: var(--text-secondary);
+                  margin-bottom: 6px;
+                "
+                class="blk"
+                data-lang="ar"
+              >
+                رقم الجوال
+              </div>
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 600;
+                  color: var(--text-secondary);
+                  margin-bottom: 6px;
+                "
+                class="blk"
+                data-lang="en"
+              >
+                Mobile number
+              </div>
+              <input
+                class="input"
+                value="+965 5555 1234"
+                style="margin-bottom: 14px"
+              />
+              <button class="btn btn-gradient" style="margin-bottom: 14px">
+                <span data-lang="ar">إرسال رمز التحقق</span
+                ><span data-lang="en">Send code</span>
+              </button>
+              <div
+                style="
+                  text-align: center;
+                  font-size: 11px;
+                  color: var(--text-tertiary);
+                "
+              >
+                <span data-lang="ar">بالمتابعة أنت توافق على </span
+                ><span data-lang="en">By continuing you agree to </span
+                ><span style="color: var(--cyan-500); font-weight: 600"
+                  ><span data-lang="ar">الشروط والأحكام</span
+                  ><span data-lang="en">the Terms</span></span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 HOME -->
+      <div class="phone-col">
+        <div class="phone-name">
+          04 · <span data-lang="ar">الرئيسية</span
+          ><span data-lang="en">Home</span>
+        </div>
+        <div class="phone-frame">
+          <div class="screen">
+            <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+            <div class="topnav">
+              <div>
+                <div
+                  style="font-size: 10px; color: var(--text-tertiary)"
+                  data-lang="ar"
+                >
+                  التوصيل إلى
+                </div>
+                <div
+                  style="font-size: 10px; color: var(--text-tertiary)"
+                  data-lang="en"
+                >
+                  Deliver to
+                </div>
+                <div
+                  style="font-size: 13px; font-weight: 700"
+                  class="blk"
+                  data-lang="ar"
+                >
+                  حولي، الكويت
+                </div>
+                <div
+                  style="font-size: 13px; font-weight: 700"
+                  class="blk"
+                  data-lang="en"
+                >
+                  Hawalli, Kuwait
+                </div>
+              </div>
+              <div class="row">
+                <div class="iconbtn">🔔</div>
+                <div
+                  class="avatar"
+                  style="width: 34px; height: 34px; font-size: 12px"
+                >
+                  ر
+                </div>
+              </div>
+            </div>
+            <div class="scr-body scroll">
+              <div class="pad" style="padding-top: 0">
+                <div
+                  class="row"
+                  style="
+                    background: var(--bg-sunken);
+                    border-radius: var(--r-full);
+                    padding: 11px 16px;
+                    margin-bottom: 16px;
+                    color: var(--text-tertiary);
+                    font-size: 12px;
+                  "
+                >
+                  🔍 <span data-lang="ar">ابحث عن خدمة أو مزوّد</span
+                  ><span data-lang="en">Search a service or provider</span>
+                </div>
+                <div
+                  class="card"
+                  style="
+                    background: var(--grad-brand);
+                    border: none;
+                    padding: 16px;
+                    margin-bottom: 16px;
+                    color: #fff;
+                  "
+                >
+                  <div
+                    style="
+                      font-weight: 800;
+                      font-size: 13.5px;
+                      margin-bottom: 4px;
+                    "
+                    class="blk"
+                    data-lang="ar"
+                  >
+                    خصم 20% على أول حجز
+                  </div>
+                  <div
+                    style="
+                      font-weight: 800;
+                      font-size: 13.5px;
+                      margin-bottom: 4px;
+                    "
+                    class="blk"
+                    data-lang="en"
+                  >
+                    20% off your first booking
+                  </div>
+                  <div
+                    style="font-size: 10.5px; opacity: 0.9"
+                    class="blk"
+                    data-lang="ar"
+                  >
+                    استخدم الكود BOOSTA20
+                  </div>
+                  <div
+                    style="font-size: 10.5px; opacity: 0.9"
+                    class="blk"
+                    data-lang="en"
+                  >
+                    Use code BOOSTA20
+                  </div>
+                </div>
+                <div class="between" style="margin-bottom: 10px">
+                  <div style="font-size: 13px; font-weight: 700">
+                    <span data-lang="ar">الفئات</span
+                    ><span data-lang="en">Categories</span>
+                  </div>
+                  <div
+                    style="
+                      font-size: 11px;
+                      color: var(--cyan-500);
+                      font-weight: 600;
+                    "
+                  >
+                    <span data-lang="ar">الكل</span
+                    ><span data-lang="en">See all</span>
+                  </div>
+                </div>
+                <div class="hscroll" style="margin-bottom: 20px">
+                  <div class="catbox">
+                    <div class="ic">🧹</div>
+                    <span data-lang="ar">تنظيف</span
+                    ><span data-lang="en">Cleaning</span>
+                  </div>
+                  <div class="catbox">
+                    <div class="ic">🔧</div>
+                    <span data-lang="ar">سباكة</span
+                    ><span data-lang="en">Plumbing</span>
+                  </div>
+                  <div class="catbox">
+                    <div class="ic">💡</div>
+                    <span data-lang="ar">كهرباء</span
+                    ><span data-lang="en">Electric</span>
+                  </div>
+                  <div class="catbox">
+                    <div class="ic">❄️</div>
+                    <span data-lang="ar">تكييف</span
+                    ><span data-lang="en">AC</span>
+                  </div>
+                  <div class="catbox">
+                    <div class="ic">🎨</div>
+                    <span data-lang="ar">دهان</span
+                    ><span data-lang="en">Paint</span>
+                  </div>
+                </div>
+                <div class="between" style="margin-bottom: 10px">
+                  <div style="font-size: 13px; font-weight: 700">
+                    <span data-lang="ar">الأعلى تقييمًا بالقرب منك</span
+                    ><span data-lang="en">Top rated near you</span>
+                  </div>
+                </div>
+                <div class="hscroll">
+                  <div class="pcard-mini">
+                    <div class="img"></div>
+                    <div class="b">
+                      <h5>
+                        <span data-lang="ar">تنظيف عميق</span
+                        ><span data-lang="en">Deep cleaning</span>
+                      </h5>
+                      <div class="sub stars">★ 4.8 · 18.500 د.ك</div>
+                    </div>
+                  </div>
+                  <div class="pcard-mini">
+                    <div
+                      class="img"
+                      style="
+                        background: linear-gradient(135deg, #181e2a, #3c7dc2);
+                      "
+                    ></div>
+                    <div class="b">
+                      <h5>
+                        <span data-lang="ar">صيانة مكيف</span
+                        ><span data-lang="en">AC service</span>
+                      </h5>
+                      <div class="sub stars">★ 4.6 · 9.000 د.ك</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tabbar">
+              <div class="tabitem active">
+                <div class="dotic"></div>
+                <span data-lang="ar">الرئيسية</span
+                ><span data-lang="en">Home</span>
+              </div>
+              <div class="tabitem">
+                <div class="dotic"></div>
+                <span data-lang="ar">الفئات</span
+                ><span data-lang="en">Browse</span>
+              </div>
+              <div class="tabitem">
+                <div class="dotic"></div>
+                <span data-lang="ar">الحجوزات</span
+                ><span data-lang="en">Bookings</span>
+              </div>
+              <div class="tabitem">
+                <div class="dotic"></div>
+                <span data-lang="ar">الرسائل</span
+                ><span data-lang="en">Chat</span>
+              </div>
+              <div class="tabitem">
+                <div class="dotic"></div>
+                <span data-lang="ar">حسابي</span
+                ><span data-lang="en">Profile</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 CATEGORIES -->
+      <div class="phone-col">
+        <div class="phone-name">
+          05 · <span data-lang="ar">الفئات والخدمات</span
+          ><span data-lang="en">Categories</span>
+        </div>
+        <div class="phone-frame">
+          <div class="screen">
+            <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+            <div class="topnav">
+              <div style="font-size: 15px; font-weight: 800">
+                <span data-lang="ar">جميع الفئات</span
+                ><span data-lang="en">All categories</span>
+              </div>
+              <div class="iconbtn">⚙️</div>
+            </div>
+            <div class="scr-body scroll pad" style="padding-top: 0">
+              <div class="hscroll" style="margin-bottom: 16px">
+                <span class="chip active"
+                  ><span data-lang="ar">الكل</span
+                  ><span data-lang="en">All</span></span
+                >
+                <span class="chip"
+                  ><span data-lang="ar">منزلي</span
+                  ><span data-lang="en">Home</span></span
+                >
+                <span class="chip"
+                  ><span data-lang="ar">سيارات</span
+                  ><span data-lang="en">Auto</span></span
+                >
+                <span class="chip"
+                  ><span data-lang="ar">جمال</span
+                  ><span data-lang="en">Beauty</span></span
+                >
+              </div>
+              <div
+                style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px"
+              >
+                <div class="card pad" style="text-align: center; padding: 16px">
+                  🧹
+                  <div
+                    style="font-size: 11.5px; font-weight: 700; margin-top: 6px"
+                    data-lang="ar"
+                  >
+                    تنظيف منازل
+                  </div>
+                  <div
+                    style="font-size: 11.5px; font-weight: 700; margin-top: 6px"
+                    data-lang="en"
+                  >
+                    Home cleaning
+                  </div>
+                  <div style="font-size: 9.5px; color: var(--text-tertiary)">
+                    128 <span data-lang="ar">مزوّد</span
+                    ><span data-lang="en">providers</span>
+                  </div>
+                </div>
+                <div class="card pad" style="text-align: center; padding: 16px">
+                  🔧
+                  <div
+                    style="font-size: 11.5px; font-weight: 700; margin-top: 6px"
+                    data-lang="ar"
+                  >
+                    سباكة
+                  </div>
+                  <div
+                    style="font-size: 11.5px; font-weight: 700; margin-top: 6px"
+                    data-lang="en"
+                  >
+                    Plumbing
+                  </div>
+                  <div style="font-size: 9.5px; color: var(--text-tertiary)">
+                    64 <span data-lang="ar">مزوّد</span
+                    ><span data-lang="en">providers</span>
+                  </div>
+                </div>
+                <div class="card pad" style="text-align: center; padding: 16px">
+                  💡
+                  <div
+                    style="font-size: 11.5px; font-weight: 700; margin-top: 6px"
+                    data-lang="ar"
+                  >
+                    كهرباء
+                  </div>
+                  <div
+                    style="font-size: 11.5px; font-weight: 700; margin-top: 6px"
+                    data-lang="en"
+                  >
+                    Electrical
+                  </div>
+                  <div style="font-size: 9.5px; color: var(--text-tertiary)">
+                    51 <span data-lang="ar">مزوّد</span
+                    ><span data-lang="en">providers</span>
+                  </div>
+                </div>
+                <div class="card pad" style="text-align: center; padding: 16px">
+                  ❄️
+                  <div
+                    style="font-size: 11.5px; font-weight: 700; margin-top: 6px"
+                    data-lang="ar"
+                  >
+                    تكييف
+                  </div>
+                  <div
+                    style="font-size: 11.5px; font-weight: 700; margin-top: 6px"
+                    data-lang="en"
+                  >
+                    AC & HVAC
+                  </div>
+                  <div style="font-size: 9.5px; color: var(--text-tertiary)">
+                    39 <span data-lang="ar">مزوّد</span
+                    ><span data-lang="en">providers</span>
+                  </div>
+                </div>
+                <div class="card pad" style="text-align: center; padding: 16px">
+                  🎨
+                  <div
+                    style="font-size: 11.5px; font-weight: 700; margin-top: 6px"
+                    data-lang="ar"
+                  >
+                    دهان
+                  </div>
+                  <div
+                    style="font-size: 11.5px; font-weight: 700; margin-top: 6px"
+                    data-lang="en"
+                  >
+                    Painting
+                  </div>
+                  <div style="font-size: 9.5px; color: var(--text-tertiary)">
+                    27 <span data-lang="ar">مزوّد</span
+                    ><span data-lang="en">providers</span>
+                  </div>
+                </div>
+                <div class="card pad" style="text-align: center; padding: 16px">
+                  🚗
+                  <div
+                    style="font-size: 11.5px; font-weight: 700; margin-top: 6px"
+                    data-lang="ar"
+                  >
+                    غسيل سيارات
+                  </div>
+                  <div
+                    style="font-size: 11.5px; font-weight: 700; margin-top: 6px"
+                    data-lang="en"
+                  >
+                    Car wash
+                  </div>
+                  <div style="font-size: 9.5px; color: var(--text-tertiary)">
+                    83 <span data-lang="ar">مزوّد</span
+                    ><span data-lang="en">providers</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 SEARCH RESULTS -->
+      <div class="phone-col">
+        <div class="phone-name">
+          06 · <span data-lang="ar">نتائج البحث</span
+          ><span data-lang="en">Provider List</span>
+        </div>
+        <div class="phone-frame">
+          <div class="screen">
+            <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+            <div class="topnav">
+              <div class="iconbtn">←</div>
+              <div style="font-size: 14px; font-weight: 700">
+                <span data-lang="ar">تنظيف منازل</span
+                ><span data-lang="en">Home cleaning</span>
+              </div>
+              <div class="iconbtn">☰</div>
+            </div>
+            <div class="scr-body scroll pad" style="padding-top: 0">
+              <div class="hscroll" style="margin-bottom: 14px">
+                <span class="chip active"
+                  ><span data-lang="ar">الأقرب</span
+                  ><span data-lang="en">Nearest</span></span
+                >
+                <span class="chip"
+                  ><span data-lang="ar">الأعلى تقييمًا</span
+                  ><span data-lang="en">Top rated</span></span
+                >
+                <span class="chip"
+                  ><span data-lang="ar">السعر</span
+                  ><span data-lang="en">Price</span></span
+                >
+                <span class="chip"
+                  >⚙︎ <span data-lang="ar">تصفية</span
+                  ><span data-lang="en">Filter</span></span
+                >
+              </div>
+              <div class="card pad" style="margin-bottom: 10px">
+                <div class="row" style="align-items: flex-start">
+                  <div class="avatar" style="width: 46px; height: 46px">سا</div>
+                  <div style="flex: 1">
+                    <div class="between">
+                      <h5 style="font-size: 12.5px; font-weight: 700">
+                        <span data-lang="ar">شركة سارة للتنظيف</span
+                        ><span data-lang="en">Sara Cleaning Co.</span>
+                      </h5>
+                      <span class="badge badge-success"
+                        ><span data-lang="ar">متاح</span
+                        ><span data-lang="en">Open</span></span
+                      >
+                    </div>
+                    <div
+                      style="
+                        font-size: 10.5px;
+                        color: var(--text-tertiary);
+                        margin: 3px 0;
+                      "
+                      class="stars"
+                    >
+                      ★ 4.7 (340) · 2.1 <span data-lang="ar">كم</span
+                      ><span data-lang="en">km</span>
+                    </div>
+                    <div
+                      style="
+                        font-size: 12px;
+                        font-weight: 800;
+                        color: var(--cyan-500);
+                      "
+                    >
+                      18.500 <span data-lang="ar">د.ك</span
+                      ><span data-lang="en">KWD</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card pad" style="margin-bottom: 10px">
+                <div class="row" style="align-items: flex-start">
+                  <div
+                    class="avatar"
+                    style="
+                      width: 46px;
+                      height: 46px;
+                      background: var(--navy-900);
+                    "
+                  >
+                    أح
+                  </div>
+                  <div style="flex: 1">
+                    <div class="between">
+                      <h5 style="font-size: 12.5px; font-weight: 700">
+                        <span data-lang="ar">أحمد للخدمات المنزلية</span
+                        ><span data-lang="en">Ahmad Home Services</span>
+                      </h5>
+                      <span class="badge badge-warning"
+                        ><span data-lang="ar">مشغول</span
+                        ><span data-lang="en">Busy</span></span
+                      >
+                    </div>
+                    <div
+                      style="
+                        font-size: 10.5px;
+                        color: var(--text-tertiary);
+                        margin: 3px 0;
+                      "
+                      class="stars"
+                    >
+                      ★ 4.9 (512) · 3.4 <span data-lang="ar">كم</span
+                      ><span data-lang="en">km</span>
+                    </div>
+                    <div
+                      style="
+                        font-size: 12px;
+                        font-weight: 800;
+                        color: var(--cyan-500);
+                      "
+                    >
+                      22.000 <span data-lang="ar">د.ك</span
+                      ><span data-lang="en">KWD</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card pad">
+                <div class="row" style="align-items: flex-start">
+                  <div class="avatar" style="width: 46px; height: 46px">نظ</div>
+                  <div style="flex: 1">
+                    <div class="between">
+                      <h5 style="font-size: 12.5px; font-weight: 700">
+                        <span data-lang="ar">نظافة الخليج</span
+                        ><span data-lang="en">Gulf Clean</span>
+                      </h5>
+                      <span class="badge badge-success"
+                        ><span data-lang="ar">متاح</span
+                        ><span data-lang="en">Open</span></span
+                      >
+                    </div>
+                    <div
+                      style="
+                        font-size: 10.5px;
+                        color: var(--text-tertiary);
+                        margin: 3px 0;
+                      "
+                      class="stars"
+                    >
+                      ★ 4.5 (201) · 1.2 <span data-lang="ar">كم</span
+                      ><span data-lang="en">km</span>
+                    </div>
+                    <div
+                      style="
+                        font-size: 12px;
+                        font-weight: 800;
+                        color: var(--cyan-500);
+                      "
+                    >
+                      15.750 <span data-lang="ar">د.ك</span
+                      ><span data-lang="en">KWD</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 PROVIDER PROFILE -->
+      <div class="phone-col">
+        <div class="phone-name">
+          07 · <span data-lang="ar">ملف المزوّد</span
+          ><span data-lang="en">Provider Profile</span>
+        </div>
+        <div class="phone-frame">
+          <div class="screen">
+            <div class="scr-body scroll">
+              <div
+                style="
+                  height: 120px;
+                  background: var(--grad-brand);
+                  position: relative;
+                "
+              >
+                <div class="statusbar" style="color: #fff">
+                  <span>9:41</span><span>●●●</span>
+                </div>
+                <div
+                  class="iconbtn"
+                  style="
+                    position: absolute;
+                    top: 44px;
+                    inset-inline-start: 16px;
+                    background: rgba(255, 255, 255, 0.25);
+                    border: none;
+                  "
+                >
+                  ←
+                </div>
+              </div>
+              <div class="pad" style="margin-top: -30px">
+                <div class="card pad" style="text-align: center; padding: 18px">
+                  <div
+                    class="avatar"
+                    style="
+                      width: 64px;
+                      height: 64px;
+                      margin: -46px auto 10px;
+                      font-size: 20px;
+                      border: 4px solid var(--bg-surface);
+                    "
+                  >
+                    سا
+                  </div>
+                  <h4 style="font-size: 15px">
+                    <span data-lang="ar">شركة سارة للتنظيف</span
+                    ><span data-lang="en">Sara Cleaning Co.</span>
+                  </h4>
+                  <div
+                    style="
+                      font-size: 11px;
+                      color: var(--text-tertiary);
+                      margin: 4px 0 10px;
+                    "
+                    class="stars"
+                  >
+                    ★ 4.7 (340 <span data-lang="ar">تقييم</span
+                    ><span data-lang="en">reviews</span>) ·
+                    <span data-lang="ar">موثّق</span
+                    ><span data-lang="en">Verified</span> ✓
+                  </div>
+                  <div class="row" style="justify-content: center; gap: 20px">
+                    <div style="text-align: center">
+                      <div style="font-size: 14px; font-weight: 800">1.2k+</div>
+                      <div style="font-size: 9px; color: var(--text-tertiary)">
+                        <span data-lang="ar">حجز</span
+                        ><span data-lang="en">bookings</span>
+                      </div>
+                    </div>
+                    <div style="text-align: center">
+                      <div style="font-size: 14px; font-weight: 800">6</div>
+                      <div style="font-size: 9px; color: var(--text-tertiary)">
+                        <span data-lang="ar">سنوات</span
+                        ><span data-lang="en">years</span>
+                      </div>
+                    </div>
+                    <div style="text-align: center">
+                      <div style="font-size: 14px; font-weight: 800">96%</div>
+                      <div style="font-size: 9px; color: var(--text-tertiary)">
+                        <span data-lang="ar">القبول</span
+                        ><span data-lang="en">accept.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style="
+                    font-size: 12.5px;
+                    font-weight: 700;
+                    margin: 16px 0 8px;
+                  "
+                >
+                  <span data-lang="ar">الخدمات</span
+                  ><span data-lang="en">Services</span>
+                </div>
+                <div
+                  class="card pad between"
+                  style="margin-bottom: 8px; padding: 12px"
+                >
+                  <span style="font-size: 12px"
+                    ><span data-lang="ar">تنظيف عميق (شقة)</span
+                    ><span data-lang="en">Deep clean (apt)</span></span
+                  ><b style="font-size: 12.5px; color: var(--cyan-500)"
+                    >18.500</b
+                  >
+                </div>
+                <div class="card pad between" style="padding: 12px">
+                  <span style="font-size: 12px"
+                    ><span data-lang="ar">تنظيف بعد التشطيب</span
+                    ><span data-lang="en">Post-renovation</span></span
+                  ><b style="font-size: 12.5px; color: var(--cyan-500)"
+                    >28.000</b
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              class="pad"
+              style="
+                border-top: 1px solid var(--border);
+                background: var(--bg-surface);
+              "
+            >
+              <button class="btn btn-gradient">
+                <span data-lang="ar">احجز الآن</span
+                ><span data-lang="en">Book now</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 SERVICE / BOOKING -->
+      <div class="phone-col">
+        <div class="phone-name">
+          08 · <span data-lang="ar">تفاصيل الحجز</span
+          ><span data-lang="en">Booking Details</span>
+        </div>
+        <div class="phone-frame">
+          <div class="screen">
+            <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+            <div class="topnav">
+              <div class="iconbtn">←</div>
+              <div style="font-size: 14px; font-weight: 700">
+                <span data-lang="ar">تأكيد الحجز</span
+                ><span data-lang="en">Confirm booking</span>
+              </div>
+              <div style="width: 34px"></div>
+            </div>
+            <div class="scr-body scroll pad" style="padding-top: 0">
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 700;
+                  color: var(--text-tertiary);
+                  margin-bottom: 8px;
+                "
+              >
+                <span data-lang="ar">التاريخ والوقت</span
+                ><span data-lang="en">Date & time</span>
+              </div>
+              <div
+                class="row"
+                style="margin-bottom: 16px; gap: 8px; flex-wrap: wrap"
+              >
+                <span class="chip active"
+                  ><span data-lang="ar">اليوم</span
+                  ><span data-lang="en">Today</span></span
+                >
+                <span class="chip">10:00 ص</span><span class="chip">1:00 م</span
+                ><span class="chip">4:30 م</span>
+              </div>
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 700;
+                  color: var(--text-tertiary);
+                  margin-bottom: 8px;
+                "
+              >
+                <span data-lang="ar">العنوان</span
+                ><span data-lang="en">Address</span>
+              </div>
+              <div
+                class="card pad between"
+                style="margin-bottom: 16px; padding: 12px"
+              >
+                <span style="font-size: 12px" data-lang="ar"
+                  >المنزل — حولي، شارع تونس</span
+                ><span style="font-size: 12px" data-lang="en"
+                  >Home — Hawalli, Tunis St.</span
+                ><span
+                  style="
+                    color: var(--cyan-500);
+                    font-size: 11px;
+                    font-weight: 700;
+                  "
+                  ><span data-lang="ar">تغيير</span
+                  ><span data-lang="en">Change</span></span
+                >
+              </div>
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 700;
+                  color: var(--text-tertiary);
+                  margin-bottom: 8px;
+                "
+              >
+                <span data-lang="ar">ملخص الفاتورة</span
+                ><span data-lang="en">Bill summary</span>
+              </div>
+              <div class="card pad" style="padding: 14px">
+                <div
+                  class="between"
+                  style="margin-bottom: 8px; font-size: 12px"
+                >
+                  <span data-lang="ar">سعر الخدمة</span
+                  ><span data-lang="en">Service fee</span><span>18.500</span>
+                </div>
+                <div
+                  class="between"
+                  style="
+                    margin-bottom: 8px;
+                    font-size: 12px;
+                    color: var(--text-tertiary);
+                  "
+                >
+                  <span data-lang="ar">رسوم المنصة</span
+                  ><span data-lang="en">Platform fee</span><span>0.500</span>
+                </div>
+                <div
+                  class="between"
+                  style="
+                    padding-top: 8px;
+                    border-top: 1px dashed var(--border);
+                    font-weight: 800;
+                    font-size: 13px;
+                  "
+                >
+                  <span data-lang="ar">الإجمالي</span
+                  ><span data-lang="en">Total</span
+                  ><span
+                    >19.000 <span data-lang="ar">د.ك</span
+                    ><span data-lang="en">KWD</span></span
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              class="pad"
+              style="
+                border-top: 1px solid var(--border);
+                background: var(--bg-surface);
+              "
+            >
+              <button class="btn btn-gradient">
+                <span data-lang="ar">تأكيد ودفع</span
+                ><span data-lang="en">Confirm & pay</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9 SUCCESS -->
+      <div class="phone-col">
+        <div class="phone-name">
+          09 · <span data-lang="ar">تأكيد الحجز</span
+          ><span data-lang="en">Booking Success</span>
+        </div>
+        <div class="phone-frame">
+          <div
+            class="screen"
+            style="align-items: center; justify-content: center"
+          >
+            <div style="text-align: center; padding: 0 30px">
+              <div
+                style="
+                  width: 74px;
+                  height: 74px;
+                  border-radius: 50%;
+                  background: var(--success-bg);
+                  color: var(--success);
+                  font-size: 32px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  margin: 0 auto 18px;
+                "
+              >
+                ✓
+              </div>
+              <h3 style="font-size: 18px; margin-bottom: 8px">
+                <span data-lang="ar">تم تأكيد حجزك</span
+                ><span data-lang="en">Booking confirmed</span>
+              </h3>
+              <p
+                style="
+                  font-size: 12px;
+                  color: var(--text-secondary);
+                  margin-bottom: 22px;
+                  line-height: 1.7;
+                "
+              >
+                <span data-lang="ar"
+                  >سارة للتنظيف ستصل اليوم الساعة 10:00 صباحًا</span
+                ><span data-lang="en"
+                  >Sara Cleaning arrives today at 10:00 AM</span
+                >
+              </p>
+              <div
+                class="card pad"
+                style="text-align: start; margin-bottom: 20px; padding: 14px"
+              >
+                <div
+                  class="between"
+                  style="font-size: 11.5px; margin-bottom: 6px"
+                >
+                  <span style="color: var(--text-tertiary)"
+                    ><span data-lang="ar">رقم الحجز</span
+                    ><span data-lang="en">Booking ID</span></span
+                  ><b>#BK-58213</b>
+                </div>
+                <div class="between" style="font-size: 11.5px">
+                  <span style="color: var(--text-tertiary)"
+                    ><span data-lang="ar">المبلغ</span
+                    ><span data-lang="en">Amount</span></span
+                  ><b>19.000 KWD</b>
+                </div>
+              </div>
+              <button class="btn btn-primary">
+                <span data-lang="ar">تتبع الحجز</span
+                ><span data-lang="en">Track booking</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10 CUSTOMER DASHBOARD -->
+      <div class="phone-col">
+        <div class="phone-name">
+          10 · <span data-lang="ar">حجوزاتي</span
+          ><span data-lang="en">Customer Dashboard</span>
+        </div>
+        <div class="phone-frame">
+          <div class="screen">
+            <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+            <div class="topnav">
+              <div style="font-size: 15px; font-weight: 800">
+                <span data-lang="ar">حجوزاتي</span
+                ><span data-lang="en">My bookings</span>
+              </div>
+              <div class="iconbtn">🔔</div>
+            </div>
+            <div class="pad" style="padding-top: 0">
+              <div class="hscroll">
+                <span class="chip active"
+                  ><span data-lang="ar">القادمة</span
+                  ><span data-lang="en">Upcoming</span></span
+                ><span class="chip"
+                  ><span data-lang="ar">مكتملة</span
+                  ><span data-lang="en">Completed</span></span
+                ><span class="chip"
+                  ><span data-lang="ar">ملغاة</span
+                  ><span data-lang="en">Cancelled</span></span
+                >
+              </div>
+            </div>
+            <div class="scr-body scroll pad" style="padding-top: 6px">
+              <div class="card pad" style="margin-bottom: 10px; padding: 13px">
+                <div class="between" style="margin-bottom: 8px">
+                  <span class="badge badge-info"
+                    ><span data-lang="ar">اليوم 10:00 ص</span
+                    ><span data-lang="en">Today 10:00 AM</span></span
+                  ><span class="badge badge-success"
+                    ><span data-lang="ar">مؤكد</span
+                    ><span data-lang="en">Confirmed</span></span
+                  >
+                </div>
+                <div class="row">
+                  <div
+                    class="avatar"
+                    style="width: 36px; height: 36px; font-size: 12px"
+                  >
+                    سا
+                  </div>
+                  <div>
+                    <div style="font-size: 12.5px; font-weight: 700">
+                      <span data-lang="ar">تنظيف عميق</span
+                      ><span data-lang="en">Deep cleaning</span>
+                    </div>
+                    <div style="font-size: 10.5px; color: var(--text-tertiary)">
+                      <span data-lang="ar">سارة للتنظيف</span
+                      ><span data-lang="en">Sara Cleaning</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card pad" style="padding: 13px">
+                <div class="between" style="margin-bottom: 8px">
+                  <span class="badge badge-warning"
+                    ><span data-lang="ar">غدًا 4:00 م</span
+                    ><span data-lang="en">Tomorrow 4:00 PM</span></span
+                  ><span class="badge badge-info"
+                    ><span data-lang="ar">بانتظار المزوّد</span
+                    ><span data-lang="en">Awaiting provider</span></span
+                  >
+                </div>
+                <div class="row">
+                  <div
+                    class="avatar"
+                    style="
+                      width: 36px;
+                      height: 36px;
+                      font-size: 12px;
+                      background: var(--navy-900);
+                    "
+                  >
+                    أح
+                  </div>
+                  <div>
+                    <div style="font-size: 12.5px; font-weight: 700">
+                      <span data-lang="ar">صيانة مكيف</span
+                      ><span data-lang="en">AC maintenance</span>
+                    </div>
+                    <div style="font-size: 10.5px; color: var(--text-tertiary)">
+                      <span data-lang="ar">أحمد للخدمات</span
+                      ><span data-lang="en">Ahmad Services</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tabbar">
+              <div class="tabitem">
+                <div class="dotic"></div>
+                <span data-lang="ar">الرئيسية</span
+                ><span data-lang="en">Home</span>
+              </div>
+              <div class="tabitem">
+                <div class="dotic"></div>
+                <span data-lang="ar">الفئات</span
+                ><span data-lang="en">Browse</span>
+              </div>
+              <div class="tabitem active">
+                <div class="dotic"></div>
+                <span data-lang="ar">الحجوزات</span
+                ><span data-lang="en">Bookings</span>
+              </div>
+              <div class="tabitem">
+                <div class="dotic"></div>
+                <span data-lang="ar">الرسائل</span
+                ><span data-lang="en">Chat</span>
+              </div>
+              <div class="tabitem">
+                <div class="dotic"></div>
+                <span data-lang="ar">حسابي</span
+                ><span data-lang="en">Profile</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11 PROVIDER DASHBOARD -->
+      <div class="phone-col">
+        <div class="phone-name">
+          11 · <span data-lang="ar">لوحة المزوّد</span
+          ><span data-lang="en">Provider Dashboard</span>
+        </div>
+        <div class="phone-frame">
+          <div class="screen">
+            <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+            <div class="topnav">
+              <div>
+                <div
+                  style="font-size: 10px; color: var(--text-tertiary)"
+                  data-lang="ar"
+                >
+                  أهلًا بعودتك
+                </div>
+                <div
+                  style="font-size: 10px; color: var(--text-tertiary)"
+                  data-lang="en"
+                >
+                  Welcome back
+                </div>
+                <div style="font-size: 14px; font-weight: 800">سارة</div>
+              </div>
+              <span class="badge badge-success"
+                ><span data-lang="ar">متصل</span
+                ><span data-lang="en">Online</span></span
+              >
+            </div>
+            <div class="scr-body scroll pad" style="padding-top: 6px">
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 1fr 1fr;
+                  gap: 8px;
+                  margin-bottom: 14px;
+                "
+              >
+                <div class="stat-mini">
+                  <div class="l">
+                    <span data-lang="ar">حجوزات اليوم</span
+                    ><span data-lang="en">Today's jobs</span>
+                  </div>
+                  <div class="v">5</div>
+                </div>
+                <div class="stat-mini">
+                  <div class="l">
+                    <span data-lang="ar">الإيرادات</span
+                    ><span data-lang="en">Earnings</span>
+                  </div>
+                  <div class="v">142.750</div>
+                </div>
+                <div class="stat-mini">
+                  <div class="l">
+                    <span data-lang="ar">التقييم</span
+                    ><span data-lang="en">Rating</span>
+                  </div>
+                  <div class="v stars">★ 4.7</div>
+                </div>
+                <div class="stat-mini">
+                  <div class="l">
+                    <span data-lang="ar">معدل القبول</span
+                    ><span data-lang="en">Accept rate</span>
+                  </div>
+                  <div class="v">96%</div>
+                </div>
+              </div>
+              <div
+                style="font-size: 12px; font-weight: 700; margin-bottom: 8px"
+              >
+                <span data-lang="ar">طلبات جديدة</span
+                ><span data-lang="en">New requests</span>
+              </div>
+              <div
+                class="card pad between"
+                style="margin-bottom: 8px; padding: 12px"
+              >
+                <div>
+                  <div style="font-size: 12px; font-weight: 700">
+                    <span data-lang="ar">تنظيف — شقة 3 غرف</span
+                    ><span data-lang="en">Cleaning — 3BR apt</span>
+                  </div>
+                  <div style="font-size: 10px; color: var(--text-tertiary)">
+                    <span data-lang="ar">غدًا 11:00 ص</span
+                    ><span data-lang="en">Tomorrow 11 AM</span>
+                  </div>
+                </div>
+                <button
+                  class="btn btn-primary btn-auto"
+                  style="padding: 7px 12px; font-size: 10.5px"
+                >
+                  <span data-lang="ar">قبول</span
+                  ><span data-lang="en">Accept</span>
+                </button>
+              </div>
+              <div class="card pad between" style="padding: 12px">
+                <div>
+                  <div style="font-size: 12px; font-weight: 700">
+                    <span data-lang="ar">تنظيف بعد التشطيب</span
+                    ><span data-lang="en">Post-reno clean</span>
+                  </div>
+                  <div style="font-size: 10px; color: var(--text-tertiary)">
+                    <span data-lang="ar">الخميس 2:00 م</span
+                    ><span data-lang="en">Thu 2:00 PM</span>
+                  </div>
+                </div>
+                <button
+                  class="btn btn-primary btn-auto"
+                  style="padding: 7px 12px; font-size: 10.5px"
+                >
+                  <span data-lang="ar">قبول</span
+                  ><span data-lang="en">Accept</span>
+                </button>
+              </div>
+            </div>
+            <div class="tabbar">
+              <div class="tabitem active">
+                <div class="dotic"></div>
+                <span data-lang="ar">لوحتي</span
+                ><span data-lang="en">Dashboard</span>
+              </div>
+              <div class="tabitem">
+                <div class="dotic"></div>
+                <span data-lang="ar">الطلبات</span
+                ><span data-lang="en">Orders</span>
+              </div>
+              <div class="tabitem">
+                <div class="dotic"></div>
+                <span data-lang="ar">المحفظة</span
+                ><span data-lang="en">Wallet</span>
+              </div>
+              <div class="tabitem">
+                <div class="dotic"></div>
+                <span data-lang="ar">الرسائل</span
+                ><span data-lang="en">Chat</span>
+              </div>
+              <div class="tabitem">
+                <div class="dotic"></div>
+                <span data-lang="ar">حسابي</span
+                ><span data-lang="en">Profile</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12 CHAT -->
+      <div class="phone-col">
+        <div class="phone-name">
+          12 · <span data-lang="ar">المحادثة</span
+          ><span data-lang="en">Chat</span>
+        </div>
+        <div class="phone-frame">
+          <div class="screen">
+            <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+            <div class="topnav">
+              <div class="iconbtn">←</div>
+              <div class="row">
+                <div
+                  class="avatar"
+                  style="width: 30px; height: 30px; font-size: 11px"
+                >
+                  سا
+                </div>
+                <div>
+                  <div style="font-size: 12.5px; font-weight: 700">
+                    <span data-lang="ar">سارة للتنظيف</span
+                    ><span data-lang="en">Sara Cleaning</span>
+                  </div>
+                  <div style="font-size: 9.5px; color: var(--success)">
+                    <span data-lang="ar">متصلة الآن</span
+                    ><span data-lang="en">Online now</span>
+                  </div>
+                </div>
+              </div>
+              <div class="iconbtn">📞</div>
+            </div>
+            <div
+              class="scr-body scroll pad"
+              style="display: flex; flex-direction: column; gap: 8px"
+            >
+              <div class="msg-bubble msg-them">
+                <span data-lang="ar"
+                  >أهلًا! نعم بإمكاننا الحضور الساعة 10:00 صباحًا</span
+                ><span data-lang="en">Hi! Yes, we can come at 10:00 AM</span>
+              </div>
+              <div class="msg-bubble msg-me">
+                <span data-lang="ar">ممتاز، هل تحتاجون معدات إضافية؟</span
+                ><span data-lang="en">Great, do you need extra equipment?</span>
+              </div>
+              <div class="msg-bubble msg-them">
+                <span data-lang="ar">لا، فريقنا يحضر كل شيء 👍</span
+                ><span data-lang="en">No, our team brings everything 👍</span>
+              </div>
+            </div>
+            <div
+              class="pad"
+              style="
+                border-top: 1px solid var(--border);
+                background: var(--bg-surface);
+              "
+            >
+              <div class="row">
+                <input class="input" placeholder="..." style="flex: 1" />
+                <div
+                  class="iconbtn"
+                  style="background: var(--cyan-500); color: #fff; border: none"
+                >
+                  ➤
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 13 PROFILE -->
+      <div class="phone-col">
+        <div class="phone-name">
+          13 · <span data-lang="ar">حسابي والإعدادات</span
+          ><span data-lang="en">Profile & Settings</span>
+        </div>
+        <div class="phone-frame">
+          <div class="screen">
+            <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+            <div class="scr-body scroll">
+              <div class="pad" style="text-align: center; padding-top: 6px">
+                <div
+                  class="avatar"
+                  style="
+                    width: 64px;
+                    height: 64px;
+                    margin: 0 auto 10px;
+                    font-size: 20px;
+                  "
+                >
+                  ر
+                </div>
+                <h4 style="font-size: 15px">ريم العتيبي</h4>
+                <div style="font-size: 11px; color: var(--text-tertiary)">
+                  +965 5555 1234
+                </div>
+              </div>
+              <div class="pad" style="padding-top: 6px">
+                <div class="card" style="margin-bottom: 10px">
+                  <div
+                    class="between pad"
+                    style="
+                      padding: 13px 14px;
+                      border-bottom: 1px solid var(--border);
+                    "
+                  >
+                    <span style="font-size: 12.5px"
+                      >👤 <span data-lang="ar">تعديل الملف الشخصي</span
+                      ><span data-lang="en">Edit profile</span></span
+                    ><span>›</span>
+                  </div>
+                  <div
+                    class="between pad"
+                    style="
+                      padding: 13px 14px;
+                      border-bottom: 1px solid var(--border);
+                    "
+                  >
+                    <span style="font-size: 12.5px"
+                      >📍 <span data-lang="ar">العناوين المحفوظة</span
+                      ><span data-lang="en">Saved addresses</span></span
+                    ><span>›</span>
+                  </div>
+                  <div class="between pad" style="padding: 13px 14px">
+                    <span style="font-size: 12.5px"
+                      >💳 <span data-lang="ar">طرق الدفع</span
+                      ><span data-lang="en">Payment methods</span></span
+                    ><span>›</span>
+                  </div>
+                </div>
+                <div class="card" style="margin-bottom: 10px">
+                  <div
+                    class="between pad"
+                    style="
+                      padding: 13px 14px;
+                      border-bottom: 1px solid var(--border);
+                    "
+                  >
+                    <span style="font-size: 12.5px"
+                      >🌐 <span data-lang="ar">اللغة</span
+                      ><span data-lang="en">Language</span></span
+                    ><span style="font-size: 11px; color: var(--text-tertiary)"
+                      >العربية</span
+                    >
+                  </div>
+                  <div class="between pad" style="padding: 13px 14px">
+                    <span style="font-size: 12.5px"
+                      >🌙 <span data-lang="ar">الوضع الليلي</span
+                      ><span data-lang="en">Dark mode</span></span
+                    ><span style="font-size: 11px; color: var(--text-tertiary)"
+                      ><span data-lang="ar">تلقائي</span
+                      ><span data-lang="en">Auto</span></span
+                    >
+                  </div>
+                </div>
+                <button class="btn btn-secondary" style="color: var(--danger)">
+                  <span data-lang="ar">تسجيل الخروج</span
+                  ><span data-lang="en">Log out</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 14 HOME DARK -->
+      <div class="phone-col">
+        <div class="phone-name">
+          14 · <span data-lang="ar">الرئيسية — الوضع الليلي</span
+          ><span data-lang="en">Home — Dark Mode</span>
+        </div>
+        <div class="phone-frame">
+          <div class="screen" data-theme="dark" style="background: #0c1017">
+            <div class="statusbar" style="color: #f3f5f7">
+              <span>9:41</span><span>●●●</span>
+            </div>
+            <div class="topnav">
+              <div>
+                <div style="font-size: 10px; color: #6d7685" data-lang="ar">
+                  التوصيل إلى
+                </div>
+                <div style="font-size: 10px; color: #6d7685" data-lang="en">
+                  Deliver to
+                </div>
+                <div
+                  style="font-size: 13px; font-weight: 700; color: #f3f5f7"
+                  class="blk"
+                  data-lang="ar"
+                >
+                  حولي، الكويت
+                </div>
+                <div
+                  style="font-size: 13px; font-weight: 700; color: #f3f5f7"
+                  class="blk"
+                  data-lang="en"
+                >
+                  Hawalli, Kuwait
+                </div>
+              </div>
+              <div class="row">
+                <div
+                  class="iconbtn"
+                  style="
+                    background: #151b27;
+                    border-color: #2a3140;
+                    color: #f3f5f7;
+                  "
+                >
+                  🔔
+                </div>
+                <div
+                  class="avatar"
+                  style="width: 34px; height: 34px; font-size: 12px"
+                >
+                  ر
+                </div>
+              </div>
+            </div>
+            <div class="scr-body scroll pad" style="padding-top: 0">
+              <div
+                class="row"
+                style="
+                  background: #151b27;
+                  border-radius: 999px;
+                  padding: 11px 16px;
+                  margin-bottom: 16px;
+                  color: #6d7685;
+                  font-size: 12px;
+                "
+              >
+                🔍 <span data-lang="ar">ابحث عن خدمة أو مزوّد</span
+                ><span data-lang="en">Search a service or provider</span>
+              </div>
+              <div
+                style="
+                  background: var(--grad-brand);
+                  border-radius: 20px;
+                  padding: 16px;
+                  margin-bottom: 16px;
+                  color: #fff;
+                "
+              >
+                <div
+                  style="font-weight: 800; font-size: 13.5px"
+                  class="blk"
+                  data-lang="ar"
+                >
+                  خصم 20% على أول حجز
+                </div>
+                <div
+                  style="font-weight: 800; font-size: 13.5px"
+                  class="blk"
+                  data-lang="en"
+                >
+                  20% off your first booking
+                </div>
+              </div>
+              <div
+                style="
+                  font-size: 13px;
+                  font-weight: 700;
+                  margin-bottom: 10px;
+                  color: #f3f5f7;
+                "
+              >
+                <span data-lang="ar">الفئات</span
+                ><span data-lang="en">Categories</span>
+              </div>
+              <div class="hscroll" style="margin-bottom: 20px">
+                <div class="catbox" style="color: #aeb6c2">
+                  <div
+                    class="ic"
+                    style="background: #151b27; border-color: #2a3140"
+                  >
+                    🧹
+                  </div>
+                  <span data-lang="ar">تنظيف</span
+                  ><span data-lang="en">Cleaning</span>
+                </div>
+                <div class="catbox" style="color: #aeb6c2">
+                  <div
+                    class="ic"
+                    style="background: #151b27; border-color: #2a3140"
+                  >
+                    🔧
+                  </div>
+                  <span data-lang="ar">سباكة</span
+                  ><span data-lang="en">Plumbing</span>
+                </div>
+                <div class="catbox" style="color: #aeb6c2">
+                  <div
+                    class="ic"
+                    style="background: #151b27; border-color: #2a3140"
+                  >
+                    💡
+                  </div>
+                  <span data-lang="ar">كهرباء</span
+                  ><span data-lang="en">Electric</span>
+                </div>
+              </div>
+              <div
+                style="
+                  font-size: 13px;
+                  font-weight: 700;
+                  margin-bottom: 10px;
+                  color: #f3f5f7;
+                "
+              >
+                <span data-lang="ar">الأعلى تقييمًا</span
+                ><span data-lang="en">Top rated</span>
+              </div>
+              <div class="hscroll">
+                <div
+                  class="pcard-mini"
+                  style="background: #151b27; border-color: #2a3140"
+                >
+                  <div class="img"></div>
+                  <div class="b">
+                    <h5 style="color: #f3f5f7">
+                      <span data-lang="ar">تنظيف عميق</span
+                      ><span data-lang="en">Deep cleaning</span>
+                    </h5>
+                    <div class="sub stars">★ 4.8 · 18.500</div>
+                  </div>
+                </div>
+                <div
+                  class="pcard-mini"
+                  style="background: #151b27; border-color: #2a3140"
+                >
+                  <div
+                    class="img"
+                    style="
+                      background: linear-gradient(135deg, #181e2a, #3c7dc2);
+                    "
+                  ></div>
+                  <div class="b">
+                    <h5 style="color: #f3f5f7">
+                      <span data-lang="ar">صيانة مكيف</span
+                      ><span data-lang="en">AC service</span>
+                    </h5>
+                    <div class="sub stars">★ 4.6 · 9.000</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tabbar"
+              style="background: #151b27; border-color: #2a3140"
+            >
+              <div class="tabitem active" style="color: var(--cyan-500)">
+                <div
+                  class="dotic"
+                  style="background: var(--cyan-500); opacity: 1"
+                ></div>
+                <span data-lang="ar">الرئيسية</span
+                ><span data-lang="en">Home</span>
+              </div>
+              <div class="tabitem" style="color: #6d7685">
+                <div class="dotic" style="background: #6d7685"></div>
+                <span data-lang="ar">الفئات</span
+                ><span data-lang="en">Browse</span>
+              </div>
+              <div class="tabitem" style="color: #6d7685">
+                <div class="dotic" style="background: #6d7685"></div>
+                <span data-lang="ar">الحجوزات</span
+                ><span data-lang="en">Bookings</span>
+              </div>
+              <div class="tabitem" style="color: #6d7685">
+                <div class="dotic" style="background: #6d7685"></div>
+                <span data-lang="ar">الرسائل</span
+                ><span data-lang="en">Chat</span>
+              </div>
+              <div class="tabitem" style="color: #6d7685">
+                <div class="dotic" style="background: #6d7685"></div>
+                <span data-lang="ar">حسابي</span
+                ><span data-lang="en">Profile</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end gallery -->
+
+    <!-- DESKTOP -->
+    <div class="desktop-wrap" id="desktopWrap">
+      <div class="section-title" style="padding-left: 0; padding-right: 0">
+        <div class="eyebrow blk" data-lang="ar">STEP 5 — موقع سطح المكتب</div>
+        <div class="eyebrow blk" data-lang="en">STEP 5 — DESKTOP WEBSITE</div>
+        <h2 class="blk" data-lang="ar">الصفحة الرئيسية ولوحة التحكم</h2>
+        <h2 class="blk" data-lang="en">Landing page & dashboard</h2>
+      </div>
+
+      <div class="dframe">
+        <div class="dnav">
+          <div class="brand-mini"><span class="dot"></span> Boosta</div>
+          <div class="links">
+            <span data-lang="ar">الفئات</span
+            ><span data-lang="en">Categories</span> ·
+            <span data-lang="ar">كيف تعمل بوستا</span
+            ><span data-lang="en">How it works</span> ·
+            <span data-lang="ar">كن مزوّدًا</span
+            ><span data-lang="en">Become a provider</span> ·
+            <span data-lang="ar">تواصل معنا</span
+            ><span data-lang="en">Contact</span>
+          </div>
+          <button class="btn btn-primary btn-auto" style="padding: 10px 22px">
+            <span data-lang="ar">تسجيل الدخول</span
+            ><span data-lang="en">Log in</span>
+          </button>
+        </div>
+        <div class="dhero">
+          <div class="dhero-txt">
+            <h1 class="blk" data-lang="ar">
+              اطلب أي خدمة منزلية موثوقة، في دقائق.
+            </h1>
+            <h1 class="blk" data-lang="en">
+              Book any trusted home service, in minutes.
+            </h1>
+            <p class="blk" data-lang="ar">
+              أكثر من ٢٠٠ فئة خدمة، مزوّدون موثّقون، وأسعار شفافة من اللحظة
+              الأولى.
+            </p>
+            <p class="blk" data-lang="en">
+              200+ service categories, verified providers, transparent pricing
+              from the first tap.
+            </p>
+            <div class="row">
+              <button
+                class="btn btn-gradient btn-auto"
+                style="padding: 14px 26px"
+              >
+                <span data-lang="ar">اطلب خدمة الآن</span
+                ><span data-lang="en">Book a service</span></button
+              ><button
+                class="btn btn-ghost btn-auto"
+                style="padding: 14px 26px"
+              >
+                <span data-lang="ar">كن مزوّدًا</span
+                ><span data-lang="en">Become a provider</span>
+              </button>
+            </div>
+          </div>
+          <div class="dhero-visual">
+            <div
+              class="dcard-float"
+              style="top: 24px; inset-inline-start: 24px"
+            >
+              ⭐ 4.8 <span data-lang="ar">تقييم المنصة</span
+              ><span data-lang="en">Platform rating</span>
+            </div>
+            <div
+              class="dcard-float"
+              style="bottom: 24px; inset-inline-end: 24px"
+            >
+              ✓ <span data-lang="ar">+3,200 مزوّد موثّق</span
+              ><span data-lang="en">3,200+ verified pros</span>
+            </div>
+          </div>
+        </div>
+        <div class="dgrid">
+          <div class="card pad" style="text-align: center; padding: 22px">
+            🧹
+            <div
+              style="font-weight: 700; margin-top: 8px; font-size: 14px"
+              data-lang="ar"
+            >
+              تنظيف منازل
+            </div>
+            <div
+              style="font-weight: 700; margin-top: 8px; font-size: 14px"
+              data-lang="en"
+            >
+              Home cleaning
+            </div>
+          </div>
+          <div class="card pad" style="text-align: center; padding: 22px">
+            🔧
+            <div
+              style="font-weight: 700; margin-top: 8px; font-size: 14px"
+              data-lang="ar"
+            >
+              سباكة وصيانة
+            </div>
+            <div
+              style="font-weight: 700; margin-top: 8px; font-size: 14px"
+              data-lang="en"
+            >
+              Plumbing & repair
+            </div>
+          </div>
+          <div class="card pad" style="text-align: center; padding: 22px">
+            💡
+            <div
+              style="font-weight: 700; margin-top: 8px; font-size: 14px"
+              data-lang="ar"
+            >
+              كهرباء
+            </div>
+            <div
+              style="font-weight: 700; margin-top: 8px; font-size: 14px"
+              data-lang="en"
+            >
+              Electrical
+            </div>
+          </div>
+          <div class="card pad" style="text-align: center; padding: 22px">
+            ❄️
+            <div
+              style="font-weight: 700; margin-top: 8px; font-size: 14px"
+              data-lang="ar"
+            >
+              تكييف
+            </div>
+            <div
+              style="font-weight: 700; margin-top: 8px; font-size: 14px"
+              data-lang="en"
+            >
+              AC & HVAC
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dframe">
+        <div class="dashboard-layout">
+          <div class="dsidebar">
+            <div
+              class="brand-mini"
+              style="margin-bottom: 24px; font-size: 15px"
+            >
+              <span class="dot"></span> Boosta
+            </div>
+            <div class="item active">
+              📊 <span data-lang="ar">لوحة التحكم</span
+              ><span data-lang="en">Dashboard</span>
+            </div>
+            <div class="item">
+              📦 <span data-lang="ar">الطلبات</span
+              ><span data-lang="en">Orders</span>
+            </div>
+            <div class="item">
+              💬 <span data-lang="ar">الرسائل</span
+              ><span data-lang="en">Messages</span>
+            </div>
+            <div class="item">
+              💰 <span data-lang="ar">المحفظة</span
+              ><span data-lang="en">Wallet</span>
+            </div>
+            <div class="item">
+              ⭐ <span data-lang="ar">التقييمات</span
+              ><span data-lang="en">Reviews</span>
+            </div>
+            <div class="item">
+              ⚙️ <span data-lang="ar">الإعدادات</span
+              ><span data-lang="en">Settings</span>
+            </div>
+          </div>
+          <div class="dmain">
+            <div class="between" style="margin-bottom: 22px">
+              <h2 style="font-size: 20px">
+                <span data-lang="ar">لوحة المزوّد</span
+                ><span data-lang="en">Provider dashboard</span>
+              </h2>
+              <button
+                class="btn btn-primary btn-auto"
+                style="padding: 10px 20px"
+              >
+                <span data-lang="ar">+ خدمة جديدة</span
+                ><span data-lang="en">+ New service</span>
+              </button>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 16px;
+                margin-bottom: 26px;
+              "
+            >
+              <div class="stat-mini" style="padding: 16px">
+                <div class="l">
+                  <span data-lang="ar">الطلبات هذا الشهر</span
+                  ><span data-lang="en">Orders this month</span>
+                </div>
+                <div class="v" style="font-size: 22px">128</div>
+              </div>
+              <div class="stat-mini" style="padding: 16px">
+                <div class="l">
+                  <span data-lang="ar">الإيرادات</span
+                  ><span data-lang="en">Revenue</span>
+                </div>
+                <div class="v" style="font-size: 22px">2,140.750</div>
+              </div>
+              <div class="stat-mini" style="padding: 16px">
+                <div class="l">
+                  <span data-lang="ar">متوسط التقييم</span
+                  ><span data-lang="en">Avg rating</span>
+                </div>
+                <div class="v stars" style="font-size: 22px">★ 4.8</div>
+              </div>
+              <div class="stat-mini" style="padding: 16px">
+                <div class="l">
+                  <span data-lang="ar">معدل القبول</span
+                  ><span data-lang="en">Accept rate</span>
+                </div>
+                <div class="v" style="font-size: 22px">96%</div>
+              </div>
+            </div>
+            <div class="card">
+              <div
+                class="between pad"
+                style="
+                  padding: 14px 18px;
+                  border-bottom: 1px solid var(--border);
+                  font-weight: 700;
+                  font-size: 13.5px;
+                "
+              >
+                <span data-lang="ar">آخر الطلبات</span
+                ><span data-lang="en">Recent orders</span>
+              </div>
+              <div
+                class="between pad"
+                style="
+                  padding: 14px 18px;
+                  border-bottom: 1px solid var(--border);
+                  font-size: 13px;
+                "
+              >
+                <span data-lang="ar">تنظيف عميق — ريم العتيبي</span
+                ><span data-lang="en">Deep clean — Reem Al-Otaibi</span
+                ><span class="badge badge-success"
+                  ><span data-lang="ar">مكتمل</span
+                  ><span data-lang="en">Done</span></span
+                >
+              </div>
+              <div
+                class="between pad"
+                style="padding: 14px 18px; font-size: 13px"
+              >
+                <span data-lang="ar">صيانة مكيف — فهد المطيري</span
+                ><span data-lang="en">AC service — Fahad Al-Mutairi</span
+                ><span class="badge badge-warning"
+                  ><span data-lang="ar">جارٍ</span
+                  ><span data-lang="en">In progress</span></span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Boosta App Screens · v1.0 ·
+      <span data-lang="ar"
+        >مبني بالكامل على قياسات ومكوّنات ملف نظام التصميم</span
+      ><span data-lang="en"
+        >Built entirely on the design-system file's tokens and components</span
+      >
+    </footer>
+
+    <script>
+      const html = document.documentElement;
+      document.getElementById("themeBtn").onclick = function () {
+        const dark = html.getAttribute("data-theme") === "dark";
+        html.setAttribute("data-theme", dark ? "light" : "dark");
+        this.textContent = dark ? "🌙 Dark" : "☀️ Light";
+      };
+      document.getElementById("langBtn").onclick = function () {
+        const isRtl = html.getAttribute("dir") === "rtl";
+        html.setAttribute("dir", isRtl ? "ltr" : "rtl");
+        html.setAttribute("lang", isRtl ? "en" : "ar");
+        this.textContent = isRtl ? "AR" : "EN";
+      };
+      let desktopOn = false;
+      document.getElementById("deviceBtn").onclick = function () {
+        desktopOn = !desktopOn;
+        document
+          .getElementById("desktopWrap")
+          .classList.toggle("show", desktopOn);
+        document
+          .getElementById("mobileWrap")
+          .classList.toggle("hide", desktopOn);
+        this.classList.toggle("on", desktopOn);
+      };
+    </script>
+  </body>
+</html>

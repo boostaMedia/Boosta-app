@@ -1,0 +1,1834 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boosta — Design System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy-900: #181e2a;
+        --navy-800: #232b3d;
+        --navy-700: #323c52;
+        --blue-600: #2e6bb0;
+        --blue-500: #3c7dc2;
+        --cyan-500: #17a3d8;
+        --cyan-400: #2fb4de;
+        --teal-300: #6fd3de;
+        --gray-50: #f7f8fa;
+        --gray-100: #eef1f4;
+        --gray-200: #e2e6eb;
+        --gray-300: #cbd2db;
+        --gray-400: #9aa5b1;
+        --gray-500: #6b7684;
+        --gray-600: #4a5361;
+        --gray-700: #333b47;
+        --success: #1fae7a;
+        --success-bg: #e7f7f1;
+        --warning: #f5a623;
+        --warning-bg: #fef3e2;
+        --danger: #e5484d;
+        --danger-bg: #fdecec;
+        --info: #17a3d8;
+        --info-bg: #e7f6fc;
+        --bg-app: #f5f7fa;
+        --bg-surface: #ffffff;
+        --bg-elevated: #ffffff;
+        --bg-sunken: #eef1f4;
+        --text-primary: #181e2a;
+        --text-secondary: #5b6472;
+        --text-tertiary: #8b94a3;
+        --text-inverse: #ffffff;
+        --border: #e4e8ed;
+        --border-strong: #cbd2db;
+        --r-xs: 6px;
+        --r-sm: 10px;
+        --r-md: 14px;
+        --r-lg: 20px;
+        --r-xl: 28px;
+        --r-full: 999px;
+        --sp-1: 4px;
+        --sp-2: 8px;
+        --sp-3: 12px;
+        --sp-4: 16px;
+        --sp-5: 20px;
+        --sp-6: 24px;
+        --sp-7: 32px;
+        --sp-8: 40px;
+        --sp-9: 48px;
+        --sp-10: 64px;
+        --shadow-sm: 0 2px 8px rgba(24, 30, 42, 0.06);
+        --shadow-md: 0 8px 24px rgba(24, 30, 42, 0.1);
+        --shadow-lg: 0 20px 48px rgba(24, 30, 42, 0.16);
+        --grad-brand: linear-gradient(
+          135deg,
+          var(--blue-500) 0%,
+          var(--cyan-500) 55%,
+          var(--teal-300) 100%
+        );
+        --font-ar: "Tajawal", sans-serif;
+        --font-en-display: "Plus Jakarta Sans", sans-serif;
+        --font-en-body: "Inter", sans-serif;
+      }
+      [data-theme="dark"] {
+        --bg-app: #0c1017;
+        --bg-surface: #151b27;
+        --bg-elevated: #1d2534;
+        --bg-sunken: #0c1017;
+        --text-primary: #f3f5f7;
+        --text-secondary: #aeb6c2;
+        --text-tertiary: #6d7685;
+        --text-inverse: #181e2a;
+        --border: #2a3140;
+        --border-strong: #3a4356;
+        --success-bg: #12291f;
+        --warning-bg: #2e2310;
+        --danger-bg: #2e1516;
+        --info-bg: #0f2733;
+        --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+        --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.45);
+        --shadow-lg: 0 24px 56px rgba(0, 0, 0, 0.55);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--bg-app);
+        color: var(--text-primary);
+        font-family: var(--font-ar);
+        transition:
+          background 0.25s,
+          color 0.25s;
+        padding-bottom: 80px;
+      }
+      html[dir="ltr"] body {
+        font-family: var(--font-en-body);
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: var(--font-ar);
+        font-weight: 800;
+      }
+      html[dir="ltr"] h1,
+      html[dir="ltr"] h2,
+      html[dir="ltr"] h3,
+      html[dir="ltr"] h4 {
+        font-family: var(--font-en-display);
+      }
+      .container {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      a {
+        color: inherit;
+      }
+
+      /* topbar */
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: color-mix(in srgb, var(--bg-app) 88%, transparent);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+      }
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 24px;
+        max-width: 1180px;
+        margin: 0 auto;
+      }
+      .brand-mini {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 18px;
+      }
+      .brand-mini .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--grad-brand);
+      }
+      .nav-links {
+        display: flex;
+        gap: 22px;
+        font-size: 14px;
+        color: var(--text-secondary);
+        flex-wrap: wrap;
+      }
+      .nav-links a {
+        white-space: nowrap;
+      }
+      .nav-links a:hover {
+        color: var(--cyan-500);
+      }
+      .toggles {
+        display: flex;
+        gap: 8px;
+      }
+      .toggle-btn {
+        border: 1px solid var(--border-strong);
+        background: var(--bg-surface);
+        color: var(--text-primary);
+        padding: 8px 14px;
+        border-radius: var(--r-full);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .toggle-btn:hover {
+        border-color: var(--cyan-500);
+      }
+
+      /* hero */
+      .hero {
+        padding: 64px 0 40px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--info-bg);
+        color: var(--cyan-500);
+        font-size: 12px;
+        font-weight: 700;
+        padding: 6px 14px;
+        border-radius: var(--r-full);
+        margin-bottom: 20px;
+      }
+      .hero h1 {
+        font-size: 44px;
+        line-height: 1.2;
+        max-width: 760px;
+        margin-bottom: 16px;
+      }
+      .hero p {
+        font-size: 17px;
+        color: var(--text-secondary);
+        max-width: 640px;
+        line-height: 1.8;
+      }
+      .hero-strip {
+        height: 4px;
+        width: 120px;
+        background: var(--grad-brand);
+        border-radius: var(--r-full);
+        margin-top: 28px;
+      }
+
+      section {
+        padding: 56px 0;
+        border-top: 1px solid var(--border);
+      }
+      .section-head {
+        margin-bottom: 32px;
+      }
+      .section-eyebrow {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--cyan-500);
+        margin-bottom: 10px;
+      }
+      html[dir="rtl"] .section-eyebrow {
+        letter-spacing: 0;
+      }
+      .section-head h2 {
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+      .section-head p {
+        color: var(--text-secondary);
+        font-size: 15px;
+        max-width: 680px;
+        line-height: 1.8;
+      }
+
+      /* brand strategy cards */
+      .grid-4 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      @media (max-width: 900px) {
+        .grid-4 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .grid-3 {
+          grid-template-columns: 1fr 1fr;
+        }
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+      .value-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        padding: 22px;
+        box-shadow: var(--shadow-sm);
+      }
+      .value-card .num {
+        font-size: 12px;
+        color: var(--text-tertiary);
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .value-card h4 {
+        font-size: 16px;
+        margin-bottom: 8px;
+      }
+      .value-card p {
+        font-size: 13.5px;
+        color: var(--text-secondary);
+        line-height: 1.7;
+      }
+
+      /* color swatches */
+      .swatch-row {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 0;
+        border-radius: var(--r-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 14px;
+      }
+      @media (max-width: 900px) {
+        .swatch-row {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .swatch {
+        height: 96px;
+        display: flex;
+        align-items: flex-end;
+        padding: 10px;
+        font-size: 11px;
+        font-weight: 700;
+        color: #fff;
+        font-family: monospace;
+      }
+      .swatch-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12.5px;
+        color: var(--text-secondary);
+        padding: 8px 2px 20px;
+      }
+      .swatch-meta {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 0;
+      }
+      @media (max-width: 900px) {
+        .swatch-meta {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .gradient-block {
+        height: 140px;
+        border-radius: var(--r-lg);
+        background: var(--grad-brand);
+        box-shadow: var(--shadow-md);
+        display: flex;
+        align-items: flex-end;
+        padding: 20px;
+        color: #fff;
+        font-weight: 700;
+      }
+      .semantic-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+      @media (max-width: 900px) {
+        .semantic-row {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .semantic-card {
+        border-radius: var(--r-md);
+        padding: 16px;
+        border: 1px solid var(--border);
+      }
+      .semantic-dot {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+      }
+
+      /* type */
+      .type-sample {
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        background: var(--bg-surface);
+        padding: 22px 26px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .type-sample .label {
+        font-size: 11px;
+        color: var(--text-tertiary);
+        font-family: monospace;
+        width: 170px;
+        flex-shrink: 0;
+      }
+      .type-sample .txt {
+        flex: 1;
+      }
+      .font-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        padding: 26px;
+        box-shadow: var(--shadow-sm);
+      }
+      .font-card h3 {
+        font-size: 34px;
+        margin-bottom: 6px;
+      }
+      .font-card .meta {
+        font-size: 12.5px;
+        color: var(--text-tertiary);
+        font-family: monospace;
+        margin-bottom: 16px;
+      }
+      .font-card .abc {
+        font-size: 15px;
+        color: var(--text-secondary);
+        line-height: 1.9;
+      }
+
+      /* spacing/radius */
+      .token-strip {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 12px;
+      }
+      .token-box {
+        background: var(--cyan-500);
+        border-radius: 4px;
+      }
+      .token-name {
+        font-family: monospace;
+        font-size: 12.5px;
+        color: var(--text-secondary);
+        width: 150px;
+      }
+      .radius-row {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .radius-box {
+        width: 84px;
+        height: 84px;
+        background: var(--bg-elevated);
+        border: 2px solid var(--cyan-500);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-family: monospace;
+        color: var(--text-secondary);
+      }
+      .shadow-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      @media (max-width: 900px) {
+        .shadow-row {
+          grid-template-columns: 1fr;
+        }
+      }
+      .shadow-box {
+        background: var(--bg-surface);
+        border-radius: var(--r-lg);
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        color: var(--text-secondary);
+        font-family: monospace;
+      }
+
+      /* components */
+      .comp-block {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        padding: 26px;
+        margin-bottom: 16px;
+        box-shadow: var(--shadow-sm);
+      }
+      .comp-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-tertiary);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 18px;
+      }
+      html[dir="rtl"] .comp-title {
+        letter-spacing: 0;
+      }
+      .row {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        border: none;
+        border-radius: var(--r-md);
+        font-weight: 700;
+        font-size: 14.5px;
+        padding: 13px 24px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: inherit;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s,
+          opacity 0.15s;
+      }
+      .btn:active {
+        transform: scale(0.97);
+      }
+      .btn-primary {
+        background: var(--cyan-500);
+        color: #fff;
+        box-shadow: 0 6px 18px rgba(23, 163, 216, 0.35);
+      }
+      .btn-primary:hover {
+        background: var(--cyan-400);
+      }
+      .btn-gradient {
+        background: var(--grad-brand);
+        color: #fff;
+        box-shadow: 0 8px 20px rgba(23, 163, 216, 0.3);
+      }
+      .btn-secondary {
+        background: var(--bg-sunken);
+        color: var(--text-primary);
+        border: 1px solid var(--border-strong);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--cyan-500);
+        border: 1px solid var(--cyan-500);
+      }
+      .btn-danger {
+        background: var(--danger);
+        color: #fff;
+      }
+      .btn-disabled {
+        background: var(--gray-200);
+        color: var(--text-tertiary);
+        cursor: not-allowed;
+      }
+      .btn-sm {
+        padding: 9px 16px;
+        font-size: 13px;
+      }
+      .btn-icon {
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        justify-content: center;
+        border-radius: var(--r-full);
+      }
+
+      .input-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        max-width: 340px;
+      }
+      .input-label {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--text-secondary);
+      }
+      .input {
+        border: 1.5px solid var(--border-strong);
+        background: var(--bg-app);
+        border-radius: var(--r-md);
+        padding: 13px 16px;
+        font-size: 14.5px;
+        color: var(--text-primary);
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.15s;
+      }
+      .input:focus {
+        border-color: var(--cyan-500);
+      }
+      .input-error {
+        border-color: var(--danger);
+      }
+      .input-hint {
+        font-size: 11.5px;
+        color: var(--text-tertiary);
+      }
+      .input-hint.err {
+        color: var(--danger);
+      }
+      .otp-row {
+        display: flex;
+        gap: 10px;
+      }
+      .otp-box {
+        width: 46px;
+        height: 52px;
+        border: 1.5px solid var(--border-strong);
+        border-radius: var(--r-sm);
+        text-align: center;
+        font-size: 20px;
+        font-weight: 700;
+        background: var(--bg-app);
+        color: var(--text-primary);
+      }
+      .otp-box.filled {
+        border-color: var(--cyan-500);
+      }
+      .search-input {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--bg-sunken);
+        border-radius: var(--r-full);
+        padding: 13px 18px;
+        max-width: 400px;
+        color: var(--text-tertiary);
+        font-size: 14px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11.5px;
+        font-weight: 700;
+        padding: 5px 11px;
+        border-radius: var(--r-full);
+      }
+      .badge-success {
+        background: var(--success-bg);
+        color: var(--success);
+      }
+      .badge-warning {
+        background: var(--warning-bg);
+        color: var(--warning);
+      }
+      .badge-danger {
+        background: var(--danger-bg);
+        color: var(--danger);
+      }
+      .badge-info {
+        background: var(--info-bg);
+        color: var(--cyan-500);
+      }
+      .chip {
+        border: 1.5px solid var(--border-strong);
+        border-radius: var(--r-full);
+        padding: 9px 18px;
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        cursor: pointer;
+        background: var(--bg-surface);
+      }
+      .chip.active {
+        background: var(--navy-900);
+        color: #fff;
+        border-color: var(--navy-900);
+      }
+      [data-theme="dark"] .chip.active {
+        background: var(--cyan-500);
+        border-color: var(--cyan-500);
+        color: #fff;
+      }
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: var(--bg-sunken);
+        color: var(--text-secondary);
+        font-size: 12px;
+        padding: 4px 10px;
+        border-radius: 6px;
+      }
+
+      .pcard {
+        width: 230px;
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        flex-shrink: 0;
+      }
+      .pcard-img {
+        height: 120px;
+        background: linear-gradient(135deg, var(--blue-500), var(--cyan-500));
+        position: relative;
+      }
+      .pcard-fav {
+        position: absolute;
+        top: 10px;
+        inset-inline-end: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+      }
+      .pcard-body {
+        padding: 14px;
+      }
+      .pcard-body h4 {
+        font-size: 14.5px;
+        margin-bottom: 4px;
+        font-weight: 700;
+      }
+      .pcard-body .sub {
+        font-size: 12px;
+        color: var(--text-tertiary);
+        margin-bottom: 10px;
+      }
+      .pcard-foot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+      }
+      .stars {
+        color: var(--warning);
+        font-size: 12.5px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+      }
+      .price {
+        font-weight: 800;
+        color: var(--text-primary);
+      }
+
+      .provider-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px;
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        background: var(--bg-surface);
+        margin-bottom: 10px;
+      }
+      .avatar {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: var(--grad-brand);
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 800;
+      }
+      .avatar-sm {
+        width: 34px;
+        height: 34px;
+        font-size: 12px;
+      }
+      .provider-info {
+        flex: 1;
+      }
+      .provider-info h4 {
+        font-size: 14.5px;
+        margin-bottom: 3px;
+      }
+      .provider-info .meta {
+        font-size: 12px;
+        color: var(--text-tertiary);
+      }
+      .verified {
+        color: var(--cyan-500);
+        font-size: 11px;
+        font-weight: 700;
+        margin-inline-start: 6px;
+      }
+
+      .navbar-demo {
+        display: flex;
+        justify-content: space-around;
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: var(--r-xl);
+        padding: 14px 10px;
+        max-width: 360px;
+        box-shadow: var(--shadow-md);
+      }
+      .navbar-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        font-size: 10.5px;
+        color: var(--text-tertiary);
+        font-weight: 600;
+      }
+      .navbar-item.active {
+        color: var(--cyan-500);
+      }
+      .navbar-item .ic {
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        background: currentColor;
+        opacity: 0.15;
+      }
+      .navbar-item.active .ic {
+        opacity: 1;
+        background: var(--cyan-500);
+      }
+
+      .modal-demo {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        padding: 24px;
+        max-width: 380px;
+        box-shadow: var(--shadow-lg);
+      }
+      .modal-demo h4 {
+        margin-bottom: 8px;
+        font-size: 16px;
+      }
+      .modal-demo p {
+        font-size: 13.5px;
+        color: var(--text-secondary);
+        margin-bottom: 18px;
+        line-height: 1.7;
+      }
+      .sheet-demo {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: 24px 24px 0 0;
+        padding: 22px 24px 26px;
+        max-width: 380px;
+        box-shadow: var(--shadow-lg);
+      }
+      .sheet-handle {
+        width: 40px;
+        height: 4px;
+        background: var(--border-strong);
+        border-radius: var(--r-full);
+        margin: 0 auto 18px;
+      }
+
+      .toast {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--navy-900);
+        color: #fff;
+        padding: 14px 18px;
+        border-radius: var(--r-md);
+        max-width: 380px;
+        box-shadow: var(--shadow-lg);
+        font-size: 13.5px;
+      }
+      .toast-icon {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--success);
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        background: var(--bg-surface);
+        border: 1px dashed var(--border-strong);
+        border-radius: var(--r-lg);
+      }
+      .empty-state .ic {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: var(--bg-sunken);
+        margin: 0 auto 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+      }
+      .empty-state h4 {
+        font-size: 15px;
+        margin-bottom: 6px;
+      }
+      .empty-state p {
+        font-size: 13px;
+        color: var(--text-tertiary);
+        margin-bottom: 18px;
+      }
+
+      .skeleton {
+        background: linear-gradient(
+          90deg,
+          var(--bg-sunken) 25%,
+          var(--border) 50%,
+          var(--bg-sunken) 75%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.4s infinite;
+        border-radius: var(--r-sm);
+      }
+      @keyframes shimmer {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+
+      .stat-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        padding: 20px;
+        box-shadow: var(--shadow-sm);
+      }
+      .stat-card .label {
+        font-size: 12px;
+        color: var(--text-tertiary);
+        margin-bottom: 8px;
+      }
+      .stat-card .val {
+        font-size: 26px;
+        font-weight: 800;
+      }
+      .stat-card .delta {
+        font-size: 11.5px;
+        color: var(--success);
+        font-weight: 700;
+        margin-top: 6px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 50px 24px 20px;
+        color: var(--text-tertiary);
+        font-size: 12.5px;
+      }
+
+      /* copy language blocks */
+      [data-lang="ar"] {
+        display: block;
+      }
+      [data-lang="en"] {
+        display: none;
+      }
+      html[dir="ltr"] [data-lang="ar"] {
+        display: none;
+      }
+      html[dir="ltr"] [data-lang="en"] {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="brand-mini">
+          <span class="dot"></span> Boosta
+          <span
+            style="
+              color: var(--text-tertiary);
+              font-weight: 500;
+              font-size: 13px;
+            "
+            data-lang="ar"
+            >— نظام التصميم</span
+          ><span
+            style="
+              color: var(--text-tertiary);
+              font-weight: 500;
+              font-size: 13px;
+            "
+            data-lang="en"
+            >— Design System</span
+          >
+        </div>
+        <div class="nav-links">
+          <a href="#brand">الهوية</a><a href="#color">الألوان</a
+          ><a href="#type">الطباعة</a><a href="#tokens">القياسات</a
+          ><a href="#components">المكوّنات</a><a href="#patterns">الأنماط</a>
+        </div>
+        <div class="toggles">
+          <button class="toggle-btn" id="langBtn">EN</button>
+          <button class="toggle-btn" id="themeBtn">🌙 Dark</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero container">
+      <div class="hero-eyebrow">
+        <span data-lang="ar">هوية بوستا الرسمية</span
+        ><span data-lang="en">Boosta Official Identity</span>
+      </div>
+      <h1>
+        <span data-lang="ar"
+          >نظام تصميم مشتق بالكامل من شعار بوستا — جاهز لبناء منتج سوق خدمات
+          عالمي المستوى.</span
+        >
+        <span data-lang="en"
+          >A design system derived entirely from the Boosta mark — built for a
+          premium, global-caliber service marketplace.</span
+        >
+      </h1>
+      <p data-lang="ar">
+        كل قرار لوني وطباعي ومكوّن في هذا الملف مأخوذ مباشرة من تدرج السهم
+        الأزرق-السماوي وحرف B الداكن في الشعار. لا تعديل على الشعار — فقط بناء
+        عالم بصري متكامل حوله.
+      </p>
+      <p data-lang="en">
+        Every color, type choice, and component in this system traces back to
+        the logo's blue-to-cyan arrow gradient and the ink-navy "B". The mark
+        itself is untouched — everything else is built around it.
+      </p>
+      <div class="hero-strip"></div>
+    </div>
+
+    <!-- BRAND -->
+    <section id="brand">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow" data-lang="ar">الخطوة ١ — الهوية</div>
+          <div class="section-eyebrow" data-lang="en">STEP 1 — IDENTITY</div>
+          <h2 data-lang="ar">الشخصية والقيم ونبرة الصوت</h2>
+          <h2 data-lang="en">Personality, Values & Voice</h2>
+          <p data-lang="ar">
+            السهم الصاعد في الشعار يقول شيئًا واحدًا بوضوح: التقدم. حرف الـ B
+            الداكن يقول شيئًا آخر: الثقة والرسوخ. بوستا تقف بين الاثنين — منصة
+            سريعة وطموحة، لكنها موثوقة بما يكفي ليعتمد عليها الناس في بيوتهم
+            وأعمالهم.
+          </p>
+          <p data-lang="en">
+            The upward arrow says one thing clearly: momentum. The ink-navy "B"
+            says another: trust and permanence. Boosta lives between the two —
+            fast and ambitious, but dependable enough that people let it into
+            their homes and businesses.
+          </p>
+        </div>
+        <div class="grid-4">
+          <div class="value-card">
+            <div class="num">01</div>
+            <h4 data-lang="ar">حاسمة، لا مزخرفة</h4>
+            <h4 data-lang="en">Decisive, not decorative</h4>
+            <p data-lang="ar">
+              كل شاشة تقود المستخدم لقرار — احجز، اطلب عرضًا، قيّم. لا حشو بصري.
+            </p>
+            <p data-lang="en">
+              Every screen moves someone toward a decision — book, quote,
+              review. No visual filler.
+            </p>
+          </div>
+          <div class="value-card">
+            <div class="num">02</div>
+            <h4 data-lang="ar">دافئة رغم الاحترافية</h4>
+            <h4 data-lang="en">Warm despite being professional</h4>
+            <p data-lang="ar">
+              لهجة إنسانية عربية طبيعية، لا رسمية جافة ولا عامية مبالغ فيها.
+            </p>
+            <p data-lang="en">
+              Natural, human Arabic and English — never stiff, never overly
+              casual.
+            </p>
+          </div>
+          <div class="value-card">
+            <div class="num">03</div>
+            <h4 data-lang="ar">شفافة بالافتراض</h4>
+            <h4 data-lang="en">Transparent by default</h4>
+            <p data-lang="ar">
+              الأسعار، التقييمات، والحالة ظاهرة دائمًا — لا مفاجآت في آخر
+              الطريق.
+            </p>
+            <p data-lang="en">
+              Prices, ratings, and status are always visible — no surprises at
+              the end of a flow.
+            </p>
+          </div>
+          <div class="value-card">
+            <div class="num">04</div>
+            <h4 data-lang="ar">عربي أولًا</h4>
+            <h4 data-lang="en">Arabic-first</h4>
+            <p data-lang="ar">
+              التصميم يُبنى بالعربية والاتجاه من اليمين لليسار أولًا، ثم يُترجم
+              — لا العكس.
+            </p>
+            <p data-lang="en">
+              Layouts are built RTL-first in Arabic, then adapted to English —
+              never the reverse.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOR -->
+    <section id="color">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow" data-lang="ar">الألوان</div>
+          <div class="section-eyebrow" data-lang="en">COLOR</div>
+          <h2 data-lang="ar">مستخرجة مباشرة من الشعار</h2>
+          <h2 data-lang="en">Extracted directly from the mark</h2>
+          <p data-lang="ar">
+            تم أخذ عيّنات لونية فعلية من ملف الشعار: أزرق البداية، سماوي
+            المنتصف، تركواز النهاية، وكحلي حرف B.
+          </p>
+          <p data-lang="en">
+            Values were sampled directly from the logo file: the blue start,
+            cyan midpoint, teal endpoint, and the "B" ink navy.
+          </p>
+        </div>
+
+        <p
+          style="
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-bottom: 10px;
+            font-weight: 700;
+          "
+          data-lang="ar"
+        >
+          تدرّج العلامة
+        </p>
+        <p
+          style="
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-bottom: 10px;
+            font-weight: 700;
+          "
+          data-lang="en"
+        >
+          Brand Gradient
+        </p>
+        <div class="gradient-block">
+          linear-gradient(135deg, #3C7DC2 → #17A3D8 → #6FD3DE)
+        </div>
+
+        <div style="height: 32px"></div>
+        <p
+          style="
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-bottom: 10px;
+            font-weight: 700;
+          "
+          data-lang="ar"
+        >
+          الأساسي
+        </p>
+        <p
+          style="
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-bottom: 10px;
+            font-weight: 700;
+          "
+          data-lang="en"
+        >
+          Primary
+        </p>
+        <div class="swatch-row">
+          <div class="swatch" style="background: #181e2a">#181E2A</div>
+          <div class="swatch" style="background: #2e6bb0">#2E6BB0</div>
+          <div class="swatch" style="background: #3c7dc2">#3C7DC2</div>
+          <div class="swatch" style="background: #17a3d8">#17A3D8</div>
+          <div class="swatch" style="background: #2fb4de; color: #181e2a">
+            #2FB4DE
+          </div>
+          <div class="swatch" style="background: #6fd3de; color: #181e2a">
+            #6FD3DE
+          </div>
+        </div>
+        <div class="swatch-meta">
+          <div class="swatch-label">Navy 900</div>
+          <div class="swatch-label">Blue 600</div>
+          <div class="swatch-label">Blue 500</div>
+          <div class="swatch-label">Cyan 500 · Action</div>
+          <div class="swatch-label">Cyan 400</div>
+          <div class="swatch-label">Teal 300</div>
+        </div>
+
+        <div style="height: 20px"></div>
+        <p
+          style="
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-bottom: 10px;
+            font-weight: 700;
+          "
+          data-lang="ar"
+        >
+          محايدة
+        </p>
+        <p
+          style="
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-bottom: 10px;
+            font-weight: 700;
+          "
+          data-lang="en"
+        >
+          Neutrals
+        </p>
+        <div class="swatch-row">
+          <div class="swatch" style="background: #f7f8fa; color: #181e2a">
+            #F7F8FA
+          </div>
+          <div class="swatch" style="background: #eef1f4; color: #181e2a">
+            #EEF1F4
+          </div>
+          <div class="swatch" style="background: #cbd2db; color: #181e2a">
+            #CBD2DB
+          </div>
+          <div class="swatch" style="background: #9aa5b1; color: #181e2a">
+            #9AA5B1
+          </div>
+          <div class="swatch" style="background: #6b7684">#6B7684</div>
+          <div class="swatch" style="background: #333b47">#333B47</div>
+        </div>
+        <div class="swatch-meta">
+          <div class="swatch-label">Gray 50</div>
+          <div class="swatch-label">Gray 100</div>
+          <div class="swatch-label">Gray 300</div>
+          <div class="swatch-label">Gray 400</div>
+          <div class="swatch-label">Gray 500</div>
+          <div class="swatch-label">Gray 700</div>
+        </div>
+
+        <div style="height: 20px"></div>
+        <p
+          style="
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-bottom: 10px;
+            font-weight: 700;
+          "
+          data-lang="ar"
+        >
+          دلالية
+        </p>
+        <p
+          style="
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-bottom: 10px;
+            font-weight: 700;
+          "
+          data-lang="en"
+        >
+          Semantic
+        </p>
+        <div class="semantic-row">
+          <div class="semantic-card" style="background: var(--success-bg)">
+            <div class="semantic-dot" style="background: var(--success)"></div>
+            <b style="font-size: 13.5px">Success</b>
+            <div
+              style="
+                font-family: monospace;
+                font-size: 11.5px;
+                color: var(--text-tertiary);
+                margin-top: 4px;
+              "
+            >
+              #1FAE7A
+            </div>
+          </div>
+          <div class="semantic-card" style="background: var(--warning-bg)">
+            <div class="semantic-dot" style="background: var(--warning)"></div>
+            <b style="font-size: 13.5px">Warning · Ratings</b>
+            <div
+              style="
+                font-family: monospace;
+                font-size: 11.5px;
+                color: var(--text-tertiary);
+                margin-top: 4px;
+              "
+            >
+              #F5A623
+            </div>
+          </div>
+          <div class="semantic-card" style="background: var(--danger-bg)">
+            <div class="semantic-dot" style="background: var(--danger)"></div>
+            <b style="font-size: 13.5px">Danger</b>
+            <div
+              style="
+                font-family: monospace;
+                font-size: 11.5px;
+                color: var(--text-tertiary);
+                margin-top: 4px;
+              "
+            >
+              #E5484D
+            </div>
+          </div>
+          <div class="semantic-card" style="background: var(--info-bg)">
+            <div class="semantic-dot" style="background: var(--info)"></div>
+            <b style="font-size: 13.5px">Info</b>
+            <div
+              style="
+                font-family: monospace;
+                font-size: 11.5px;
+                color: var(--text-tertiary);
+                margin-top: 4px;
+              "
+            >
+              #17A3D8
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TYPE -->
+    <section id="type">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow" data-lang="ar">الطباعة</div>
+          <div class="section-eyebrow" data-lang="en">TYPOGRAPHY</div>
+          <h2 data-lang="ar">
+            Tajawal للعربية، Plus Jakarta Sans + Inter للإنجليزية
+          </h2>
+          <h2 data-lang="en">
+            Tajawal for Arabic, Plus Jakarta Sans + Inter for English
+          </h2>
+          <p data-lang="ar">
+            Tajawal هندسي ومريح على الشاشة بنفس روح الأقواس الهندسية في الشعار.
+            Plus Jakarta Sans للعناوين الإنجليزية يوازيها بشخصية مشابهة، و Inter
+            للنصوص لوضوحه العالي في الواجهات.
+          </p>
+          <p data-lang="en">
+            Tajawal is geometric and screen-friendly, echoing the logo's clean
+            geometric curves. Plus Jakarta Sans matches that character for
+            English headings; Inter carries body text for maximum UI legibility.
+          </p>
+        </div>
+        <div class="grid-3">
+          <div class="font-card">
+            <h3 style="font-family: &quot;Tajawal&quot;">بوستا</h3>
+            <div class="meta">Tajawal · 800 · Arabic Display</div>
+            <div class="abc" style="font-family: &quot;Tajawal&quot;">
+              احجز خدمتك المنزلية القادمة في دقائق
+            </div>
+          </div>
+          <div class="font-card">
+            <h3 style="font-family: &quot;Plus Jakarta Sans&quot;">Boosta</h3>
+            <div class="meta">Plus Jakarta Sans · 700 · EN Display</div>
+            <div class="abc" style="font-family: &quot;Plus Jakarta Sans&quot;">
+              Book your next home service in minutes
+            </div>
+          </div>
+          <div class="font-card">
+            <h3 style="font-family: &quot;Inter&quot;; font-size: 22px">
+              Aa Bb Cc 123
+            </h3>
+            <div class="meta">Inter · 400–600 · EN Body / UI</div>
+            <div class="abc" style="font-family: &quot;Inter&quot;">
+              Clear at small sizes, dashboards & tables
+            </div>
+          </div>
+        </div>
+        <div style="height: 24px"></div>
+        <div class="type-sample" style="font-family: &quot;Tajawal&quot;">
+          <div class="label">Display XL / 40·48</div>
+          <div class="txt" style="font-size: 40px; font-weight: 800">
+            اطلب. قارن. احجز.
+          </div>
+        </div>
+        <div class="type-sample" style="font-family: &quot;Tajawal&quot;">
+          <div class="label">H1 / 28·36 · 800</div>
+          <div class="txt" style="font-size: 28px; font-weight: 800">
+            أكثر من ٢٠٠ فئة خدمة
+          </div>
+        </div>
+        <div class="type-sample" style="font-family: &quot;Tajawal&quot;">
+          <div class="label">H2 / 22·30 · 700</div>
+          <div class="txt" style="font-size: 22px; font-weight: 700">
+            مزودو خدمة موثوقون بالقرب منك
+          </div>
+        </div>
+        <div class="type-sample" style="font-family: &quot;Tajawal&quot;">
+          <div class="label">Body / 14·22 · 400</div>
+          <div class="txt" style="font-size: 14px">
+            كل مزود يمر بعملية تحقق من الهوية والتراخيص قبل الظهور في المنصة.
+          </div>
+        </div>
+        <div class="type-sample">
+          <div class="label">Caption / 12·16 · 500</div>
+          <div
+            class="txt"
+            style="
+              font-size: 12px;
+              font-weight: 500;
+              color: var(--text-tertiary);
+            "
+          >
+            آخر تحديث قبل ٥ دقائق
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOKENS -->
+    <section id="tokens">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow" data-lang="ar">قياسات التصميم</div>
+          <div class="section-eyebrow" data-lang="en">DESIGN TOKENS</div>
+          <h2 data-lang="ar">المسافات، الانحناءات، والظلال</h2>
+          <h2 data-lang="en">Spacing, Radius & Elevation</h2>
+        </div>
+        <div class="grid-2">
+          <div>
+            <p
+              style="
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--text-tertiary);
+                margin-bottom: 14px;
+              "
+            >
+              SPACING · 4px base
+            </p>
+            <div class="token-strip">
+              <div class="token-name">--sp-2 · 8px</div>
+              <div class="token-box" style="width: 8px; height: 16px"></div>
+            </div>
+            <div class="token-strip">
+              <div class="token-name">--sp-4 · 16px</div>
+              <div class="token-box" style="width: 16px; height: 16px"></div>
+            </div>
+            <div class="token-strip">
+              <div class="token-name">--sp-6 · 24px</div>
+              <div class="token-box" style="width: 24px; height: 16px"></div>
+            </div>
+            <div class="token-strip">
+              <div class="token-name">--sp-8 · 40px</div>
+              <div class="token-box" style="width: 40px; height: 16px"></div>
+            </div>
+            <div class="token-strip">
+              <div class="token-name">--sp-10 · 64px</div>
+              <div class="token-box" style="width: 64px; height: 16px"></div>
+            </div>
+          </div>
+          <div>
+            <p
+              style="
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--text-tertiary);
+                margin-bottom: 14px;
+              "
+            >
+              RADIUS
+            </p>
+            <div class="radius-row">
+              <div class="radius-box" style="border-radius: 6px">xs·6</div>
+              <div class="radius-box" style="border-radius: 14px">md·14</div>
+              <div class="radius-box" style="border-radius: 20px">lg·20</div>
+              <div class="radius-box" style="border-radius: 28px">xl·28</div>
+              <div class="radius-box" style="border-radius: 999px">full</div>
+            </div>
+          </div>
+        </div>
+        <div style="height: 28px"></div>
+        <p
+          style="
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-tertiary);
+            margin-bottom: 14px;
+          "
+        >
+          ELEVATION
+        </p>
+        <div class="shadow-row">
+          <div class="shadow-box" style="box-shadow: var(--shadow-sm)">
+            shadow-sm
+          </div>
+          <div class="shadow-box" style="box-shadow: var(--shadow-md)">
+            shadow-md
+          </div>
+          <div class="shadow-box" style="box-shadow: var(--shadow-lg)">
+            shadow-lg
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPONENTS -->
+    <section id="components">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow" data-lang="ar">مكتبة المكوّنات</div>
+          <div class="section-eyebrow" data-lang="en">COMPONENT LIBRARY</div>
+          <h2 data-lang="ar">جاهزة للاستخدام في كل شاشات التطبيق</h2>
+          <h2 data-lang="en">Production components used across every screen</h2>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-title">Buttons</div>
+          <div class="row">
+            <button class="btn btn-gradient">إنشاء حساب</button>
+            <button class="btn btn-primary">تأكيد الحجز</button>
+            <button class="btn btn-secondary">لاحقًا</button>
+            <button class="btn btn-ghost">عرض التفاصيل</button>
+            <button class="btn btn-danger">إلغاء الحجز</button>
+            <button class="btn btn-disabled" disabled>غير متاح</button>
+            <button class="btn btn-primary btn-sm">تصفية</button>
+            <button class="btn btn-secondary btn-icon">♡</button>
+          </div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-title">Inputs · OTP · Search</div>
+          <div class="row" style="align-items: flex-start; gap: 28px">
+            <div class="input-wrap">
+              <div class="input-label">رقم الجوال</div>
+              <input class="input" placeholder="+965 5xxx xxxx" />
+              <div class="input-hint">سنرسل رمز التحقق عبر واتساب</div>
+            </div>
+            <div class="input-wrap">
+              <div class="input-label">البريد الإلكتروني</div>
+              <input class="input input-error" value="reem@example" />
+              <div class="input-hint err">صيغة البريد الإلكتروني غير صحيحة</div>
+            </div>
+            <div>
+              <div class="input-label" style="margin-bottom: 8px">
+                رمز التحقق
+              </div>
+              <div class="otp-row">
+                <input class="otp-box filled" maxlength="1" value="4" /><input
+                  class="otp-box filled"
+                  maxlength="1"
+                  value="2"
+                /><input class="otp-box" maxlength="1" /><input
+                  class="otp-box"
+                  maxlength="1"
+                />
+              </div>
+            </div>
+          </div>
+          <div style="height: 16px"></div>
+          <div class="search-input">
+            🔍 <span data-lang="ar">ابحث عن خدمة، مزود، أو فئة</span
+            ><span data-lang="en">Search a service, provider, or category</span>
+          </div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-title">Badges · Chips · Tags</div>
+          <div class="row">
+            <span class="badge badge-success">● متاح الآن</span>
+            <span class="badge badge-warning">⭐ 4.9</span>
+            <span class="badge badge-danger">مكتمل الحجوزات</span>
+            <span class="badge badge-info">جديد</span>
+            <span class="chip active">الكل</span>
+            <span class="chip">تنظيف</span>
+            <span class="chip">سباكة</span>
+            <span class="chip">كهرباء</span>
+            <span class="tag">#سريع</span>
+            <span class="tag">#مضمون</span>
+          </div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-title">Service / Offer Cards</div>
+          <div class="row" style="align-items: stretch">
+            <div class="pcard">
+              <div class="pcard-img"><span class="pcard-fav">♡</span></div>
+              <div class="pcard-body">
+                <h4>تنظيف عميق للمنزل</h4>
+                <div class="sub">فريق النظافة المحترف</div>
+                <div class="pcard-foot">
+                  <span class="stars">★ 4.8 (212)</span
+                  ><span class="price">18.500 د.ك</span>
+                </div>
+              </div>
+            </div>
+            <div class="pcard">
+              <div
+                class="pcard-img"
+                style="background: linear-gradient(135deg, #181e2a, #3c7dc2)"
+              >
+                <span
+                  class="badge badge-danger"
+                  style="
+                    position: absolute;
+                    top: 10px;
+                    inset-inline-start: 10px;
+                  "
+                  >خصم 20%</span
+                >
+              </div>
+              <div class="pcard-body">
+                <h4>صيانة مكيفات</h4>
+                <div class="sub">عرض محدود هذا الأسبوع</div>
+                <div class="pcard-foot">
+                  <span class="stars">★ 4.6 (98)</span
+                  ><span class="price">9.000 د.ك</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-title">Provider Row / List Item</div>
+          <div class="provider-row">
+            <div class="avatar">أح</div>
+            <div class="provider-info">
+              <h4>أحمد الفوزان <span class="verified">✓ موثّق</span></h4>
+              <div class="meta">كهربائي · ٦ سنوات خبرة · ★ 4.9</div>
+            </div>
+            <button class="btn btn-primary btn-sm">حجز</button>
+          </div>
+          <div class="provider-row">
+            <div class="avatar" style="background: var(--navy-900)">سا</div>
+            <div class="provider-info">
+              <h4>سارة للتنظيف <span class="verified">✓ موثّق</span></h4>
+              <div class="meta">شركة · ٤٥ حجز هذا الشهر · ★ 4.7</div>
+            </div>
+            <button class="btn btn-secondary btn-sm">عرض</button>
+          </div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-title">Bottom Navigation / Tab Bar</div>
+          <div class="navbar-demo">
+            <div class="navbar-item active">
+              <div class="ic"></div>
+              الرئيسية
+            </div>
+            <div class="navbar-item">
+              <div class="ic"></div>
+              الفئات
+            </div>
+            <div class="navbar-item">
+              <div class="ic"></div>
+              الحجوزات
+            </div>
+            <div class="navbar-item">
+              <div class="ic"></div>
+              الرسائل
+            </div>
+            <div class="navbar-item">
+              <div class="ic"></div>
+              حسابي
+            </div>
+          </div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-title">Dialog · Bottom Sheet · Toast</div>
+          <div
+            class="row"
+            style="align-items: flex-start; gap: 24px; flex-wrap: wrap"
+          >
+            <div class="modal-demo">
+              <h4>إلغاء الحجز؟</h4>
+              <p>سيتم استرداد المبلغ خلال ٣–٥ أيام عمل حسب سياسة الإلغاء.</p>
+              <div class="row">
+                <button class="btn btn-danger btn-sm">تأكيد الإلغاء</button
+                ><button class="btn btn-secondary btn-sm">تراجع</button>
+              </div>
+            </div>
+            <div class="sheet-demo">
+              <div class="sheet-handle"></div>
+              <h4>اختر وقت الزيارة</h4>
+              <p>الأوقات المتاحة اليوم لدى مزود الخدمة</p>
+              <div class="row">
+                <span class="chip active">10:00 ص</span
+                ><span class="chip">1:00 م</span
+                ><span class="chip">4:30 م</span>
+              </div>
+            </div>
+            <div class="toast">
+              <span class="toast-icon">✓</span> تم تأكيد حجزك بنجاح
+            </div>
+          </div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-title">Empty State · Loading Skeleton</div>
+          <div class="grid-2">
+            <div class="empty-state">
+              <div class="ic">📭</div>
+              <h4>لا توجد حجوزات بعد</h4>
+              <p>عندما تحجز أول خدمة، ستظهر هنا</p>
+              <button class="btn btn-primary btn-sm">تصفح الخدمات</button>
+            </div>
+            <div>
+              <div
+                class="skeleton"
+                style="height: 16px; width: 70%; margin-bottom: 10px"
+              ></div>
+              <div
+                class="skeleton"
+                style="height: 16px; width: 45%; margin-bottom: 18px"
+              ></div>
+              <div
+                class="skeleton"
+                style="
+                  height: 90px;
+                  width: 100%;
+                  margin-bottom: 10px;
+                  border-radius: 14px;
+                "
+              ></div>
+              <div
+                class="skeleton"
+                style="height: 90px; width: 100%; border-radius: 14px"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-title">Dashboard Stat Cards</div>
+          <div class="grid-4">
+            <div class="stat-card">
+              <div class="label">إجمالي الحجوزات</div>
+              <div class="val">128</div>
+              <div class="delta">▲ 12% هذا الشهر</div>
+            </div>
+            <div class="stat-card">
+              <div class="label">الإيرادات</div>
+              <div class="val">2,140.750</div>
+              <div class="delta">▲ 8%</div>
+            </div>
+            <div class="stat-card">
+              <div class="label">متوسط التقييم</div>
+              <div class="val">4.8</div>
+              <div class="delta" style="color: var(--text-tertiary)">
+                — ثابت
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="label">معدل القبول</div>
+              <div class="val">96%</div>
+              <div class="delta">▲ 3%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="patterns">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow" data-lang="ar">التطبيق العملي</div>
+          <div class="section-eyebrow" data-lang="en">APPLIED</div>
+          <h2 data-lang="ar">الشاشات الكاملة في ملف منفصل</h2>
+          <h2 data-lang="en">Full screens live in a companion file</h2>
+          <p data-lang="ar">
+            هذا الملف هو مرجع النظام. الشاشات الفعلية لتطبيق الجوال والويب —
+            الرئيسية، ملف المزود، الحجز، لوحتا العميل والمزود، والوضع الليلي —
+            مبنية في ملف "Boosta — App Screens" التالي، وكلها تستخدم هذه
+            القياسات والمكوّنات بدون أي انحراف.
+          </p>
+          <p data-lang="en">
+            This file is the reference system. The actual mobile and web screens
+            — Home, Provider Profile, Booking, both dashboards, dark mode — are
+            built in the companion "Boosta — App Screens" file, all consuming
+            these exact tokens and components.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Boosta Design System · v1.0 ·
+      <span data-lang="ar">مشتق من الشعار الرسمي، بدون تعديل عليه</span
+      ><span data-lang="en">Derived from the official logo, unaltered</span>
+    </footer>
+
+    <script>
+      const html = document.documentElement;
+      document.getElementById("themeBtn").onclick = function () {
+        const dark = html.getAttribute("data-theme") === "dark";
+        html.setAttribute("data-theme", dark ? "light" : "dark");
+        this.textContent = dark ? "🌙 Dark" : "☀️ Light";
+      };
+      document.getElementById("langBtn").onclick = function () {
+        const isRtl = html.getAttribute("dir") === "rtl";
+        html.setAttribute("dir", isRtl ? "ltr" : "rtl");
+        html.setAttribute("lang", isRtl ? "en" : "ar");
+        this.textContent = isRtl ? "AR" : "EN";
+      };
+    </script>
+  </body>
+</html>
