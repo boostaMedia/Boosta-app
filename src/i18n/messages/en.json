@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "title": "Boosta",
+    "description": "Boosta is a multi-vendor service marketplace for Kuwait and the GCC."
+  },
+  "common": {
+    "appName": "Boosta",
+    "loading": "Loading…",
+    "toggleTheme": "Toggle theme",
+    "switchLanguage": "Switch language"
+  },
+  "home": {
+    "eyebrow": "Phase 1 · Foundation",
+    "title": "The service marketplace for Kuwait & the GCC",
+    "subtitle": "Connect with trusted providers, request quotes, and get things done. Built mobile-first, Arabic-first, and production-ready.",
+    "ctaPrimary": "Get started",
+    "ctaSecondary": "Explore services",
+    "features": {
+      "rtl": {
+        "title": "Arabic-first & RTL",
+        "description": "Native right-to-left layout with full English support."
+      },
+      "secure": {
+        "title": "Secure by default",
+        "description": "Type-safe, validated, and authorized at every layer."
+      },
+      "scalable": {
+        "title": "Built to scale",
+        "description": "Enterprise architecture designed for millions of users."
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "backHome": "Back to home"
+  }
+}
