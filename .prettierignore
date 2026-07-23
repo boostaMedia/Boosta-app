@@ -1,0 +1,14 @@
+# Build output & dependencies
+.next/
+out/
+build/
+node_modules/
+coverage/
+
+# Generated / lockfiles
+package-lock.json
+next-env.d.ts
+
+# Assets
+public/
+*.ico
