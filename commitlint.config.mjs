@@ -22,7 +22,8 @@ const config = {
         "revert",
       ],
     ],
-    "scope-case": [2, "always", "kebab-case"],
+    // lower-case allows conventional scopes like `i18n`, `ui`, and `phase-01`.
+    "scope-case": [2, "always", "lower-case"],
     "subject-case": [2, "never", ["upper-case", "pascal-case", "start-case"]],
   },
 };
