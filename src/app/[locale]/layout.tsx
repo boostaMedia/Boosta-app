@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cairo, Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Plus_Jakarta_Sans, Tajawal } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -10,14 +10,19 @@ import { localeDirection, routing, type Locale } from "@/i18n/routing";
 
 import "../globals.css";
 
-const geistSans = Geist({ variable: "--font-sans", subsets: ["latin"] });
+// Brand fonts: Plus Jakarta Sans (Latin/display), Tajawal (Arabic).
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-sans",
+  subsets: ["latin"],
+});
 const geistMono = Geist_Mono({ variable: "--font-mono", subsets: ["latin"] });
-const cairo = Cairo({
+const tajawal = Tajawal({
   variable: "--font-arabic",
   subsets: ["arabic", "latin"],
+  weight: ["400", "500", "700"],
 });
 
-const fontVariables = `${geistSans.variable} ${geistMono.variable} ${cairo.variable}`;
+const fontVariables = `${jakarta.variable} ${geistMono.variable} ${tajawal.variable}`;
 
 /** Pre-render a static route for every supported locale. */
 export function generateStaticParams() {
