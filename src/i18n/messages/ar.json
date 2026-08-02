@@ -62,5 +62,37 @@
       "otp_verify_failed": "الرمز غير صحيح أو منتهي الصلاحية. يرجى المحاولة مرة أخرى.",
       "generic": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
     }
+  },
+  "customerHome": {
+    "deliverTo": "التوصيل إلى",
+    "location": "حولي، الكويت",
+    "searchPlaceholder": "ابحث عن خدمة أو مزوّد",
+    "promoTitle": "خصم ٢٠٪ على أول حجز",
+    "promoSubtitle": "استخدم الكود BOOSTA20",
+    "categories": "الفئات",
+    "seeAll": "الكل",
+    "topRated": "الأعلى تقييمًا بالقرب منك",
+    "book": "احجز",
+    "cat": {
+      "all": "الكل",
+      "cleaning": "تنظيف",
+      "plumbing": "سباكة",
+      "electrical": "كهرباء",
+      "ac": "تكييف",
+      "painting": "دهان"
+    },
+    "svc": {
+      "deepClean": "تنظيف عميق",
+      "acMaintenance": "صيانة مكيف",
+      "deepCleanProvider": "شركة سارة للتنظيف",
+      "acProvider": "أحمد للخدمات المنزلية"
+    },
+    "nav": {
+      "home": "الرئيسية",
+      "categories": "الفئات",
+      "bookings": "الحجوزات",
+      "messages": "الرسائل",
+      "account": "حسابي"
+    }
   }
 }

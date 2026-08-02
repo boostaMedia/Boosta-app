@@ -62,5 +62,37 @@
       "otp_verify_failed": "That code is invalid or expired. Please try again.",
       "generic": "Something went wrong. Please try again."
     }
+  },
+  "customerHome": {
+    "deliverTo": "Delivering to",
+    "location": "Hawalli, Kuwait",
+    "searchPlaceholder": "Search for a service or provider",
+    "promoTitle": "20% off your first booking",
+    "promoSubtitle": "Use code BOOSTA20",
+    "categories": "Categories",
+    "seeAll": "See all",
+    "topRated": "Top rated near you",
+    "book": "Book",
+    "cat": {
+      "all": "All",
+      "cleaning": "Cleaning",
+      "plumbing": "Plumbing",
+      "electrical": "Electrical",
+      "ac": "AC",
+      "painting": "Painting"
+    },
+    "svc": {
+      "deepClean": "Deep Cleaning",
+      "acMaintenance": "AC Maintenance",
+      "deepCleanProvider": "Sara Cleaning Co.",
+      "acProvider": "Ahmad Home Services"
+    },
+    "nav": {
+      "home": "Home",
+      "categories": "Categories",
+      "bookings": "Bookings",
+      "messages": "Messages",
+      "account": "Account"
+    }
   }
 }
