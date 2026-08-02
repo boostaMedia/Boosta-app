@@ -34,5 +34,33 @@
     "title": "Page not found",
     "description": "The page you are looking for does not exist or has been moved.",
     "backHome": "Back to home"
+  },
+  "auth": {
+    "title": "Sign in to Boosta",
+    "subtitle": "Enter your email or phone and we'll send you a one-time code.",
+    "emailTab": "Email",
+    "phoneTab": "Phone",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "you@example.com",
+    "phoneLabel": "Phone number",
+    "phonePlaceholder": "+965 XXXX XXXX",
+    "sendCode": "Send code",
+    "otpLabel": "Verification code",
+    "otpPlaceholder": "6-digit code",
+    "verify": "Verify and continue",
+    "resend": "Resend code",
+    "changeEmail": "Use a different email",
+    "changePhone": "Use a different number",
+    "sentToEmail": "We sent a 6-digit code to {contact}.",
+    "sentToPhone": "We sent a 6-digit code to {contact}.",
+    "signOut": "Sign out",
+    "errors": {
+      "invalid_email": "Please enter a valid email address.",
+      "invalid_phone": "Please enter a valid phone number in international format.",
+      "invalid_otp": "Please enter the 6-digit code.",
+      "otp_request_failed": "Could not send the code. Please try again.",
+      "otp_verify_failed": "That code is invalid or expired. Please try again.",
+      "generic": "Something went wrong. Please try again."
+    }
   }
 }
