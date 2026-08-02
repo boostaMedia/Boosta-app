@@ -19,4 +19,5 @@ export {
   requireProvider,
   requireCustomer,
 } from "./guards";
+export { requireApiUser, requireApiRole } from "./api-guards";
 export type { AppUser, AuthUser, AuthActionResult } from "./types";
