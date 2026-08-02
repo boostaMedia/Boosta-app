@@ -60,6 +60,29 @@ Route handler (src/app/api/<module>/route.ts)
 Files: `src/features/categories/{schemas,types,repository,service,index}.ts`
 with `service.test.ts`, and routes under `src/app/api/categories`.
 
+## Provider-owned modules: Providers & Services
+
+These demonstrate **owner-based** authorization (vs. Categories' admin-only).
+Ownership is enforced by RLS — a write to a row the caller does not own resolves
+to a 404 — plus resolving the caller's provider id before create.
+
+| Method & path                     | Auth     | Description                                             |
+| --------------------------------- | -------- | ------------------------------------------------------- |
+| `GET /api/providers`              | public   | List providers (`?search&cityId&featured&status`).      |
+| `POST /api/providers`             | user     | Create the caller's own provider profile.               |
+| `GET /api/providers/:id`          | public   | Fetch a provider.                                       |
+| `PATCH /api/providers/:id`        | owner    | Edit own profile (never status/featured/commission).    |
+| `DELETE /api/providers/:id`       | owner    | Soft-delete.                                            |
+| `PATCH /api/providers/:id/status` | admin    | Moderate status / featured / commission.                |
+| `GET /api/services`               | public   | List services (`?categoryId&providerId&status&search`). |
+| `POST /api/services`              | provider | Create a service owned by the caller's provider.        |
+| `GET /api/services/:id`           | public   | Fetch a service.                                        |
+| `PATCH /api/services/:id`         | owner    | Edit own service.                                       |
+| `DELETE /api/services/:id`        | owner    | Soft-delete.                                            |
+
+Owner vs. admin field separation is enforced in the providers service by
+distinct `updateOwner` / `updateAdmin` methods.
+
 ## Adding a module
 
 1. `schemas.ts` — row schema + create/update/list Zod schemas.
@@ -72,6 +95,7 @@ with `service.test.ts`, and routes under `src/app/api/categories`.
 
 ## Roadmap
 
-Modules follow the roadmap: users, providers, **categories** ✅, services,
-offers, quotes, provider-quotes, orders, reviews, messages, notifications,
-payments, subscriptions, analytics, settings. Each reuses the pattern above.
+Modules follow the roadmap: users, **providers** ✅, **categories** ✅,
+**services** ✅, offers, quotes, provider-quotes, orders, reviews, messages,
+notifications, payments, subscriptions, analytics, settings. Each reuses the
+pattern above.
