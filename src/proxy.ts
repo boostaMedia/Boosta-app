@@ -1,13 +1,22 @@
 import createMiddleware from "next-intl/middleware";
+import type { NextRequest } from "next/server";
 
 import { routing } from "@/i18n/routing";
+import { refreshSession } from "@/lib/supabase/middleware";
 
 /**
- * Locale negotiation + redirects for every non-static, non-API request.
- *
- * Uses the Next.js `proxy` file convention (the successor to `middleware`).
+ * Request proxy (successor to the `middleware` convention). Runs on every
+ * non-static, non-API request and does two things in order:
+ *   1. Locale negotiation + redirects (next-intl).
+ *   2. Supabase auth session refresh, writing rotated cookies onto the response.
  */
-export default createMiddleware(routing);
+const handleI18nRouting = createMiddleware(routing);
+
+export default async function proxy(request: NextRequest) {
+  const response = handleI18nRouting(request);
+  await refreshSession(request, response);
+  return response;
+}
 
 export const config = {
   // Match all pathnames except for:
