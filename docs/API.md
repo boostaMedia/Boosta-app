@@ -95,11 +95,17 @@ distinct `updateOwner` / `updateAdmin` methods.
 
 ## Roadmap
 
-Modules follow the roadmap: **users** ✅, **providers** ✅, **categories** ✅,
-**services** ✅, **offers** ✅, **quotes** ✅, **provider-quotes** ✅,
-**orders** ✅, **reviews** ✅, **messages** ✅, **notifications** ✅, payments,
-subscriptions, **analytics** ✅, **settings** ✅. Only payments and
-subscriptions remain. Each reuses the pattern above.
+All roadmap modules are implemented: **users** ✅, **providers** ✅,
+**categories** ✅, **services** ✅, **offers** ✅, **quotes** ✅,
+**provider-quotes** ✅, **orders** ✅, **reviews** ✅, **messages** ✅,
+**notifications** ✅, **payments** ✅, **subscriptions** ✅, **analytics** ✅,
+**settings** ✅. Each follows the pattern above.
+
+Payments are read-only through the API (records are created server-side by the
+gateway/webhook flow in a later phase). Subscriptions include a public plan
+catalog — providers can subscribe (period computed from the plan's billing
+interval, e.g. the yearly **Annual** plan at 250 KWD) and manage auto-renew /
+cancellation.
 
 The **quote system** spans two modules: customers create quote requests
 (`/api/quotes`, RLS shows providers the open ones), and providers bid on them
