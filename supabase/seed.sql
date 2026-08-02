@@ -99,7 +99,13 @@ values
   ('pro', 'Pro', 'احترافي', 'For growing businesses.', 'للأعمال المتنامية.',
    9.900, 'monthly', '["Up to 25 services", "Featured listings", "Priority support"]'::jsonb, 25, 10, 2),
   ('elite', 'Elite', 'النخبة', 'Maximum reach and tools.', 'أقصى انتشار وأدوات.',
-   24.900, 'monthly', '["Unlimited services", "Top placement", "Analytics", "Dedicated support"]'::jsonb, null, null, 3)
+   24.900, 'monthly', '["Unlimited services", "Top placement", "Analytics", "Dedicated support"]'::jsonb, null, null, 3),
+  ('annual', 'Annual', 'سنوي',
+   'One year of Elite features for service providers — best value.',
+   'سنة كاملة من مزايا النخبة لمزوّدي الخدمات — أفضل قيمة.',
+   250.000, 'yearly',
+   '["Everything in Elite", "12 months", "Best value", "Priority onboarding"]'::jsonb,
+   null, null, 4)
 on conflict (slug) do nothing;
 
 -- --------------------------------------------------------------------------
