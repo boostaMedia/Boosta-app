@@ -96,6 +96,10 @@ distinct `updateOwner` / `updateAdmin` methods.
 ## Roadmap
 
 Modules follow the roadmap: users, **providers** ✅, **categories** ✅,
-**services** ✅, offers, quotes, provider-quotes, orders, reviews, messages,
-notifications, payments, subscriptions, analytics, settings. Each reuses the
-pattern above.
+**services** ✅, **offers** ✅, quotes, provider-quotes, orders,
+**reviews** ✅, messages, notifications, payments, subscriptions, analytics,
+settings. Each reuses the pattern above.
+
+Reviews additionally demonstrate a **two-actor** pattern: the customer owns the
+review body (`PATCH /api/reviews/:id`) while the reviewed provider may only
+append a reply (`POST /api/reviews/:id/reply`).
