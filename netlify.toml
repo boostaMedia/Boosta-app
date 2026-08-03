@@ -3,9 +3,14 @@
 [build]
   command = "npm run build"
 
+[build.environment]
+  # Netlify build images may not ship Node 24 (from .nvmrc); pin a supported LTS.
+  NODE_VERSION = "22"
+
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Node version comes from .nvmrc. Supabase env vars (NEXT_PUBLIC_SUPABASE_URL,
-# NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY) must be set in the
-# Netlify site settings → Environment variables.
+# Supabase env vars (NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY,
+# SUPABASE_SERVICE_ROLE_KEY) must be set in Netlify → Site settings →
+# Environment variables. They are optional at build time, so a first deploy
+# succeeds without them; set them to enable live auth + data.
