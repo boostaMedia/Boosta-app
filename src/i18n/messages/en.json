@@ -135,5 +135,26 @@
     "services": "Services",
     "bookNow": "Book now",
     "startingFrom": "From"
+  },
+  "bookingScreen": {
+    "title": "Confirm booking",
+    "dateTime": "Date & time",
+    "today": "Today",
+    "address": "Address",
+    "addressValue": "Office — Hawalli, Tunis St.",
+    "change": "Change",
+    "invoice": "Invoice summary",
+    "servicePrice": "Service price",
+    "platformFee": "Platform fee",
+    "total": "Total",
+    "confirmPay": "Confirm & pay"
+  },
+  "confirmScreen": {
+    "title": "Booking confirmed",
+    "subtitle": "Pixel Studio will confirm your booking shortly.",
+    "bookingNo": "Booking number",
+    "amount": "Amount",
+    "track": "Track booking",
+    "backHome": "Back to home"
   }
 }

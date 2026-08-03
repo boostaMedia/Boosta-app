@@ -135,5 +135,26 @@
     "services": "الخدمات",
     "bookNow": "احجز الآن",
     "startingFrom": "من"
+  },
+  "bookingScreen": {
+    "title": "تأكيد الحجز",
+    "dateTime": "التاريخ والوقت",
+    "today": "اليوم",
+    "address": "العنوان",
+    "addressValue": "المكتب — حولي، شارع تونس",
+    "change": "تغيير",
+    "invoice": "ملخص الفاتورة",
+    "servicePrice": "سعر الخدمة",
+    "platformFee": "رسوم المنصة",
+    "total": "الإجمالي",
+    "confirmPay": "تأكيد ودفع"
+  },
+  "confirmScreen": {
+    "title": "تم تأكيد حجزك",
+    "subtitle": "بيكسل ستوديو سيؤكد حجزك قريبًا.",
+    "bookingNo": "رقم الحجز",
+    "amount": "المبلغ",
+    "track": "تتبع الحجز",
+    "backHome": "العودة للرئيسية"
   }
 }
