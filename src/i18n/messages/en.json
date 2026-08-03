@@ -188,5 +188,25 @@
       "help": "Help & support",
       "signOut": "Sign out"
     }
+  },
+  "dashboardScreen": {
+    "welcome": "Welcome back",
+    "studio": "Pixel Studio",
+    "online": "Online",
+    "stats": {
+      "todayBookings": "Today's bookings",
+      "revenue": "Revenue",
+      "rating": "Rating",
+      "acceptance": "Acceptance"
+    },
+    "newRequests": "New requests",
+    "accept": "Accept",
+    "nav": {
+      "dashboard": "Dashboard",
+      "orders": "Orders",
+      "wallet": "Wallet",
+      "messages": "Messages",
+      "account": "Account"
+    }
   }
 }

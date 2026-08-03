@@ -188,5 +188,25 @@
       "help": "المساعدة والدعم",
       "signOut": "تسجيل الخروج"
     }
+  },
+  "dashboardScreen": {
+    "welcome": "أهلًا بعودتك",
+    "studio": "بيكسل ستوديو",
+    "online": "متصل",
+    "stats": {
+      "todayBookings": "حجوزات اليوم",
+      "revenue": "الإيرادات",
+      "rating": "التقييم",
+      "acceptance": "معدل القبول"
+    },
+    "newRequests": "طلبات جديدة",
+    "accept": "قبول",
+    "nav": {
+      "dashboard": "لوحتي",
+      "orders": "الطلبات",
+      "wallet": "المحفظة",
+      "messages": "الرسائل",
+      "account": "حسابي"
+    }
   }
 }
