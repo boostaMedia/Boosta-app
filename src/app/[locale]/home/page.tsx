@@ -1,8 +1,17 @@
-import { Bell, ChevronDown, MapPin, Search, Star } from "lucide-react";
+import {
+  Bell,
+  Camera,
+  ChevronDown,
+  MapPin,
+  PenTool,
+  Search,
+  Star,
+} from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 
 import { BottomNav } from "@/components/app/bottom-nav";
+import { CATEGORY_ITEMS } from "@/config/categories";
 
 export default async function CustomerHomePage({
   params,
@@ -14,36 +23,20 @@ export default async function CustomerHomePage({
   return <CustomerHome />;
 }
 
-// Category icons are placeholders — swap for brand imagery later.
-const CATEGORIES = [
-  { key: "content", emoji: "✍️" },
-  { key: "photoVideo", emoji: "📸" },
-  { key: "aiVideo", emoji: "🤖" },
-  { key: "marketing", emoji: "📣" },
-  { key: "adPublishing", emoji: "📺" },
-  { key: "appsWeb", emoji: "💻" },
-  { key: "consulting", emoji: "🎓" },
-  { key: "jobs", emoji: "💼" },
-  { key: "management", emoji: "👥" },
-  { key: "legal", emoji: "⚖️" },
-  { key: "licensing", emoji: "📜" },
-  { key: "accounting", emoji: "📊" },
-] as const;
-
 const SERVICES = [
   {
     key: "s1",
     provider: "s1Provider",
     rating: "4.8",
     price: "45.000",
-    emoji: "✍️",
+    Icon: PenTool,
   },
   {
     key: "s2",
     provider: "s2Provider",
     rating: "4.6",
     price: "60.000",
-    emoji: "📸",
+    Icon: Camera,
   },
 ] as const;
 
@@ -114,16 +107,18 @@ function CustomerHome() {
             </button>
           </div>
           <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1">
-            {CATEGORIES.map(({ key, emoji }) => (
+            {CATEGORY_ITEMS.map(({ key, Icon }) => (
               <button
                 key={key}
                 type="button"
-                className="flex shrink-0 flex-col items-center gap-1.5"
+                className="flex w-16 shrink-0 flex-col items-center gap-1.5"
               >
-                <span className="bg-card border-border grid size-16 place-items-center rounded-2xl border text-2xl shadow-sm">
-                  {emoji}
+                <span className="bg-brand-gradient grid size-16 place-items-center rounded-2xl text-white shadow-sm">
+                  <Icon className="size-7" aria-hidden />
                 </span>
-                <span className="text-xs font-medium">{t(`cat.${key}`)}</span>
+                <span className="w-full truncate text-center text-xs font-medium">
+                  {t(`cat.${key}`)}
+                </span>
               </button>
             ))}
           </div>
@@ -138,13 +133,13 @@ function CustomerHome() {
             </button>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            {SERVICES.map(({ key, provider, rating, price, emoji }) => (
+            {SERVICES.map(({ key, provider, rating, price, Icon }) => (
               <article
                 key={key}
                 className="bg-card border-border overflow-hidden rounded-2xl border shadow-sm"
               >
-                <div className="bg-brand-gradient grid h-24 place-items-center text-4xl">
-                  <span aria-hidden>{emoji}</span>
+                <div className="bg-brand-gradient grid h-24 place-items-center text-white">
+                  <Icon className="size-10" aria-hidden />
                 </div>
                 <div className="space-y-1 p-3">
                   <h3 className="truncate text-sm font-bold">

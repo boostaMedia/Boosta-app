@@ -105,16 +105,13 @@ function Home() {
             <p className="text-muted-foreground">{t("servicesSubtitle")}</p>
           </div>
           <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {CATEGORY_ITEMS.map(({ key, emoji }) => (
+            {CATEGORY_ITEMS.map(({ key, Icon }) => (
               <li
                 key={key}
                 className="bg-card hover:border-brand/40 flex items-center gap-3 rounded-xl border p-4 shadow-sm transition-colors"
               >
-                <span
-                  className="bg-accent grid size-10 shrink-0 place-items-center rounded-lg text-xl"
-                  aria-hidden
-                >
-                  {emoji}
+                <span className="bg-brand-gradient grid size-10 shrink-0 place-items-center rounded-lg text-white">
+                  <Icon className="size-5" aria-hidden />
                 </span>
                 <span className="text-sm font-semibold">{tCat(key)}</span>
               </li>

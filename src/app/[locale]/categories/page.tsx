@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 
 import { BottomNav } from "@/components/app/bottom-nav";
+import { CATEGORY_ICONS } from "@/config/categories";
 
 export default async function CategoriesPage({
   params,
@@ -18,18 +19,18 @@ const FILTERS = ["all", "home", "cars", "beauty"] as const;
 
 // Counts are placeholder sample data.
 const CATEGORIES = [
-  { key: "content", emoji: "✍️", count: 86 },
-  { key: "photoVideo", emoji: "📸", count: 142 },
-  { key: "aiVideo", emoji: "🤖", count: 34 },
-  { key: "marketing", emoji: "📣", count: 97 },
-  { key: "adPublishing", emoji: "📺", count: 58 },
-  { key: "appsWeb", emoji: "💻", count: 73 },
-  { key: "consulting", emoji: "🎓", count: 41 },
-  { key: "jobs", emoji: "💼", count: 120 },
-  { key: "management", emoji: "👥", count: 29 },
-  { key: "legal", emoji: "⚖️", count: 22 },
-  { key: "licensing", emoji: "📜", count: 18 },
-  { key: "accounting", emoji: "📊", count: 45 },
+  { key: "content", count: 86 },
+  { key: "photoVideo", count: 142 },
+  { key: "aiVideo", count: 34 },
+  { key: "marketing", count: 97 },
+  { key: "adPublishing", count: 58 },
+  { key: "appsWeb", count: 73 },
+  { key: "consulting", count: 41 },
+  { key: "jobs", count: 120 },
+  { key: "management", count: 29 },
+  { key: "legal", count: 22 },
+  { key: "licensing", count: 18 },
+  { key: "accounting", count: 45 },
 ] as const;
 
 function Categories() {
@@ -58,27 +59,30 @@ function Categories() {
       </header>
 
       <main className="flex-1 space-y-3 px-4 pt-3 pb-6">
-        {CATEGORIES.map(({ key, emoji, count }) => (
-          <button
-            key={key}
-            type="button"
-            className="bg-card border-border hover:border-brand/40 flex w-full items-center gap-3 rounded-2xl border p-3 text-start shadow-sm transition-colors"
-          >
-            <span className="bg-accent grid size-12 shrink-0 place-items-center rounded-xl text-2xl">
-              {emoji}
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="block truncate font-bold">{tCat(key)}</span>
-              <span className="text-muted-foreground block text-xs">
-                {t("providers", { count })}
+        {CATEGORIES.map(({ key, count }) => {
+          const Icon = CATEGORY_ICONS[key];
+          return (
+            <button
+              key={key}
+              type="button"
+              className="bg-card border-border hover:border-brand/40 flex w-full items-center gap-3 rounded-2xl border p-3 text-start shadow-sm transition-colors"
+            >
+              <span className="bg-brand-gradient grid size-12 shrink-0 place-items-center rounded-xl text-white">
+                <Icon className="size-6" aria-hidden />
               </span>
-            </span>
-            <ChevronRight
-              className="text-muted-foreground size-5 rtl:rotate-180"
-              aria-hidden
-            />
-          </button>
-        ))}
+              <span className="min-w-0 flex-1">
+                <span className="block truncate font-bold">{tCat(key)}</span>
+                <span className="text-muted-foreground block text-xs">
+                  {t("providers", { count })}
+                </span>
+              </span>
+              <ChevronRight
+                className="text-muted-foreground size-5 rtl:rotate-180"
+                aria-hidden
+              />
+            </button>
+          );
+        })}
       </main>
 
       <BottomNav active="categories" />
