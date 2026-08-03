@@ -79,7 +79,8 @@
       "plumbing": "Plumbing",
       "electrical": "Electrical",
       "ac": "AC",
-      "painting": "Painting"
+      "painting": "Painting",
+      "carWash": "Car Wash"
     },
     "svc": {
       "deepClean": "Deep Cleaning",
@@ -94,5 +95,38 @@
       "messages": "Messages",
       "account": "Account"
     }
+  },
+  "categoriesScreen": {
+    "title": "All categories",
+    "providers": "{count} providers",
+    "filters": {
+      "all": "All",
+      "home": "Home",
+      "cars": "Cars",
+      "beauty": "Beauty"
+    }
+  },
+  "searchScreen": {
+    "title": "Home Cleaning",
+    "sortNearest": "Nearest",
+    "sortTopRated": "Top rated",
+    "sortPrice": "Price",
+    "filter": "Filter",
+    "available": "Available",
+    "busy": "Busy",
+    "reviews": "{count} reviews",
+    "km": "{km} km"
+  },
+  "providerScreen": {
+    "verified": "Verified",
+    "reviews": "{count} reviews",
+    "stats": {
+      "bookings": "Bookings",
+      "years": "Years",
+      "acceptance": "Acceptance"
+    },
+    "services": "Services",
+    "bookNow": "Book now",
+    "startingFrom": "From"
   }
 }

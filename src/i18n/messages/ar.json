@@ -79,7 +79,8 @@
       "plumbing": "سباكة",
       "electrical": "كهرباء",
       "ac": "تكييف",
-      "painting": "دهان"
+      "painting": "دهان",
+      "carWash": "غسيل سيارات"
     },
     "svc": {
       "deepClean": "تنظيف عميق",
@@ -94,5 +95,38 @@
       "messages": "الرسائل",
       "account": "حسابي"
     }
+  },
+  "categoriesScreen": {
+    "title": "جميع الفئات",
+    "providers": "{count} مزوّد",
+    "filters": {
+      "all": "الكل",
+      "home": "منزلي",
+      "cars": "سيارات",
+      "beauty": "جمال"
+    }
+  },
+  "searchScreen": {
+    "title": "تنظيف منازل",
+    "sortNearest": "الأقرب",
+    "sortTopRated": "الأعلى تقييمًا",
+    "sortPrice": "السعر",
+    "filter": "تصفية",
+    "available": "متاح",
+    "busy": "مشغول",
+    "reviews": "{count} تقييم",
+    "km": "{km} كم"
+  },
+  "providerScreen": {
+    "verified": "موثّق",
+    "reviews": "{count} تقييم",
+    "stats": {
+      "bookings": "حجز",
+      "years": "سنوات",
+      "acceptance": "القبول"
+    },
+    "services": "الخدمات",
+    "bookNow": "احجز الآن",
+    "startingFrom": "من"
   }
 }
