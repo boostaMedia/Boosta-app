@@ -14,28 +14,36 @@ export default async function CustomerHomePage({
   return <CustomerHome />;
 }
 
+// Category icons are placeholders — swap for brand imagery later.
 const CATEGORIES = [
-  { key: "cleaning", emoji: "🧹" },
-  { key: "plumbing", emoji: "🔧" },
-  { key: "electrical", emoji: "💡" },
-  { key: "ac", emoji: "❄️" },
-  { key: "painting", emoji: "🎨" },
+  { key: "content", emoji: "✍️" },
+  { key: "photoVideo", emoji: "📸" },
+  { key: "aiVideo", emoji: "🤖" },
+  { key: "marketing", emoji: "📣" },
+  { key: "adPublishing", emoji: "📺" },
+  { key: "appsWeb", emoji: "💻" },
+  { key: "consulting", emoji: "🎓" },
+  { key: "jobs", emoji: "💼" },
+  { key: "management", emoji: "👥" },
+  { key: "legal", emoji: "⚖️" },
+  { key: "licensing", emoji: "📜" },
+  { key: "accounting", emoji: "📊" },
 ] as const;
 
 const SERVICES = [
   {
-    key: "deepClean",
-    provider: "deepCleanProvider",
+    key: "s1",
+    provider: "s1Provider",
     rating: "4.8",
-    price: "18.500",
-    emoji: "🧹",
+    price: "45.000",
+    emoji: "✍️",
   },
   {
-    key: "acMaintenance",
-    provider: "acProvider",
+    key: "s2",
+    provider: "s2Provider",
     rating: "4.6",
-    price: "9.000",
-    emoji: "❄️",
+    price: "60.000",
+    emoji: "📸",
   },
 ] as const;
 

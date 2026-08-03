@@ -18,21 +18,21 @@ export default async function ProviderProfilePage({
 // Placeholder provider — real data comes from /api/providers/:id + /api/services.
 const DATA = {
   en: {
-    name: "Sara Cleaning Co.",
-    initials: "SA",
+    name: "Pixel Studio",
+    initials: "PX",
     services: [
-      { name: "Deep Cleaning (apartment)", price: "18.500" },
-      { name: "Post-construction Cleaning", price: "28.000" },
-      { name: "Sofa & Carpet Cleaning", price: "12.000" },
+      { name: "Social Media Content Package", price: "45.000" },
+      { name: "Product Photography (session)", price: "60.000" },
+      { name: "Reels & Short Video Editing", price: "35.000" },
     ],
   },
   ar: {
-    name: "شركة سارة للتنظيف",
-    initials: "سا",
+    name: "بيكسل ستوديو",
+    initials: "بك",
     services: [
-      { name: "تنظيف عميق (شقة)", price: "18.500" },
-      { name: "تنظيف بعد التشطيب", price: "28.000" },
-      { name: "تنظيف كنب وسجاد", price: "12.000" },
+      { name: "باقة محتوى سوشيال ميديا", price: "45.000" },
+      { name: "تصوير المنتجات (بالجلسة)", price: "60.000" },
+      { name: "مونتاج ريلز وفيديوهات قصيرة", price: "35.000" },
     ],
   },
 } as const;
@@ -126,7 +126,7 @@ function ProviderProfile() {
         <div className="flex items-center justify-between gap-3">
           <div className="text-sm">
             <span className="text-muted-foreground">{t("startingFrom")} </span>
-            <span className="text-primary font-bold">18.500 {currency}</span>
+            <span className="text-primary font-bold">35.000 {currency}</span>
           </div>
           <Button className="bg-brand-gradient border-0 px-6 text-white shadow-md hover:opacity-90">
             {t("bookNow")}

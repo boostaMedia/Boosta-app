@@ -16,13 +16,20 @@ export default async function CategoriesPage({
 
 const FILTERS = ["all", "home", "cars", "beauty"] as const;
 
+// Counts are placeholder sample data.
 const CATEGORIES = [
-  { key: "cleaning", emoji: "🧹", count: 128 },
-  { key: "plumbing", emoji: "🔧", count: 64 },
-  { key: "electrical", emoji: "💡", count: 51 },
-  { key: "ac", emoji: "❄️", count: 39 },
-  { key: "painting", emoji: "🎨", count: 27 },
-  { key: "carWash", emoji: "🚗", count: 83 },
+  { key: "content", emoji: "✍️", count: 86 },
+  { key: "photoVideo", emoji: "📸", count: 142 },
+  { key: "aiVideo", emoji: "🤖", count: 34 },
+  { key: "marketing", emoji: "📣", count: 97 },
+  { key: "adPublishing", emoji: "📺", count: 58 },
+  { key: "appsWeb", emoji: "💻", count: 73 },
+  { key: "consulting", emoji: "🎓", count: 41 },
+  { key: "jobs", emoji: "💼", count: 120 },
+  { key: "management", emoji: "👥", count: 29 },
+  { key: "legal", emoji: "⚖️", count: 22 },
+  { key: "licensing", emoji: "📜", count: 18 },
+  { key: "accounting", emoji: "📊", count: 45 },
 ] as const;
 
 function Categories() {

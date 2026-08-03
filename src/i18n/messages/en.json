@@ -15,6 +15,8 @@
     "subtitle": "Connect with trusted providers, request quotes, and get things done. Built mobile-first, Arabic-first, and production-ready.",
     "ctaPrimary": "Get started",
     "ctaSecondary": "Explore services",
+    "servicesTitle": "Our services",
+    "servicesSubtitle": "Everything your brand needs — in one place.",
     "features": {
       "rtl": {
         "title": "Arabic-first & RTL",
@@ -74,19 +76,24 @@
     "topRated": "Top rated near you",
     "book": "Book",
     "cat": {
-      "all": "All",
-      "cleaning": "Cleaning",
-      "plumbing": "Plumbing",
-      "electrical": "Electrical",
-      "ac": "AC",
-      "painting": "Painting",
-      "carWash": "Car Wash"
+      "content": "Content Design",
+      "photoVideo": "Photo & Video",
+      "aiVideo": "AI Video",
+      "marketing": "Marketing & Ads",
+      "adPublishing": "Ad Publishing",
+      "appsWeb": "Apps & Websites",
+      "consulting": "Consulting & Training",
+      "jobs": "Job Offers",
+      "management": "Management & Staffing",
+      "legal": "Legal & Contracts",
+      "licensing": "Licensing & Permits",
+      "accounting": "Accounting & Finance"
     },
     "svc": {
-      "deepClean": "Deep Cleaning",
-      "acMaintenance": "AC Maintenance",
-      "deepCleanProvider": "Sara Cleaning Co.",
-      "acProvider": "Ahmad Home Services"
+      "s1": "Social Media Content",
+      "s2": "Product Photography",
+      "s1Provider": "Pixel Studio",
+      "s2Provider": "Lens House"
     },
     "nav": {
       "home": "Home",
@@ -107,7 +114,7 @@
     }
   },
   "searchScreen": {
-    "title": "Home Cleaning",
+    "title": "Content Design",
     "sortNearest": "Nearest",
     "sortTopRated": "Top rated",
     "sortPrice": "Price",
