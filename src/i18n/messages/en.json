@@ -156,5 +156,37 @@
     "amount": "Amount",
     "track": "Track booking",
     "backHome": "Back to home"
+  },
+  "bookingsScreen": {
+    "title": "My bookings",
+    "tabs": {
+      "upcoming": "Upcoming",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "confirmed": "Confirmed",
+    "awaiting": "Awaiting provider",
+    "today": "Today",
+    "tomorrow": "Tomorrow"
+  },
+  "messagesScreen": {
+    "title": "Messages"
+  },
+  "chatScreen": {
+    "online": "Online now",
+    "placeholder": "Message…"
+  },
+  "accountScreen": {
+    "name": "Reem Al-Otaibi",
+    "phone": "+965 5555 1234",
+    "menu": {
+      "editProfile": "Edit profile",
+      "addresses": "Saved addresses",
+      "payments": "Payment methods",
+      "notifications": "Notifications",
+      "language": "Language",
+      "help": "Help & support",
+      "signOut": "Sign out"
+    }
   }
 }

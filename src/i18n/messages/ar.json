@@ -156,5 +156,37 @@
     "amount": "المبلغ",
     "track": "تتبع الحجز",
     "backHome": "العودة للرئيسية"
+  },
+  "bookingsScreen": {
+    "title": "حجوزاتي",
+    "tabs": {
+      "upcoming": "القادمة",
+      "completed": "مكتملة",
+      "cancelled": "ملغاة"
+    },
+    "confirmed": "مؤكد",
+    "awaiting": "بانتظار المزوّد",
+    "today": "اليوم",
+    "tomorrow": "غدًا"
+  },
+  "messagesScreen": {
+    "title": "الرسائل"
+  },
+  "chatScreen": {
+    "online": "متصل الآن",
+    "placeholder": "رسالة…"
+  },
+  "accountScreen": {
+    "name": "ريم العتيبي",
+    "phone": "+965 5555 1234",
+    "menu": {
+      "editProfile": "تعديل الملف الشخصي",
+      "addresses": "العناوين المحفوظة",
+      "payments": "طرق الدفع",
+      "notifications": "الإشعارات",
+      "language": "اللغة",
+      "help": "المساعدة والدعم",
+      "signOut": "تسجيل الخروج"
+    }
   }
 }
