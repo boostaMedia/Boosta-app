@@ -1,0 +1,11 @@
+# Netlify deployment config for the Boosta web app (Next.js).
+# The official Next.js runtime plugin handles SSR, API routes, and the proxy.
+[build]
+  command = "npm run build"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Node version comes from .nvmrc. Supabase env vars (NEXT_PUBLIC_SUPABASE_URL,
+# NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY) must be set in the
+# Netlify site settings → Environment variables.
