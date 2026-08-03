@@ -43,15 +43,18 @@ on conflict (city_id, name_en) do nothing;
 -- Categories.
 -- --------------------------------------------------------------------------
 insert into public.categories (slug, name_en, name_ar, icon, sort_order) values
-  ('home-services', 'Home Services', 'خدمات منزلية', 'home', 1),
-  ('cleaning', 'Cleaning', 'تنظيف', 'sparkles', 2),
-  ('maintenance', 'Maintenance & Repair', 'صيانة وإصلاح', 'wrench', 3),
-  ('beauty-wellness', 'Beauty & Wellness', 'الجمال والعناية', 'heart', 4),
-  ('events-catering', 'Events & Catering', 'المناسبات والضيافة', 'party-popper', 5),
-  ('automotive', 'Automotive', 'خدمات السيارات', 'car', 6),
-  ('education', 'Education & Tutoring', 'التعليم والدروس', 'graduation-cap', 7),
-  ('business-services', 'Business Services', 'خدمات الأعمال', 'briefcase', 8),
-  ('moving-delivery', 'Moving & Delivery', 'النقل والتوصيل', 'truck', 9)
+  ('content', 'Content Design', 'تصميم المحتوى', 'pen-tool', 1),
+  ('photo-video', 'Photography & Videography', 'التصوير والفيديو', 'camera', 2),
+  ('ai-video', 'AI Video Production', 'فيديوهات الذكاء الاصطناعي', 'sparkles', 3),
+  ('marketing', 'Marketing & Paid Ads', 'التسويق والإعلانات', 'megaphone', 4),
+  ('ad-publishing', 'Ad Publishing', 'النشر الإعلاني', 'monitor', 5),
+  ('apps-websites', 'Apps & Websites', 'تطبيقات ومواقع', 'laptop', 6),
+  ('consulting', 'Consulting & Training', 'الاستشارات والدورات', 'graduation-cap', 7),
+  ('jobs', 'Job Offers', 'عروض الوظائف', 'briefcase', 8),
+  ('management', 'Management & Staffing', 'الإدارة والموظفين', 'users', 9),
+  ('legal', 'Legal & Contracts', 'المحامون والعقود', 'scale', 10),
+  ('licensing', 'Licensing & Permits', 'استخراج التراخيص', 'file-check', 11),
+  ('accounting', 'Accounting & Finance', 'المحاسبة والاستشارات المالية', 'calculator', 12)
 on conflict (slug) do nothing;
 
 -- --------------------------------------------------------------------------
@@ -60,18 +63,18 @@ on conflict (slug) do nothing;
 insert into public.sub_categories (category_id, slug, name_en, name_ar, sort_order)
 select c.id, s.slug, s.name_en, s.name_ar, s.sort_order
 from (values
-  ('cleaning', 'home-deep-cleaning', 'Home Deep Cleaning', 'تنظيف عميق للمنزل', 1),
-  ('cleaning', 'sofa-carpet-cleaning', 'Sofa & Carpet Cleaning', 'تنظيف الكنب والسجاد', 2),
-  ('cleaning', 'ac-cleaning', 'AC Cleaning', 'تنظيف المكيفات', 3),
-  ('maintenance', 'plumbing', 'Plumbing', 'سباكة', 1),
-  ('maintenance', 'electrical', 'Electrical', 'كهرباء', 2),
-  ('maintenance', 'ac-repair', 'AC Repair', 'إصلاح المكيفات', 3),
-  ('beauty-wellness', 'home-salon', 'Home Salon', 'صالون منزلي', 1),
-  ('beauty-wellness', 'spa-massage', 'Spa & Massage', 'سبا ومساج', 2),
-  ('events-catering', 'catering', 'Catering', 'ضيافة', 1),
-  ('events-catering', 'photography', 'Photography', 'تصوير', 2),
-  ('automotive', 'car-wash', 'Car Wash', 'غسيل السيارات', 1),
-  ('education', 'private-tutoring', 'Private Tutoring', 'دروس خصوصية', 1)
+  ('content', 'social-media-content', 'Social Media Content', 'محتوى سوشيال ميديا', 1),
+  ('content', 'graphic-design', 'Graphic Design', 'تصميم جرافيك', 2),
+  ('photo-video', 'product-photography', 'Product Photography', 'تصوير المنتجات', 1),
+  ('photo-video', 'video-production', 'Video Production', 'إنتاج فيديو', 2),
+  ('ai-video', 'ai-reels', 'AI Reels', 'ريلز بالذكاء الاصطناعي', 1),
+  ('marketing', 'paid-ads', 'Paid Ads Management', 'إدارة الإعلانات الممولة', 1),
+  ('marketing', 'seo', 'SEO', 'تحسين محركات البحث', 2),
+  ('ad-publishing', 'influencer-marketing', 'Influencer Marketing', 'تسويق عبر المؤثرين', 1),
+  ('apps-websites', 'website-development', 'Website Development', 'تطوير المواقع', 1),
+  ('apps-websites', 'mobile-apps', 'Mobile Apps', 'تطبيقات الجوال', 2),
+  ('legal', 'contract-drafting', 'Contract Drafting', 'صياغة العقود', 1),
+  ('accounting', 'bookkeeping', 'Bookkeeping', 'مسك الدفاتر', 1)
 ) as s(category_slug, slug, name_en, name_ar, sort_order)
 join public.categories c on c.slug = s.category_slug
 on conflict (category_id, slug) do nothing;
