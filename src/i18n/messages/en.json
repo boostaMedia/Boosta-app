@@ -208,5 +208,19 @@
       "messages": "Messages",
       "account": "Account"
     }
+  },
+  "splashScreen": {
+    "tagline": "Your services, one tap"
+  },
+  "onboardingScreen": {
+    "skip": "Skip",
+    "next": "Next",
+    "getStarted": "Get started",
+    "s1Title": "Verified providers near you",
+    "s1Sub": "Every provider is identity- and license-verified before joining Boosta.",
+    "s2Title": "All your services in one place",
+    "s2Sub": "From content and video to marketing, legal, and accounting.",
+    "s3Title": "Book securely in seconds",
+    "s3Sub": "Request, compare, and pay — all inside Boosta."
   }
 }
