@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Plus_Jakarta_Sans, Tajawal } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { RegisterServiceWorker } from "@/components/pwa/register-sw";
 import { siteConfig } from "@/config/site";
 import { localeDirection, routing, type Locale } from "@/i18n/routing";
 
@@ -29,6 +30,13 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#2e6bb0" },
+    { media: "(prefers-color-scheme: dark)", color: "#0c1017" },
+  ],
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -42,6 +50,16 @@ export async function generateMetadata({
     title: { default: t("title"), template: `%s · ${t("title")}` },
     description: t("description"),
     applicationName: siteConfig.name,
+    manifest: "/manifest.webmanifest",
+    appleWebApp: {
+      capable: true,
+      title: siteConfig.name,
+      statusBarStyle: "default",
+    },
+    icons: {
+      icon: "/icon-192.png",
+      apple: "/apple-touch-icon.png",
+    },
   };
 }
 
@@ -75,6 +93,7 @@ export default async function LocaleLayout({
         <ThemeProvider>
           <NextIntlClientProvider>{children}</NextIntlClientProvider>
         </ThemeProvider>
+        <RegisterServiceWorker />
       </body>
     </html>
   );
