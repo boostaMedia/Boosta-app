@@ -15,8 +15,6 @@ export default async function CategoriesPage({
   return <Categories />;
 }
 
-const FILTERS = ["all", "home", "cars", "beauty"] as const;
-
 // Counts are placeholder sample data.
 const CATEGORIES = [
   { key: "content", count: 86 },
@@ -38,24 +36,9 @@ function Categories() {
   const tCat = useTranslations("customerHome.cat");
 
   return (
-    <div className="bg-background mx-auto flex min-h-full w-full max-w-md flex-col">
-      <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky top-0 z-10 px-4 pt-4 pb-2 backdrop-blur">
+    <div className="bg-background mx-auto flex min-h-dvh w-full max-w-md flex-col">
+      <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky top-0 z-10 px-4 pt-4 pb-3 backdrop-blur">
         <h1 className="font-heading text-xl font-extrabold">{t("title")}</h1>
-        <div className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 pb-1">
-          {FILTERS.map((f, i) => (
-            <button
-              key={f}
-              type="button"
-              className={
-                i === 0
-                  ? "bg-primary text-primary-foreground shrink-0 rounded-full px-4 py-1.5 text-sm font-semibold"
-                  : "bg-card border-border text-muted-foreground shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium"
-              }
-            >
-              {t(`filters.${f}`)}
-            </button>
-          ))}
-        </div>
       </header>
 
       <main className="flex-1 space-y-3 px-4 pt-3 pb-6">

@@ -38,7 +38,7 @@ function Account() {
   const initial = locale === "ar" ? "ر" : "R";
 
   return (
-    <div className="bg-background mx-auto flex min-h-full w-full max-w-md flex-col">
+    <div className="bg-background mx-auto flex min-h-dvh w-full max-w-md flex-col">
       <header className="px-4 pt-5 pb-2">
         <div className="flex items-center gap-4">
           <div className="bg-brand-gradient grid size-16 place-items-center rounded-2xl text-2xl font-bold text-white shadow-md">

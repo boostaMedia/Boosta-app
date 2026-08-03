@@ -40,7 +40,7 @@ function Dashboard() {
   ] as const;
 
   return (
-    <div className="bg-background mx-auto flex min-h-full w-full max-w-md flex-col">
+    <div className="bg-background mx-auto flex min-h-dvh w-full max-w-md flex-col">
       {/* Header */}
       <header className="bg-brand-gradient rounded-b-3xl px-4 pt-6 pb-6 text-white">
         <div className="flex items-center gap-3">

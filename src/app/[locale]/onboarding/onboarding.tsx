@@ -28,7 +28,7 @@ export function Onboarding() {
   }
 
   return (
-    <div className="bg-background mx-auto flex min-h-full w-full max-w-md flex-col px-6 py-8">
+    <div className="bg-background mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 py-8">
       <div className="flex justify-end">
         <Link
           href="/home"

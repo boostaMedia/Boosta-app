@@ -20,7 +20,7 @@ function Confirmed() {
   const currency = locale === "ar" ? "د.ك" : "KWD";
 
   return (
-    <div className="bg-background mx-auto flex min-h-full w-full max-w-md flex-col px-6 py-10">
+    <div className="bg-background mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 py-10">
       <div className="flex flex-1 flex-col items-center justify-center gap-6 text-center">
         <div className="bg-success/12 grid size-24 place-items-center rounded-full">
           <div className="bg-success grid size-16 place-items-center rounded-full text-white shadow-md">

@@ -105,13 +105,7 @@
   },
   "categoriesScreen": {
     "title": "All categories",
-    "providers": "{count} providers",
-    "filters": {
-      "all": "All",
-      "home": "Home",
-      "cars": "Cars",
-      "beauty": "Beauty"
-    }
+    "providers": "{count} providers"
   },
   "searchScreen": {
     "title": "Content Design",

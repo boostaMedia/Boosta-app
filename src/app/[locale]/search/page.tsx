@@ -84,7 +84,7 @@ function SearchResults() {
   const providers = locale === "ar" ? PROVIDERS_AR : PROVIDERS_EN;
 
   return (
-    <div className="bg-background mx-auto flex min-h-full w-full max-w-md flex-col">
+    <div className="bg-background mx-auto flex min-h-dvh w-full max-w-md flex-col">
       <ScreenHeader title={t("title")} backHref="/categories" />
 
       {/* Sort + filter row */}

@@ -105,13 +105,7 @@
   },
   "categoriesScreen": {
     "title": "جميع الفئات",
-    "providers": "{count} مزوّد",
-    "filters": {
-      "all": "الكل",
-      "home": "منزلي",
-      "cars": "سيارات",
-      "beauty": "جمال"
-    }
+    "providers": "{count} مزوّد"
   },
   "searchScreen": {
     "title": "تصميم المحتوى",

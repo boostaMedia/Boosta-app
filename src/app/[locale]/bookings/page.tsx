@@ -44,7 +44,7 @@ function Bookings() {
     locale === "ar" ? (en === "PX" ? "بك" : "لن") : en;
 
   return (
-    <div className="bg-background mx-auto flex min-h-full w-full max-w-md flex-col">
+    <div className="bg-background mx-auto flex min-h-dvh w-full max-w-md flex-col">
       <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky top-0 z-10 px-4 pt-4 pb-2 backdrop-blur">
         <div className="flex items-center justify-between">
           <h1 className="font-heading text-xl font-extrabold">{t("title")}</h1>

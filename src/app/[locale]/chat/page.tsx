@@ -42,7 +42,7 @@ function Chat() {
   const data = locale === "ar" ? THREAD.ar : THREAD.en;
 
   return (
-    <div className="bg-background mx-auto flex min-h-full w-full max-w-md flex-col">
+    <div className="bg-background mx-auto flex min-h-dvh w-full max-w-md flex-col">
       {/* Header */}
       <header className="bg-background/95 border-border supports-[backdrop-filter]:bg-background/80 sticky top-0 z-10 flex items-center gap-2 border-b px-3 py-2.5 backdrop-blur">
         <Link
