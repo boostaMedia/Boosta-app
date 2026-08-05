@@ -6,6 +6,12 @@
 [build.environment]
   # Netlify build images may not ship Node 24 (from .nvmrc); pin a supported LTS.
   NODE_VERSION = "22"
+  # The Supabase anon key is a NEXT_PUBLIC_* var: Next.js intentionally inlines
+  # it into the client bundle, and it is safe to expose (access is gated by RLS
+  # on the database). Exempt just this key from Netlify's secrets scanner so the
+  # expected inlining doesn't fail the build. The service-role key is NOT listed
+  # here and stays fully protected.
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SUPABASE_ANON_KEY"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
