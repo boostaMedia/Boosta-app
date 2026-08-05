@@ -10,6 +10,7 @@ import {
   Monitor,
   PenTool,
   Scale,
+  Shapes,
   Sparkles,
   Users,
 } from "lucide-react";
@@ -55,3 +56,31 @@ export const CATEGORY_ITEMS = CATEGORY_KEYS.map((key) => ({
   key,
   Icon: CATEGORY_ICONS[key],
 }));
+
+/**
+ * Maps the `icon` slug stored on each `categories` row in the database
+ * (kebab-case, e.g. `"pen-tool"`) to its brand line icon. Keeping this beside
+ * the static config means DB-driven and config-driven screens resolve icons
+ * from a single source of truth.
+ */
+export const CATEGORY_ICON_BY_SLUG: Record<string, LucideIcon> = {
+  "pen-tool": PenTool,
+  camera: Camera,
+  sparkles: Sparkles,
+  megaphone: Megaphone,
+  monitor: Monitor,
+  laptop: Laptop,
+  "graduation-cap": GraduationCap,
+  briefcase: Briefcase,
+  users: Users,
+  scale: Scale,
+  "file-check": FileCheck,
+  calculator: Calculator,
+};
+
+/** Resolve a DB `icon` value to a Lucide component, with a neutral fallback. */
+export function resolveCategoryIcon(
+  icon: string | null | undefined,
+): LucideIcon {
+  return (icon ? CATEGORY_ICON_BY_SLUG[icon] : undefined) ?? Shapes;
+}

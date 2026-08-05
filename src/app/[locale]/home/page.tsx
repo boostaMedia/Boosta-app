@@ -2,16 +2,57 @@ import {
   Bell,
   Camera,
   ChevronDown,
+  type LucideIcon,
   MapPin,
   PenTool,
   Search,
   Star,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { BottomNav } from "@/components/app/bottom-nav";
-import { CATEGORY_ITEMS } from "@/config/categories";
+import { CATEGORY_ITEMS, resolveCategoryIcon } from "@/config/categories";
+import { getCategoriesService } from "@/features/categories";
+import { logger } from "@/lib/logger";
+
+const log = logger.child({ module: "customer-home" });
+
+/** A category ready to render: a localized label and a resolved icon. */
+type HomeCategory = { id: string; name: string; Icon: LucideIcon };
+
+/**
+ * Load the service categories for display. Prefers the live database (so the
+ * grid reflects real, admin-managed categories under RLS); if Supabase is
+ * unreachable or returns nothing, falls back to the localized static config so
+ * the screen always renders.
+ */
+async function loadCategories(locale: string): Promise<HomeCategory[]> {
+  try {
+    const categories = await getCategoriesService();
+    const { items } = await categories.list({
+      page: 1,
+      pageSize: 50,
+      activeOnly: true,
+    });
+    if (items.length > 0) {
+      return items.map((c) => ({
+        id: c.id,
+        name: locale === "ar" ? c.nameAr : c.nameEn,
+        Icon: resolveCategoryIcon(c.icon),
+      }));
+    }
+  } catch (error) {
+    log.warn("categories.load_failed_falling_back_to_static", { error });
+  }
+
+  const t = await getTranslations({ locale, namespace: "customerHome" });
+  return CATEGORY_ITEMS.map(({ key, Icon }) => ({
+    id: key,
+    name: t(`cat.${key}`),
+    Icon,
+  }));
+}
 
 export default async function CustomerHomePage({
   params,
@@ -20,7 +61,8 @@ export default async function CustomerHomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <CustomerHome />;
+  const categories = await loadCategories(locale);
+  return <CustomerHome categories={categories} />;
 }
 
 const SERVICES = [
@@ -40,7 +82,7 @@ const SERVICES = [
   },
 ] as const;
 
-function CustomerHome() {
+function CustomerHome({ categories }: { categories: HomeCategory[] }) {
   const t = useTranslations("customerHome");
   const locale = useLocale();
   const currency = locale === "ar" ? "د.ك" : "KWD";
@@ -107,9 +149,9 @@ function CustomerHome() {
             </button>
           </div>
           <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1">
-            {CATEGORY_ITEMS.map(({ key, Icon }) => (
+            {categories.map(({ id, name, Icon }) => (
               <button
-                key={key}
+                key={id}
                 type="button"
                 className="flex w-16 shrink-0 flex-col items-center gap-1.5"
               >
@@ -117,7 +159,7 @@ function CustomerHome() {
                   <Icon className="size-7" aria-hidden />
                 </span>
                 <span className="w-full truncate text-center text-xs font-medium">
-                  {t(`cat.${key}`)}
+                  {name}
                 </span>
               </button>
             ))}
