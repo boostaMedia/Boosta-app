@@ -113,3 +113,11 @@ on conflict (slug) do nothing;
 insert into public.coupons (code, type, value, min_order_amount, usage_limit, per_user_limit)
 values ('WELCOME10', 'percentage', 10, 5, 1000, 1)
 on conflict (code) do nothing;
+
+-- --------------------------------------------------------------------------
+-- Global commission rate (Deal Room payment requests). Admin-configurable —
+-- see public.commission_rates; this is only the starting default.
+-- --------------------------------------------------------------------------
+insert into public.commission_rates (scope, scope_id, rate_bps)
+values ('global', null, 2000)
+on conflict (scope, scope_id) where active do nothing;
