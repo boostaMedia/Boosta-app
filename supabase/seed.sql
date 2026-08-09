@@ -93,22 +93,18 @@ on conflict (key) do nothing;
 
 -- --------------------------------------------------------------------------
 -- Provider subscription packages.
+-- Single plan: providers pay one annual fee to list on Boosta. Customers
+-- always browse and book for free — there is no customer-facing tier here.
 -- --------------------------------------------------------------------------
 insert into public.provider_packages
   (slug, name_en, name_ar, description_en, description_ar, price, billing_interval, features, max_services, max_offers, sort_order)
 values
-  ('basic', 'Basic', 'أساسي', 'Get started on Boosta.', 'ابدأ على بوستا.',
-   0, 'monthly', '["Up to 5 services", "Basic profile"]'::jsonb, 5, 2, 1),
-  ('pro', 'Pro', 'احترافي', 'For growing businesses.', 'للأعمال المتنامية.',
-   9.900, 'monthly', '["Up to 25 services", "Featured listings", "Priority support"]'::jsonb, 25, 10, 2),
-  ('elite', 'Elite', 'النخبة', 'Maximum reach and tools.', 'أقصى انتشار وأدوات.',
-   24.900, 'monthly', '["Unlimited services", "Top placement", "Analytics", "Dedicated support"]'::jsonb, null, null, 3),
   ('annual', 'Annual', 'سنوي',
-   'One year of Elite features for service providers — best value.',
-   'سنة كاملة من مزايا النخبة لمزوّدي الخدمات — أفضل قيمة.',
-   250.000, 'yearly',
-   '["Everything in Elite", "12 months", "Best value", "Priority onboarding"]'::jsonb,
-   null, null, 4)
+   'One year of full access to sell services on Boosta.',
+   'سنة كاملة من الوصول الكامل لبيع الخدمات على بوستا.',
+   300.000, 'yearly',
+   '["Unlimited services", "Full marketplace visibility", "Priority onboarding"]'::jsonb,
+   null, null, 1)
 on conflict (slug) do nothing;
 
 -- --------------------------------------------------------------------------
