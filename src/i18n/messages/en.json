@@ -74,6 +74,8 @@
     "categories": "Categories",
     "seeAll": "See all",
     "topRated": "Top rated near you",
+    "topRatedEmptyTitle": "New here — services are on their way",
+    "topRatedEmptySubtitle": "Providers are joining Boosta. Check back soon for top-rated services near you.",
     "book": "Book",
     "cat": {
       "content": "Content Design",
@@ -105,7 +107,7 @@
   },
   "categoriesScreen": {
     "title": "All categories",
-    "providers": "{count} providers"
+    "services": "{count} services"
   },
   "searchScreen": {
     "title": "Content Design",

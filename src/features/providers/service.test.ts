@@ -40,6 +40,7 @@ function fakeRepo(
     list: vi.fn().mockResolvedValue({ items: [sample], total: 1 }),
     findById: vi.fn().mockResolvedValue(sample),
     findBySlug: vi.fn().mockResolvedValue(sample),
+    findByIds: vi.fn().mockResolvedValue([sample]),
     create: vi.fn().mockResolvedValue(sample),
     update: vi.fn().mockResolvedValue(sample),
     softDelete: vi.fn().mockResolvedValue(true),
@@ -93,5 +94,13 @@ describe("ProvidersService", () => {
     await expect(
       service.updateAdmin("x", { status: "verified" }),
     ).rejects.toBeInstanceOf(NotFoundError);
+  });
+
+  it("listByIds() dedupes ids before calling the repository", async () => {
+    const findByIds = vi.fn().mockResolvedValue([sample]);
+    const service = createProvidersService(fakeRepo({ findByIds }));
+    const result = await service.listByIds(["p1", "p1", "p2"]);
+    expect(findByIds).toHaveBeenCalledWith(["p1", "p2"]);
+    expect(result).toEqual([sample]);
   });
 });

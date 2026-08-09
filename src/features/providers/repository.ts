@@ -82,6 +82,7 @@ export interface ProvidersRepository {
   ): Promise<{ items: Provider[]; total: number }>;
   findById(id: string): Promise<Provider | null>;
   findBySlug(slug: string): Promise<Provider | null>;
+  findByIds(ids: string[]): Promise<Provider[]>;
   create(userId: string, input: CreateProviderInput): Promise<Provider>;
   update(id: string, patch: ProviderPatch): Promise<Provider | null>;
   softDelete(id: string): Promise<boolean>;
@@ -140,6 +141,17 @@ export function createProvidersRepository(
         .maybeSingle();
       if (error) raise(error);
       return data ? toEntity(data as ProviderRow) : null;
+    },
+
+    async findByIds(ids) {
+      if (ids.length === 0) return [];
+      const { data, error } = await supabase
+        .from(TABLE)
+        .select("*")
+        .in("id", ids)
+        .is("deleted_at", null);
+      if (error) raise(error);
+      return ((data ?? []) as ProviderRow[]).map(toEntity);
     },
 
     async create(userId, input) {

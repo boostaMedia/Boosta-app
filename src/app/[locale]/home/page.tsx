@@ -1,11 +1,10 @@
 import {
   Bell,
-  Camera,
   ChevronDown,
   type LucideIcon,
   MapPin,
-  PenTool,
   Search,
+  Shapes,
   Star,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
@@ -14,12 +13,25 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { BottomNav } from "@/components/app/bottom-nav";
 import { CATEGORY_ITEMS, resolveCategoryIcon } from "@/config/categories";
 import { getCategoriesService } from "@/features/categories";
+import { getProvidersService } from "@/features/providers";
+import { getServicesService } from "@/features/services";
 import { logger } from "@/lib/logger";
 
 const log = logger.child({ module: "customer-home" });
 
 /** A category ready to render: a localized label and a resolved icon. */
 type HomeCategory = { id: string; name: string; Icon: LucideIcon };
+
+/** A top-rated service ready to render. */
+type HomeService = {
+  id: string;
+  title: string;
+  providerName: string;
+  rating: string;
+  price: string;
+  currency: string;
+  Icon: LucideIcon;
+};
 
 /**
  * Load the service categories for display. Prefers the live database (so the
@@ -54,6 +66,54 @@ async function loadCategories(locale: string): Promise<HomeCategory[]> {
   }));
 }
 
+/**
+ * Load the top-rated active services, with their provider's display name and
+ * their category's icon (reusing the already-fetched category icon map to
+ * avoid an extra query). Returns an empty array — rendered as an honest empty
+ * state, not fabricated data — if there are no active services yet or if
+ * Supabase is unreachable.
+ */
+async function loadTopRatedServices(
+  locale: string,
+  iconByCategoryId: Map<string, LucideIcon>,
+): Promise<HomeService[]> {
+  try {
+    const services = await getServicesService();
+    const { items } = await services.list({
+      page: 1,
+      pageSize: 4,
+      status: "active",
+    });
+    if (items.length === 0) return [];
+
+    const providerIds = [...new Set(items.map((s) => s.providerId))];
+    const providers = await getProvidersService();
+    const providerById = new Map(
+      (await providers.listByIds(providerIds)).map((p) => [p.id, p]),
+    );
+
+    return items.map((s) => {
+      const provider = providerById.get(s.providerId);
+      return {
+        id: s.id,
+        title: locale === "ar" ? s.titleAr : s.titleEn,
+        providerName: provider
+          ? locale === "ar"
+            ? provider.businessNameAr
+            : provider.businessNameEn
+          : "",
+        rating: s.rating.toFixed(1),
+        price: s.basePrice.toFixed(3),
+        currency: s.currency,
+        Icon: iconByCategoryId.get(s.categoryId) ?? Shapes,
+      };
+    });
+  } catch (error) {
+    log.warn("services.top_rated_load_failed", { error });
+    return [];
+  }
+}
+
 export default async function CustomerHomePage({
   params,
 }: {
@@ -62,30 +122,20 @@ export default async function CustomerHomePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const categories = await loadCategories(locale);
-  return <CustomerHome categories={categories} />;
+  const iconByCategoryId = new Map(categories.map((c) => [c.id, c.Icon]));
+  const topRated = await loadTopRatedServices(locale, iconByCategoryId);
+  return <CustomerHome categories={categories} topRated={topRated} />;
 }
 
-const SERVICES = [
-  {
-    key: "s1",
-    provider: "s1Provider",
-    rating: "4.8",
-    price: "45.000",
-    Icon: PenTool,
-  },
-  {
-    key: "s2",
-    provider: "s2Provider",
-    rating: "4.6",
-    price: "60.000",
-    Icon: Camera,
-  },
-] as const;
-
-function CustomerHome({ categories }: { categories: HomeCategory[] }) {
+function CustomerHome({
+  categories,
+  topRated,
+}: {
+  categories: HomeCategory[];
+  topRated: HomeService[];
+}) {
   const t = useTranslations("customerHome");
   const locale = useLocale();
-  const currency = locale === "ar" ? "د.ك" : "KWD";
   const initial = locale === "ar" ? "ر" : "R";
 
   return (
@@ -174,41 +224,58 @@ function CustomerHome({ categories }: { categories: HomeCategory[] }) {
               {t("seeAll")}
             </button>
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            {SERVICES.map(({ key, provider, rating, price, Icon }) => (
-              <article
-                key={key}
-                className="bg-card border-border overflow-hidden rounded-2xl border shadow-sm"
-              >
-                <div className="bg-brand-gradient grid h-24 place-items-center text-white">
-                  <Icon className="size-10" aria-hidden />
-                </div>
-                <div className="space-y-1 p-3">
-                  <h3 className="truncate text-sm font-bold">
-                    {t(`svc.${key}`)}
-                  </h3>
-                  <p className="text-muted-foreground truncate text-xs">
-                    {t(`svc.${provider}`)}
-                  </p>
-                  <div className="flex items-center justify-between pt-1">
-                    <span className="flex items-center gap-1 text-xs font-medium">
-                      <Star
-                        className="size-3.5 fill-amber-400 text-amber-400"
-                        aria-hidden
-                      />
-                      {rating}
-                    </span>
-                    <span className="text-primary text-sm font-bold">
-                      {price}{" "}
-                      <span className="text-muted-foreground text-xs font-normal">
-                        {currency}
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+          {topRated.length > 0 ? (
+            <div className="grid grid-cols-2 gap-3">
+              {topRated.map(
+                ({
+                  id,
+                  title,
+                  providerName,
+                  rating,
+                  price,
+                  currency,
+                  Icon,
+                }) => (
+                  <article
+                    key={id}
+                    className="bg-card border-border overflow-hidden rounded-2xl border shadow-sm"
+                  >
+                    <div className="bg-brand-gradient grid h-24 place-items-center text-white">
+                      <Icon className="size-10" aria-hidden />
+                    </div>
+                    <div className="space-y-1 p-3">
+                      <h3 className="truncate text-sm font-bold">{title}</h3>
+                      <p className="text-muted-foreground truncate text-xs">
+                        {providerName}
+                      </p>
+                      <div className="flex items-center justify-between pt-1">
+                        <span className="flex items-center gap-1 text-xs font-medium">
+                          <Star
+                            className="size-3.5 fill-amber-400 text-amber-400"
+                            aria-hidden
+                          />
+                          {rating}
+                        </span>
+                        <span className="text-primary text-sm font-bold">
+                          {price}{" "}
+                          <span className="text-muted-foreground text-xs font-normal">
+                            {currency}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </article>
+                ),
+              )}
+            </div>
+          ) : (
+            <div className="border-border bg-card rounded-2xl border border-dashed p-6 text-center">
+              <p className="font-bold">{t("topRatedEmptyTitle")}</p>
+              <p className="text-muted-foreground mt-1 text-sm">
+                {t("topRatedEmptySubtitle")}
+              </p>
+            </div>
+          )}
         </section>
       </main>
 

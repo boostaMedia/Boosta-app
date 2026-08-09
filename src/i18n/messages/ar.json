@@ -74,6 +74,8 @@
     "categories": "الفئات",
     "seeAll": "الكل",
     "topRated": "الأعلى تقييمًا بالقرب منك",
+    "topRatedEmptyTitle": "بداية جديدة — الخدمات في الطريق",
+    "topRatedEmptySubtitle": "مزوّدو الخدمات ينضمون إلى بوستا. تابعونا قريبًا لأفضل الخدمات تقييمًا بالقرب منك.",
     "book": "احجز",
     "cat": {
       "content": "تصميم المحتوى",
@@ -105,7 +107,7 @@
   },
   "categoriesScreen": {
     "title": "جميع الفئات",
-    "providers": "{count} مزوّد"
+    "services": "{count} خدمة"
   },
   "searchScreen": {
     "title": "تصميم المحتوى",

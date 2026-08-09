@@ -19,6 +19,8 @@ export interface ProvidersService {
   list(params: ListProvidersParams): Promise<Paginated<Provider>>;
   get(id: string): Promise<Provider>;
   getBySlug(slug: string): Promise<Provider>;
+  /** Batch lookup for resolving provider display info (e.g. alongside a list of services). Order is not guaranteed. */
+  listByIds(ids: string[]): Promise<Provider[]>;
   create(userId: string, input: CreateProviderInput): Promise<Provider>;
   updateOwner(id: string, input: UpdateProviderInput): Promise<Provider>;
   updateAdmin(id: string, input: AdminUpdateProviderInput): Promise<Provider>;
@@ -50,6 +52,10 @@ export function createProvidersService(
       const provider = await repo.findBySlug(slug);
       if (!provider) throw new NotFoundError("Provider not found.");
       return provider;
+    },
+
+    async listByIds(ids) {
+      return repo.findByIds([...new Set(ids)]);
     },
 
     async create(userId, input) {
