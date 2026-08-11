@@ -18,4 +18,5 @@ export interface AppUser {
 }
 
 /** Discriminated result returned by auth server actions. */
-export type AuthActionResult = { ok: true } | { ok: false; error: string };
+export type AuthActionResult =
+  { ok: true; redirectTo?: string } | { ok: false; error: string };

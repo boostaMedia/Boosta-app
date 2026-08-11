@@ -15,6 +15,11 @@
     "subtitle": "Connect with trusted providers, request quotes, and get things done. Built mobile-first, Arabic-first, and production-ready.",
     "ctaPrimary": "Get started",
     "ctaSecondary": "Explore services",
+    "joinTitle": "Join Boosta",
+    "joinIndividual": "Sign up as an individual",
+    "joinIndividualSubtitle": "Book services and manage your orders.",
+    "joinBusiness": "Sign up as a business",
+    "joinBusinessSubtitle": "List your services and reach customers.",
     "servicesTitle": "Our services",
     "servicesSubtitle": "Everything your brand needs — in one place.",
     "features": {
@@ -40,6 +45,11 @@
   "auth": {
     "title": "Sign in to Boosta",
     "subtitle": "Enter your email or phone and we'll send you a one-time code.",
+    "signingUpAsIndividual": "Signing up as an individual",
+    "signingUpAsBusiness": "Signing up as a business",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithApple": "Continue with Apple",
+    "orContinueWith": "or continue with",
     "emailTab": "Email",
     "phoneTab": "Phone",
     "emailLabel": "Email address",
@@ -62,6 +72,7 @@
       "invalid_otp": "Please enter the 6-digit code.",
       "otp_request_failed": "Could not send the code. Please try again.",
       "otp_verify_failed": "That code is invalid or expired. Please try again.",
+      "oauth_failed": "Could not sign in. Please try again.",
       "generic": "Something went wrong. Please try again."
     }
   },

@@ -15,6 +15,7 @@ import {
   verifyPhoneOtp,
 } from "../actions";
 import type { AuthActionResult } from "../types";
+import { OAuthButtons } from "./oauth-buttons";
 
 type Method = "email" | "phone";
 type Step = "request" | "verify";
@@ -27,7 +28,11 @@ const ERROR_KEYS = new Set([
   "otp_verify_failed",
 ]);
 
-export function LoginForm() {
+export function LoginForm({
+  signupRole,
+}: {
+  signupRole?: "customer" | "provider";
+}) {
   const t = useTranslations("auth");
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -48,8 +53,8 @@ export function LoginForm() {
       try {
         const result =
           method === "email"
-            ? await requestEmailOtp(contact)
-            : await requestPhoneOtp(contact);
+            ? await requestEmailOtp(contact, signupRole)
+            : await requestPhoneOtp(contact, signupRole);
         if (result.ok) {
           setStep("verify");
         } else {
@@ -71,7 +76,7 @@ export function LoginForm() {
             ? await verifyEmailOtp(contact, token)
             : await verifyPhoneOtp(contact, token);
         if (result.ok) {
-          router.replace("/");
+          router.replace(result.redirectTo ?? "/home");
           router.refresh();
         } else {
           setError(resolveError(result));
@@ -101,10 +106,29 @@ export function LoginForm() {
       <div className="flex flex-col gap-1.5 text-center">
         <h1 className="text-2xl font-semibold tracking-tight">{t("title")}</h1>
         <p className="text-muted-foreground text-sm">{t("subtitle")}</p>
+        {signupRole && (
+          <p className="text-primary text-xs font-semibold">
+            {t(
+              signupRole === "provider"
+                ? "signingUpAsBusiness"
+                : "signingUpAsIndividual",
+            )}
+          </p>
+        )}
       </div>
 
       {step === "request" && (
         <>
+          <OAuthButtons signupRole={signupRole} />
+
+          <div className="flex items-center gap-3">
+            <span className="bg-border h-px flex-1" />
+            <span className="text-muted-foreground text-xs">
+              {t("orContinueWith")}
+            </span>
+            <span className="bg-border h-px flex-1" />
+          </div>
+
           <div
             role="tablist"
             aria-label={t("title")}

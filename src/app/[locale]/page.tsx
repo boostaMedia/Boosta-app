@@ -1,12 +1,20 @@
-import { ShieldCheck, Sparkles, TrendingUp } from "lucide-react";
+import {
+  Briefcase,
+  ShieldCheck,
+  Sparkles,
+  TrendingUp,
+  User,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 
 import { LocaleSwitcher } from "@/components/i18n/locale-switcher";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Logo } from "@/components/brand/logo";
 import { CATEGORY_ITEMS } from "@/config/categories";
+import { Link } from "@/i18n/navigation";
+import { cn } from "@/lib/utils";
 
 export default async function HomePage({
   params,
@@ -65,17 +73,58 @@ function Home() {
           </p>
 
           <div className="flex flex-wrap gap-3">
-            <Button
-              size="lg"
-              className="bg-brand-gradient border-0 text-white shadow-md hover:opacity-90"
+            <Link
+              href="/login?role=customer"
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                "bg-brand-gradient border-0 text-white shadow-md hover:opacity-90",
+              )}
             >
               {t("ctaPrimary")}
-            </Button>
-            <Button size="lg" variant="outline">
+            </Link>
+            <Link
+              href="/home"
+              className={buttonVariants({ size: "lg", variant: "outline" })}
+            >
               {t("ctaSecondary")}
-            </Button>
+            </Link>
           </div>
         </div>
+
+        {/* Join Boosta — individual vs. business */}
+        <section className="w-full max-w-2xl space-y-3">
+          <h2 className="font-heading text-lg font-bold">{t("joinTitle")}</h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Link
+              href="/login?role=customer"
+              className="bg-card hover:border-brand/40 flex items-center gap-3 rounded-2xl border p-4 shadow-sm transition-colors"
+            >
+              <span className="bg-brand-gradient grid size-11 shrink-0 place-items-center rounded-xl text-white">
+                <User className="size-5" aria-hidden />
+              </span>
+              <span>
+                <span className="block font-bold">{t("joinIndividual")}</span>
+                <span className="text-muted-foreground block text-sm">
+                  {t("joinIndividualSubtitle")}
+                </span>
+              </span>
+            </Link>
+            <Link
+              href="/login?role=provider"
+              className="bg-card hover:border-brand/40 flex items-center gap-3 rounded-2xl border p-4 shadow-sm transition-colors"
+            >
+              <span className="bg-brand-gradient grid size-11 shrink-0 place-items-center rounded-xl text-white">
+                <Briefcase className="size-5" aria-hidden />
+              </span>
+              <span>
+                <span className="block font-bold">{t("joinBusiness")}</span>
+                <span className="text-muted-foreground block text-sm">
+                  {t("joinBusinessSubtitle")}
+                </span>
+              </span>
+            </Link>
+          </div>
+        </section>
 
         <ul className="grid w-full gap-4 sm:grid-cols-3">
           {features.map(({ key, Icon }) => (

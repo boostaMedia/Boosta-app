@@ -3,6 +3,8 @@
 import { logger } from "@/lib/logger";
 import { createClient } from "@/lib/supabase/server";
 
+import { getAppUser } from "./queries";
+import { postLoginPath } from "./routes";
 import {
   requestEmailOtpSchema,
   requestPhoneOtpSchema,
@@ -13,17 +15,29 @@ import type { AuthActionResult } from "./types";
 
 const log = logger.child({ module: "auth" });
 
-/** Send a one-time passcode to an email address (creates the user if new). */
+/**
+ * Send a one-time passcode to an email address (creates the user if new).
+ * `signupRole` only affects account creation — it is written into the new
+ * auth user's metadata, which the `handle_new_user` trigger reads to set
+ * `public.users.role`. It has no effect for an existing account (the trigger
+ * only fires on insert), so a returning user's role can never change here.
+ */
 export async function requestEmailOtp(
   email: string,
+  signupRole?: string,
 ): Promise<AuthActionResult> {
-  const parsed = requestEmailOtpSchema.safeParse({ email });
+  const parsed = requestEmailOtpSchema.safeParse({ email, signupRole });
   if (!parsed.success) return { ok: false, error: "invalid_email" };
 
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithOtp({
     email: parsed.data.email,
-    options: { shouldCreateUser: true },
+    options: {
+      shouldCreateUser: true,
+      data: parsed.data.signupRole
+        ? { role: parsed.data.signupRole }
+        : undefined,
+    },
   });
 
   if (error) {
@@ -52,20 +66,27 @@ export async function verifyEmailOtp(
     log.warn("email_otp.verify_failed", { error });
     return { ok: false, error: "otp_verify_failed" };
   }
-  return { ok: true };
+  const user = await getAppUser();
+  return { ok: true, redirectTo: user ? postLoginPath(user.role) : "/home" };
 }
 
-/** Send a one-time passcode to a phone number via SMS. */
+/** Send a one-time passcode to a phone number via SMS. Same `signupRole` semantics as {@link requestEmailOtp}. */
 export async function requestPhoneOtp(
   phone: string,
+  signupRole?: string,
 ): Promise<AuthActionResult> {
-  const parsed = requestPhoneOtpSchema.safeParse({ phone });
+  const parsed = requestPhoneOtpSchema.safeParse({ phone, signupRole });
   if (!parsed.success) return { ok: false, error: "invalid_phone" };
 
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithOtp({
     phone: parsed.data.phone,
-    options: { shouldCreateUser: true },
+    options: {
+      shouldCreateUser: true,
+      data: parsed.data.signupRole
+        ? { role: parsed.data.signupRole }
+        : undefined,
+    },
   });
 
   if (error) {
@@ -94,7 +115,8 @@ export async function verifyPhoneOtp(
     log.warn("phone_otp.verify_failed", { error });
     return { ok: false, error: "otp_verify_failed" };
   }
-  return { ok: true };
+  const user = await getAppUser();
+  return { ok: true, redirectTo: user ? postLoginPath(user.role) : "/home" };
 }
 
 /** Sign the current user out, clearing their session. */

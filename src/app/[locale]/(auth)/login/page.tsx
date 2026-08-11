@@ -15,15 +15,21 @@ export async function generateMetadata({
 
 export default async function LoginPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ role?: string }>;
 }) {
   const { locale } = await params;
+  const { role } = await searchParams;
   setRequestLocale(locale);
+
+  const signupRole =
+    role === "provider" || role === "customer" ? role : undefined;
 
   return (
     <main className="mx-auto flex w-full max-w-sm flex-1 flex-col items-center justify-center px-6 py-16">
-      <LoginForm />
+      <LoginForm signupRole={signupRole} />
     </main>
   );
 }

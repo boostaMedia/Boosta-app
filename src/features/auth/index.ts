@@ -20,4 +20,6 @@ export {
   requireCustomer,
 } from "./guards";
 export { requireApiUser, requireApiRole } from "./api-guards";
+export { postLoginPath } from "./routes";
 export type { AppUser, AuthUser, AuthActionResult } from "./types";
+export { signupRoleSchema } from "./schemas";

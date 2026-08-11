@@ -14,12 +14,21 @@ export const otpTokenSchema = z
 
 export const emailSchema = z.email();
 
+/**
+ * The role a new sign-up intends to register as. Deliberately excludes
+ * "admin" — self-registration can never grant admin; only an existing admin
+ * can promote another account.
+ */
+export const signupRoleSchema = z.enum(["customer", "provider"]);
+
 export const requestEmailOtpSchema = z.object({
   email: emailSchema,
+  signupRole: signupRoleSchema.optional(),
 });
 
 export const requestPhoneOtpSchema = z.object({
   phone: phoneNumberSchema,
+  signupRole: signupRoleSchema.optional(),
 });
 
 export const verifyEmailOtpSchema = z.object({
