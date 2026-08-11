@@ -1,12 +1,4 @@
-import {
-  Bell,
-  ChevronDown,
-  type LucideIcon,
-  MapPin,
-  Search,
-  Shapes,
-  Star,
-} from "lucide-react";
+import { Bell, type LucideIcon, Search, Shapes, Star } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
@@ -142,21 +134,7 @@ function CustomerHome({
     <div className="bg-background mx-auto flex min-h-dvh w-full max-w-md flex-col">
       {/* Top bar */}
       <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky top-0 z-10 px-4 pt-4 pb-2 backdrop-blur">
-        <div className="flex items-center justify-between gap-3">
-          <div className="min-w-0">
-            <p className="text-muted-foreground text-xs">{t("deliverTo")}</p>
-            <button
-              type="button"
-              className="flex items-center gap-1 text-sm font-semibold"
-            >
-              <MapPin className="text-primary size-4" aria-hidden />
-              <span className="truncate">{t("location")}</span>
-              <ChevronDown
-                className="text-muted-foreground size-4"
-                aria-hidden
-              />
-            </button>
-          </div>
+        <div className="flex items-center justify-end gap-3">
           <div className="flex items-center gap-2">
             <button
               type="button"

@@ -22,6 +22,10 @@
     "joinBusinessSubtitle": "List your services and reach customers.",
     "servicesTitle": "Our services",
     "servicesSubtitle": "Everything your brand needs — in one place.",
+    "listingsTitle": "Projects for sale",
+    "listingsSubtitle": "Established businesses and projects listed by verified providers.",
+    "listingsEmptyTitle": "No listings yet",
+    "listingsEmptySubtitle": "Providers haven't listed any projects for sale yet. Check back soon.",
     "features": {
       "rtl": {
         "title": "Arabic-first & RTL",
@@ -77,8 +81,6 @@
     }
   },
   "customerHome": {
-    "deliverTo": "Delivering to",
-    "location": "Hawalli, Kuwait",
     "searchPlaceholder": "Search for a service or provider",
     "promoTitle": "20% off your first booking",
     "promoSubtitle": "Use code BOOSTA20",

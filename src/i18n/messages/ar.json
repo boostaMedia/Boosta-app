@@ -22,6 +22,10 @@
     "joinBusinessSubtitle": "اعرض خدماتك وتواصل مع العملاء.",
     "servicesTitle": "خدماتنا",
     "servicesSubtitle": "كل ما تحتاجه علامتك التجارية — في مكان واحد.",
+    "listingsTitle": "مشاريع للبيع",
+    "listingsSubtitle": "مشاريع وشركات قائمة معروضة من مزوّدين موثّقين.",
+    "listingsEmptyTitle": "لا توجد مشاريع معروضة بعد",
+    "listingsEmptySubtitle": "لم يقم أي مزوّد بعرض مشروع للبيع بعد. تابعونا قريبًا.",
     "features": {
       "rtl": {
         "title": "العربية أولاً ودعم RTL",
@@ -77,8 +81,6 @@
     }
   },
   "customerHome": {
-    "deliverTo": "التوصيل إلى",
-    "location": "حولي، الكويت",
     "searchPlaceholder": "ابحث عن خدمة أو مزوّد",
     "promoTitle": "خصم ٢٠٪ على أول حجز",
     "promoSubtitle": "استخدم الكود BOOSTA20",

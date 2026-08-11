@@ -1,11 +1,12 @@
 import {
   Briefcase,
+  Building2,
   ShieldCheck,
   Sparkles,
   TrendingUp,
   User,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 
 import { LocaleSwitcher } from "@/components/i18n/locale-switcher";
@@ -13,8 +14,34 @@ import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
 import { Logo } from "@/components/brand/logo";
 import { CATEGORY_ITEMS } from "@/config/categories";
+import { getBusinessListingsService } from "@/features/business-listings";
+import type { BusinessListing } from "@/features/business-listings";
 import { Link } from "@/i18n/navigation";
+import { logger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
+
+const log = logger.child({ module: "landing-page" });
+
+/**
+ * Featured "Projects for Sale" listings for the landing page. Real data,
+ * honest empty state — no listings exist until a provider creates one, and
+ * that's shown as such rather than filled in with placeholders.
+ */
+async function loadFeaturedListings(): Promise<BusinessListing[]> {
+  try {
+    const service = await getBusinessListingsService();
+    const { items } = await service.list({
+      page: 1,
+      pageSize: 6,
+      featuredOnly: false,
+      status: "active",
+    });
+    return items;
+  } catch (error) {
+    log.warn("business_listings.load_failed", { error });
+    return [];
+  }
+}
 
 export default async function HomePage({
   params,
@@ -23,14 +50,17 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const listings = await loadFeaturedListings();
 
-  return <Home />;
+  return <Home listings={listings} />;
 }
 
-function Home() {
+function Home({ listings }: { listings: BusinessListing[] }) {
   const t = useTranslations("home");
   const tCommon = useTranslations("common");
   const tCat = useTranslations("customerHome.cat");
+  const locale = useLocale();
+  const currency = locale === "ar" ? "د.ك" : "KWD";
 
   const features = [
     { key: "rtl", Icon: Sparkles },
@@ -166,6 +196,60 @@ function Home() {
               </li>
             ))}
           </ul>
+        </section>
+
+        {/* Projects for sale */}
+        <section className="w-full space-y-5">
+          <div className="max-w-2xl space-y-1.5">
+            <h2 className="font-heading text-2xl font-bold tracking-tight">
+              {t("listingsTitle")}
+            </h2>
+            <p className="text-muted-foreground">{t("listingsSubtitle")}</p>
+          </div>
+          {listings.length > 0 ? (
+            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {listings.map((listing) => {
+                const title =
+                  locale === "ar" ? listing.titleAr : listing.titleEn;
+                const industry =
+                  locale === "ar" ? listing.industryAr : listing.industryEn;
+                return (
+                  <li
+                    key={listing.id}
+                    className="bg-card hover:border-brand/40 flex flex-col gap-3 rounded-2xl border p-5 shadow-sm transition-colors"
+                  >
+                    <div className="bg-brand-gradient flex size-11 items-center justify-center rounded-xl text-white shadow-sm">
+                      <Building2 className="size-5" aria-hidden />
+                    </div>
+                    <div className="space-y-1">
+                      <h3 className="font-heading font-bold">{title}</h3>
+                      {industry && (
+                        <p className="text-muted-foreground text-sm">
+                          {industry}
+                        </p>
+                      )}
+                    </div>
+                    <p className="text-primary font-heading text-lg font-bold">
+                      {listing.askingPrice.toLocaleString(
+                        locale === "ar" ? "ar-KW" : "en-KW",
+                        { minimumFractionDigits: 0, maximumFractionDigits: 0 },
+                      )}{" "}
+                      <span className="text-muted-foreground text-sm font-normal">
+                        {currency}
+                      </span>
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <div className="bg-card border-border rounded-2xl border border-dashed p-8 text-center">
+              <p className="font-bold">{t("listingsEmptyTitle")}</p>
+              <p className="text-muted-foreground mt-1 text-sm">
+                {t("listingsEmptySubtitle")}
+              </p>
+            </div>
+          )}
         </section>
       </main>
     </div>

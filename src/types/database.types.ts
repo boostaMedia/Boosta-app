@@ -91,6 +91,131 @@ export type Database = {
         };
         Relationships: [];
       };
+      business_listing_images: {
+        Row: {
+          alt_ar: string | null;
+          alt_en: string | null;
+          created_at: string;
+          id: string;
+          is_primary: boolean;
+          listing_id: string;
+          sort_order: number;
+          url: string;
+        };
+        Insert: {
+          alt_ar?: string | null;
+          alt_en?: string | null;
+          created_at?: string;
+          id?: string;
+          is_primary?: boolean;
+          listing_id: string;
+          sort_order?: number;
+          url: string;
+        };
+        Update: {
+          alt_ar?: string | null;
+          alt_en?: string | null;
+          created_at?: string;
+          id?: string;
+          is_primary?: boolean;
+          listing_id?: string;
+          sort_order?: number;
+          url?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "business_listing_images_listing_id_fkey";
+            columns: ["listing_id"];
+            isOneToOne: false;
+            referencedRelation: "business_listings";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      business_listings: {
+        Row: {
+          asking_price: number;
+          city_id: string | null;
+          created_at: string;
+          currency: string;
+          deleted_at: string | null;
+          description_ar: string | null;
+          description_en: string | null;
+          established_year: number | null;
+          id: string;
+          industry_ar: string | null;
+          industry_en: string | null;
+          is_featured: boolean;
+          monthly_revenue: number | null;
+          provider_id: string;
+          slug: string;
+          status: Database["public"]["Enums"]["business_listing_status"];
+          title_ar: string;
+          title_en: string;
+          updated_at: string;
+          views_count: number;
+        };
+        Insert: {
+          asking_price: number;
+          city_id?: string | null;
+          created_at?: string;
+          currency?: string;
+          deleted_at?: string | null;
+          description_ar?: string | null;
+          description_en?: string | null;
+          established_year?: number | null;
+          id?: string;
+          industry_ar?: string | null;
+          industry_en?: string | null;
+          is_featured?: boolean;
+          monthly_revenue?: number | null;
+          provider_id: string;
+          slug: string;
+          status?: Database["public"]["Enums"]["business_listing_status"];
+          title_ar: string;
+          title_en: string;
+          updated_at?: string;
+          views_count?: number;
+        };
+        Update: {
+          asking_price?: number;
+          city_id?: string | null;
+          created_at?: string;
+          currency?: string;
+          deleted_at?: string | null;
+          description_ar?: string | null;
+          description_en?: string | null;
+          established_year?: number | null;
+          id?: string;
+          industry_ar?: string | null;
+          industry_en?: string | null;
+          is_featured?: boolean;
+          monthly_revenue?: number | null;
+          provider_id?: string;
+          slug?: string;
+          status?: Database["public"]["Enums"]["business_listing_status"];
+          title_ar?: string;
+          title_en?: string;
+          updated_at?: string;
+          views_count?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "business_listings_city_id_fkey";
+            columns: ["city_id"];
+            isOneToOne: false;
+            referencedRelation: "cities";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "business_listings_provider_id_fkey";
+            columns: ["provider_id"];
+            isOneToOne: false;
+            referencedRelation: "providers";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       categories: {
         Row: {
           created_at: string;
@@ -2037,6 +2162,8 @@ export type Database = {
     };
     Enums: {
       billing_interval: "monthly" | "quarterly" | "yearly";
+      business_listing_status:
+        "draft" | "active" | "under_offer" | "sold" | "inactive";
       conversation_status: "open" | "closed" | "archived";
       coupon_status: "active" | "inactive" | "expired";
       discount_type: "percentage" | "fixed_amount";
@@ -2225,6 +2352,13 @@ export const Constants = {
   public: {
     Enums: {
       billing_interval: ["monthly", "quarterly", "yearly"],
+      business_listing_status: [
+        "draft",
+        "active",
+        "under_offer",
+        "sold",
+        "inactive",
+      ],
       conversation_status: ["open", "closed", "archived"],
       coupon_status: ["active", "inactive", "expired"],
       discount_type: ["percentage", "fixed_amount"],
