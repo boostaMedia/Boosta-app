@@ -17,5 +17,11 @@ export {
   listConversationsQuerySchema,
   listMessagesQuerySchema,
 } from "./schemas";
-export type { Conversation, Message } from "./types";
+export type {
+  Conversation,
+  ConversationSummary,
+  Counterparty,
+  Message,
+  MessageType,
+} from "./types";
 export type { MessagesService } from "./service";

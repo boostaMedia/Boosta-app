@@ -166,11 +166,27 @@
     "tomorrow": "Tomorrow"
   },
   "messagesScreen": {
-    "title": "Messages"
+    "title": "Messages",
+    "emptyTitle": "No conversations yet",
+    "emptySubtitle": "When you message a provider, your conversations will show up here.",
+    "unknownParticipant": "Boosta user",
+    "noMessagesYet": "No messages yet",
+    "attachmentPreview": "Attachment",
+    "you": "You:",
+    "yesterday": "Yesterday"
   },
   "chatScreen": {
-    "online": "Online now",
-    "placeholder": "Message…"
+    "placeholder": "Message…",
+    "send": "Send",
+    "back": "Back",
+    "unknownParticipant": "Boosta user",
+    "paymentRequestPlaceholder": "Payment request",
+    "attachmentPlaceholder": "Attachment",
+    "errors": {
+      "empty": "Type a message first.",
+      "too_long": "That message is too long.",
+      "send_failed": "Couldn't send that message. Try again."
+    }
   },
   "accountScreen": {
     "name": "Reem Al-Otaibi",

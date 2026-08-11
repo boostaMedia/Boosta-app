@@ -166,11 +166,27 @@
     "tomorrow": "غدًا"
   },
   "messagesScreen": {
-    "title": "الرسائل"
+    "title": "الرسائل",
+    "emptyTitle": "لا توجد محادثات بعد",
+    "emptySubtitle": "عندما تراسل مزوّد خدمة، ستظهر محادثاتك هنا.",
+    "unknownParticipant": "مستخدم بوستا",
+    "noMessagesYet": "لا رسائل بعد",
+    "attachmentPreview": "مرفق",
+    "you": "أنت:",
+    "yesterday": "أمس"
   },
   "chatScreen": {
-    "online": "متصل الآن",
-    "placeholder": "رسالة…"
+    "placeholder": "رسالة…",
+    "send": "إرسال",
+    "back": "رجوع",
+    "unknownParticipant": "مستخدم بوستا",
+    "paymentRequestPlaceholder": "طلب دفع",
+    "attachmentPlaceholder": "مرفق",
+    "errors": {
+      "empty": "اكتب رسالة أولًا.",
+      "too_long": "هذه الرسالة طويلة جدًا.",
+      "send_failed": "تعذّر إرسال الرسالة. حاول مرة أخرى."
+    }
   },
   "accountScreen": {
     "name": "ريم العتيبي",

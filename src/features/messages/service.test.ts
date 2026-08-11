@@ -4,7 +4,7 @@ import { NotFoundError } from "@/lib/errors";
 
 import type { MessagesRepository } from "./repository";
 import { createMessagesService } from "./service";
-import type { Conversation, Message } from "./types";
+import type { Conversation, Counterparty, Message } from "./types";
 
 const conversation: Conversation = {
   id: "c1",
@@ -28,6 +28,15 @@ const message: Message = {
   isRead: false,
   readAt: null,
   createdAt: "2026-01-01T00:00:00Z",
+  type: "text",
+  paymentRequestId: null,
+};
+
+const counterparty: Counterparty = {
+  kind: "provider",
+  nameEn: "Pixel Studio",
+  nameAr: "بيكسل ستوديو",
+  avatarUrl: null,
 };
 
 function fakeRepo(
@@ -41,6 +50,10 @@ function fakeRepo(
     createConversation: vi.fn().mockResolvedValue(conversation),
     listMessages: vi.fn().mockResolvedValue({ items: [message], total: 1 }),
     createMessage: vi.fn().mockResolvedValue(message),
+    getCounterparts: vi.fn().mockResolvedValue(new Map([["c1", counterparty]])),
+    getLastMessages: vi.fn().mockResolvedValue(new Map([["c1", message]])),
+    getUnreadCounts: vi.fn().mockResolvedValue(new Map([["c1", 1]])),
+    markConversationRead: vi.fn().mockResolvedValue(undefined),
     ...overrides,
   };
 }
@@ -77,6 +90,38 @@ describe("MessagesService", () => {
       fakeRepo({ findConversation: vi.fn().mockResolvedValue(null) }),
     );
     await expect(service.getConversation("x")).rejects.toBeInstanceOf(
+      NotFoundError,
+    );
+  });
+
+  it("listConversationSummaries() enriches conversations with counterparty, last message, and unread count", async () => {
+    const service = createMessagesService(fakeRepo());
+    const result = await service.listConversationSummaries("u1", {
+      page: 1,
+      pageSize: 20,
+    });
+    expect(result.items).toHaveLength(1);
+    expect(result.items[0].counterparty).toEqual(counterparty);
+    expect(result.items[0].lastMessage).toEqual(message);
+    expect(result.items[0].unreadCount).toBe(1);
+  });
+
+  it("getCounterparty() returns the resolved counterparty or null", async () => {
+    const service = createMessagesService(fakeRepo());
+    expect(await service.getCounterparty("c1")).toEqual(counterparty);
+    expect(await service.getCounterparty("missing")).toBeNull();
+  });
+
+  it("markRead() throws NotFoundError for a hidden conversation, otherwise delegates", async () => {
+    const markConversationRead = vi.fn().mockResolvedValue(undefined);
+    const service = createMessagesService(fakeRepo({ markConversationRead }));
+    await service.markRead("c1", "u1");
+    expect(markConversationRead).toHaveBeenCalledWith("c1", "u1");
+
+    const hiddenService = createMessagesService(
+      fakeRepo({ findConversation: vi.fn().mockResolvedValue(null) }),
+    );
+    await expect(hiddenService.markRead("x", "u1")).rejects.toBeInstanceOf(
       NotFoundError,
     );
   });

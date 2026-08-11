@@ -4,6 +4,13 @@ import { paginationQuerySchema } from "@/lib/api";
 
 export const CONVERSATION_STATUSES = ["open", "closed", "archived"] as const;
 
+export const MESSAGE_TYPES = [
+  "text",
+  "payment_request",
+  "attachment",
+  "system",
+] as const;
+
 /** Shape of a `public.conversations` row from Supabase (snake_case). */
 export const conversationRowSchema = z.object({
   id: z.string(),
@@ -28,6 +35,17 @@ export const messageRowSchema = z.object({
   is_read: z.boolean(),
   read_at: z.string().nullable(),
   created_at: z.string(),
+  type: z.enum(MESSAGE_TYPES),
+  payment_request_id: z.string().nullable(),
+});
+
+/** Row shape of `get_conversation_counterparts()` (a SECURITY DEFINER RPC). */
+export const counterpartRowSchema = z.object({
+  conversation_id: z.string(),
+  counterparty_kind: z.enum(["provider", "customer"]),
+  display_name_en: z.string().nullable(),
+  display_name_ar: z.string().nullable(),
+  avatar_url: z.string().nullable(),
 });
 
 export const createConversationSchema = z.object({

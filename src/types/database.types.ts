@@ -2010,6 +2010,16 @@ export type Database = {
         Returns: Database["public"]["Enums"]["user_role"];
       };
       expire_stale_payment_requests: { Args: never; Returns: number };
+      get_conversation_counterparts: {
+        Args: { p_conversation_ids?: string[] };
+        Returns: {
+          avatar_url: string;
+          conversation_id: string;
+          counterparty_kind: string;
+          display_name_ar: string;
+          display_name_en: string;
+        }[];
+      };
       is_admin: { Args: never; Returns: boolean };
       is_provider_owner: { Args: { p_provider_id: string }; Returns: boolean };
       recalc_provider_rating: {

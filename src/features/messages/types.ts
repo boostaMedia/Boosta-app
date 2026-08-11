@@ -6,9 +6,11 @@ import type {
   CONVERSATION_STATUSES,
   createConversationSchema,
   createMessageSchema,
+  MESSAGE_TYPES,
 } from "./schemas";
 
 export type ConversationStatus = (typeof CONVERSATION_STATUSES)[number];
+export type MessageType = (typeof MESSAGE_TYPES)[number];
 
 export interface Conversation {
   id: string;
@@ -32,6 +34,23 @@ export interface Message {
   isRead: boolean;
   readAt: string | null;
   createdAt: string;
+  type: MessageType;
+  paymentRequestId: string | null;
+}
+
+/** The "other side" of a conversation, resolved for display. */
+export interface Counterparty {
+  kind: "provider" | "customer";
+  nameEn: string | null;
+  nameAr: string | null;
+  avatarUrl: string | null;
+}
+
+/** A conversation enriched with what a thread list needs to render a row. */
+export interface ConversationSummary extends Conversation {
+  counterparty: Counterparty | null;
+  lastMessage: Message | null;
+  unreadCount: number;
 }
 
 export type CreateConversationInput = z.infer<typeof createConversationSchema>;
