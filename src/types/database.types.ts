@@ -172,6 +172,44 @@ export type Database = {
         };
         Relationships: [];
       };
+      commission_rates: {
+        Row: {
+          active: boolean;
+          created_at: string;
+          created_by: string | null;
+          id: string;
+          rate_bps: number;
+          scope: string;
+          scope_id: string | null;
+        };
+        Insert: {
+          active?: boolean;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          rate_bps: number;
+          scope: string;
+          scope_id?: string | null;
+        };
+        Update: {
+          active?: boolean;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          rate_bps?: number;
+          scope?: string;
+          scope_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "commission_rates_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       conversations: {
         Row: {
           created_at: string;
@@ -360,8 +398,10 @@ export type Database = {
           deleted_at: string | null;
           id: string;
           is_read: boolean;
+          payment_request_id: string | null;
           read_at: string | null;
           sender_id: string;
+          type: string;
         };
         Insert: {
           attachments?: Json;
@@ -371,8 +411,10 @@ export type Database = {
           deleted_at?: string | null;
           id?: string;
           is_read?: boolean;
+          payment_request_id?: string | null;
           read_at?: string | null;
           sender_id: string;
+          type?: string;
         };
         Update: {
           attachments?: Json;
@@ -382,8 +424,10 @@ export type Database = {
           deleted_at?: string | null;
           id?: string;
           is_read?: boolean;
+          payment_request_id?: string | null;
           read_at?: string | null;
           sender_id?: string;
+          type?: string;
         };
         Relationships: [
           {
@@ -391,6 +435,13 @@ export type Database = {
             columns: ["conversation_id"];
             isOneToOne: false;
             referencedRelation: "conversations";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "messages_payment_request_id_fkey";
+            columns: ["payment_request_id"];
+            isOneToOne: false;
+            referencedRelation: "payment_requests";
             referencedColumns: ["id"];
           },
           {
@@ -711,6 +762,154 @@ export type Database = {
           },
           {
             foreignKeyName: "orders_service_id_fkey";
+            columns: ["service_id"];
+            isOneToOne: false;
+            referencedRelation: "services";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      payment_events: {
+        Row: {
+          actor: string;
+          created_at: string;
+          event: string;
+          id: string;
+          payload: Json | null;
+          payment_request_id: string;
+        };
+        Insert: {
+          actor: string;
+          created_at?: string;
+          event: string;
+          id?: string;
+          payload?: Json | null;
+          payment_request_id: string;
+        };
+        Update: {
+          actor?: string;
+          created_at?: string;
+          event?: string;
+          id?: string;
+          payload?: Json | null;
+          payment_request_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "payment_events_payment_request_id_fkey";
+            columns: ["payment_request_id"];
+            isOneToOne: false;
+            referencedRelation: "payment_requests";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      payment_requests: {
+        Row: {
+          amount_fils: number;
+          conversation_id: string;
+          created_at: string;
+          currency: string;
+          customer_id: string;
+          delivery_text: string | null;
+          expires_at: string;
+          fee_fils: number;
+          fee_rate_bps: number;
+          id: string;
+          net_fils: number;
+          note: string | null;
+          paid_at: string | null;
+          paid_method: Database["public"]["Enums"]["payment_method"] | null;
+          provider_id: string;
+          psp: string | null;
+          psp_invoice_id: string | null;
+          psp_payment_url: string | null;
+          psp_txn_id: string | null;
+          receipt_ref: string | null;
+          reference: string;
+          service_id: string | null;
+          status: Database["public"]["Enums"]["payment_request_status"];
+          title: string;
+          updated_at: string;
+        };
+        Insert: {
+          amount_fils: number;
+          conversation_id: string;
+          created_at?: string;
+          currency?: string;
+          customer_id: string;
+          delivery_text?: string | null;
+          expires_at: string;
+          fee_fils: number;
+          fee_rate_bps: number;
+          id?: string;
+          net_fils: number;
+          note?: string | null;
+          paid_at?: string | null;
+          paid_method?: Database["public"]["Enums"]["payment_method"] | null;
+          provider_id: string;
+          psp?: string | null;
+          psp_invoice_id?: string | null;
+          psp_payment_url?: string | null;
+          psp_txn_id?: string | null;
+          receipt_ref?: string | null;
+          reference?: string;
+          service_id?: string | null;
+          status?: Database["public"]["Enums"]["payment_request_status"];
+          title: string;
+          updated_at?: string;
+        };
+        Update: {
+          amount_fils?: number;
+          conversation_id?: string;
+          created_at?: string;
+          currency?: string;
+          customer_id?: string;
+          delivery_text?: string | null;
+          expires_at?: string;
+          fee_fils?: number;
+          fee_rate_bps?: number;
+          id?: string;
+          net_fils?: number;
+          note?: string | null;
+          paid_at?: string | null;
+          paid_method?: Database["public"]["Enums"]["payment_method"] | null;
+          provider_id?: string;
+          psp?: string | null;
+          psp_invoice_id?: string | null;
+          psp_payment_url?: string | null;
+          psp_txn_id?: string | null;
+          receipt_ref?: string | null;
+          reference?: string;
+          service_id?: string | null;
+          status?: Database["public"]["Enums"]["payment_request_status"];
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "payment_requests_conversation_id_fkey";
+            columns: ["conversation_id"];
+            isOneToOne: false;
+            referencedRelation: "conversations";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "payment_requests_customer_id_fkey";
+            columns: ["customer_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "payment_requests_provider_id_fkey";
+            columns: ["provider_id"];
+            isOneToOne: false;
+            referencedRelation: "providers";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "payment_requests_service_id_fkey";
             columns: ["service_id"];
             isOneToOne: false;
             referencedRelation: "services";
@@ -1726,11 +1925,91 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      cancel_payment_request: {
+        Args: { p_id: string };
+        Returns: {
+          amount_fils: number;
+          conversation_id: string;
+          created_at: string;
+          currency: string;
+          customer_id: string;
+          delivery_text: string | null;
+          expires_at: string;
+          fee_fils: number;
+          fee_rate_bps: number;
+          id: string;
+          net_fils: number;
+          note: string | null;
+          paid_at: string | null;
+          paid_method: Database["public"]["Enums"]["payment_method"] | null;
+          provider_id: string;
+          psp: string | null;
+          psp_invoice_id: string | null;
+          psp_payment_url: string | null;
+          psp_txn_id: string | null;
+          receipt_ref: string | null;
+          reference: string;
+          service_id: string | null;
+          status: Database["public"]["Enums"]["payment_request_status"];
+          title: string;
+          updated_at: string;
+        };
+        SetofOptions: {
+          from: "*";
+          to: "payment_requests";
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      create_payment_request: {
+        Args: {
+          p_amount_fils: number;
+          p_conversation_id: string;
+          p_delivery_text?: string;
+          p_note?: string;
+          p_title: string;
+          p_valid_for_hours?: number;
+        };
+        Returns: {
+          amount_fils: number;
+          conversation_id: string;
+          created_at: string;
+          currency: string;
+          customer_id: string;
+          delivery_text: string | null;
+          expires_at: string;
+          fee_fils: number;
+          fee_rate_bps: number;
+          id: string;
+          net_fils: number;
+          note: string | null;
+          paid_at: string | null;
+          paid_method: Database["public"]["Enums"]["payment_method"] | null;
+          provider_id: string;
+          psp: string | null;
+          psp_invoice_id: string | null;
+          psp_payment_url: string | null;
+          psp_txn_id: string | null;
+          receipt_ref: string | null;
+          reference: string;
+          service_id: string | null;
+          status: Database["public"]["Enums"]["payment_request_status"];
+          title: string;
+          updated_at: string;
+        };
+        SetofOptions: {
+          from: "*";
+          to: "payment_requests";
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
       current_provider_id: { Args: never; Returns: string };
       current_user_role: {
         Args: never;
         Returns: Database["public"]["Enums"]["user_role"];
       };
+      expire_stale_payment_requests: { Args: never; Returns: number };
       is_admin: { Args: never; Returns: boolean };
       is_provider_owner: { Args: { p_provider_id: string }; Returns: boolean };
       recalc_provider_rating: {
@@ -1740,6 +2019,10 @@ export type Database = {
       recalc_service_rating: {
         Args: { p_service_id: string };
         Returns: undefined;
+      };
+      resolve_fee_rate_bps: {
+        Args: { p_category_id?: string; p_provider_id: string };
+        Returns: number;
       };
     };
     Enums: {
@@ -1780,6 +2063,8 @@ export type Database = {
         | "google_pay"
         | "wallet"
         | "cash";
+      payment_request_status:
+        "draft" | "sent" | "paid" | "expired" | "cancelled" | "refunded";
       payment_status:
         "pending" | "paid" | "failed" | "refunded" | "partially_refunded";
       price_type: "fixed" | "starting_from" | "hourly" | "quote";
@@ -1969,6 +2254,14 @@ export const Constants = {
         "google_pay",
         "wallet",
         "cash",
+      ],
+      payment_request_status: [
+        "draft",
+        "sent",
+        "paid",
+        "expired",
+        "cancelled",
+        "refunded",
       ],
       payment_status: [
         "pending",
