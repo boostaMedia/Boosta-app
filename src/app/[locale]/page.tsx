@@ -207,7 +207,7 @@ function Home({ listings }: { listings: BusinessListing[] }) {
             <p className="text-muted-foreground">{t("listingsSubtitle")}</p>
           </div>
           {listings.length > 0 ? (
-            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {listings.map((listing) => {
                 const title =
                   locale === "ar" ? listing.titleAr : listing.titleEn;
@@ -216,18 +216,22 @@ function Home({ listings }: { listings: BusinessListing[] }) {
                 return (
                   <li
                     key={listing.id}
-                    className="bg-card hover:border-brand/40 flex flex-col gap-3 rounded-2xl border p-5 shadow-sm transition-colors"
+                    className="bg-card hover:border-brand/40 flex flex-col gap-3 rounded-xl border p-4 shadow-sm transition-colors"
                   >
-                    <div className="bg-brand-gradient flex size-11 items-center justify-center rounded-xl text-white shadow-sm">
-                      <Building2 className="size-5" aria-hidden />
-                    </div>
-                    <div className="space-y-1">
-                      <h3 className="font-heading font-bold">{title}</h3>
-                      {industry && (
-                        <p className="text-muted-foreground text-sm">
-                          {industry}
-                        </p>
-                      )}
+                    <div className="flex items-center gap-3">
+                      <span className="bg-brand-gradient grid size-10 shrink-0 place-items-center rounded-lg text-white">
+                        <Building2 className="size-5" aria-hidden />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block truncate text-sm font-semibold">
+                          {title}
+                        </span>
+                        {industry && (
+                          <span className="text-muted-foreground block truncate text-xs">
+                            {industry}
+                          </span>
+                        )}
+                      </span>
                     </div>
                     <p className="text-primary font-heading text-lg font-bold">
                       {listing.askingPrice.toLocaleString(
@@ -243,11 +247,18 @@ function Home({ listings }: { listings: BusinessListing[] }) {
               })}
             </ul>
           ) : (
-            <div className="bg-card border-border rounded-2xl border border-dashed p-8 text-center">
-              <p className="font-bold">{t("listingsEmptyTitle")}</p>
-              <p className="text-muted-foreground mt-1 text-sm">
-                {t("listingsEmptySubtitle")}
-              </p>
+            <div className="bg-card hover:border-brand/40 flex items-center gap-3 rounded-xl border p-4 shadow-sm transition-colors">
+              <span className="bg-brand-gradient grid size-10 shrink-0 place-items-center rounded-lg text-white">
+                <Building2 className="size-5" aria-hidden />
+              </span>
+              <span>
+                <span className="block text-sm font-semibold">
+                  {t("listingsEmptyTitle")}
+                </span>
+                <span className="text-muted-foreground block text-xs">
+                  {t("listingsEmptySubtitle")}
+                </span>
+              </span>
             </div>
           )}
         </section>
