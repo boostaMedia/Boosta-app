@@ -27,6 +27,9 @@ export const providerRowSchema = z.object({
   city_id: z.string().nullable(),
   area_id: z.string().nullable(),
   commission_rate: z.number(),
+  contract_accepted_at: z.string().nullable(),
+  contract_version: z.string().nullable(),
+  contract_signed_name: z.string().nullable(),
   created_at: z.string(),
   updated_at: z.string(),
 });
@@ -46,6 +49,10 @@ export const createProviderSchema = z.object({
   coverUrl: z.url().optional(),
   cityId: z.uuid().optional(),
   areaId: z.uuid().optional(),
+  /** Required at creation — enforced by the registerProviderAction, not the client. */
+  contractAcceptedAt: z.string(),
+  contractVersion: z.string().min(1),
+  contractSignedName: z.string().min(1).max(200),
 });
 
 /** Owner-editable fields (never status / featured / commission). */

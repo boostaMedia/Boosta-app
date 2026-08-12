@@ -36,6 +36,9 @@ function toEntity(row: ProviderRow): Provider {
     cityId: row.city_id,
     areaId: row.area_id,
     commissionRate: row.commission_rate,
+    contractAcceptedAt: row.contract_accepted_at,
+    contractVersion: row.contract_version,
+    contractSignedName: row.contract_signed_name,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
@@ -56,6 +59,12 @@ function toRow(patch: Partial<ProviderPatch>): Record<string, unknown> {
   if (patch.coverUrl !== undefined) row.cover_url = patch.coverUrl;
   if (patch.cityId !== undefined) row.city_id = patch.cityId;
   if (patch.areaId !== undefined) row.area_id = patch.areaId;
+  if (patch.contractAcceptedAt !== undefined)
+    row.contract_accepted_at = patch.contractAcceptedAt;
+  if (patch.contractVersion !== undefined)
+    row.contract_version = patch.contractVersion;
+  if (patch.contractSignedName !== undefined)
+    row.contract_signed_name = patch.contractSignedName;
   if (patch.status !== undefined) row.status = patch.status;
   if (patch.isFeatured !== undefined) row.is_featured = patch.isFeatured;
   if (patch.commissionRate !== undefined)

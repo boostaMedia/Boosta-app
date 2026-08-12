@@ -4,13 +4,18 @@ import { requireProvider } from "@/features/auth";
 import { ConflictError } from "@/lib/errors";
 import { logger } from "@/lib/logger";
 
+import { PROVIDER_CONTRACT_VERSION } from "./contract";
 import { getProvidersService } from "./index";
 import { createProviderSchema } from "./schemas";
 
 const log = logger.child({ module: "providers" });
 
 export type RegisterProviderResult =
-  { ok: true } | { ok: false; error: "invalid" | "slug_taken" | "failed" };
+  | { ok: true }
+  | {
+      ok: false;
+      error: "invalid" | "contract_required" | "slug_taken" | "failed";
+    };
 
 /** Slugify a business name: lowercase, ascii-ish, hyphen-separated. */
 function slugify(input: string): string {
@@ -23,11 +28,16 @@ function slugify(input: string): string {
 }
 
 /**
- * Register the signed-in provider's business profile. Only meaningful for a
- * user with role='provider' who doesn't have a `providers` row yet —
- * `requireProvider()` plus the "providers insert own" RLS policy both
- * enforce that only they can create it, and only once (the unique slug
- * constraint plus current_provider_id() gate the dashboard from here).
+ * Register the signed-in provider's business profile — really a *request* to
+ * join: the row is created with status='pending' (the table default) and
+ * only an admin flipping it to 'verified' grants real access. Only
+ * meaningful for a user with role='provider' who doesn't have a `providers`
+ * row yet — `requireProvider()` plus the "providers insert own" RLS policy
+ * both enforce that only they can create it, and only once.
+ *
+ * Requires contract acceptance: `contractAcceptedAt` is stamped here from
+ * the server clock, never trusted from the client — the client only
+ * confirms the checkbox and provides the signed name.
  */
 export async function registerProviderAction(input: {
   businessNameEn: string;
@@ -35,8 +45,14 @@ export async function registerProviderAction(input: {
   descriptionEn?: string;
   descriptionAr?: string;
   cityId?: string;
+  contractAgreed: boolean;
+  contractSignedName: string;
 }): Promise<RegisterProviderResult> {
   const user = await requireProvider();
+
+  if (!input.contractAgreed || input.contractSignedName.trim().length === 0) {
+    return { ok: false, error: "contract_required" };
+  }
 
   const base = slugify(input.businessNameEn);
   if (!base) return { ok: false, error: "invalid" };
@@ -60,6 +76,9 @@ export async function registerProviderAction(input: {
       descriptionEn: input.descriptionEn || undefined,
       descriptionAr: input.descriptionAr || undefined,
       cityId: input.cityId || undefined,
+      contractAcceptedAt: new Date().toISOString(),
+      contractVersion: PROVIDER_CONTRACT_VERSION,
+      contractSignedName: input.contractSignedName.trim(),
     });
     if (!parsed.success) return { ok: false, error: "invalid" };
 

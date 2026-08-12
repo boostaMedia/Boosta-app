@@ -1426,6 +1426,9 @@ export type Database = {
           business_name_en: string;
           city_id: string | null;
           commission_rate: number;
+          contract_accepted_at: string | null;
+          contract_signed_name: string | null;
+          contract_version: string | null;
           cover_url: string | null;
           created_at: string;
           deleted_at: string | null;
@@ -1447,6 +1450,9 @@ export type Database = {
           business_name_en: string;
           city_id?: string | null;
           commission_rate?: number;
+          contract_accepted_at?: string | null;
+          contract_signed_name?: string | null;
+          contract_version?: string | null;
           cover_url?: string | null;
           created_at?: string;
           deleted_at?: string | null;
@@ -1468,6 +1474,9 @@ export type Database = {
           business_name_en?: string;
           city_id?: string | null;
           commission_rate?: number;
+          contract_accepted_at?: string | null;
+          contract_signed_name?: string | null;
+          contract_version?: string | null;
           cover_url?: string | null;
           created_at?: string;
           deleted_at?: string | null;

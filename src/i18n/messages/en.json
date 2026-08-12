@@ -203,10 +203,10 @@
     }
   },
   "accountScreen": {
-    "name": "Reem Al-Otaibi",
-    "phone": "+965 5555 1234",
+    "unnamed": "Boosta user",
     "menu": {
       "editProfile": "Edit profile",
+      "messages": "Messages",
       "addresses": "Saved addresses",
       "payments": "Payment methods",
       "notifications": "Notifications",
@@ -216,8 +216,8 @@
     }
   },
   "providerRegisterScreen": {
-    "title": "Register your business",
-    "subtitle": "Tell customers who you are. An admin reviews new providers before you appear in search.",
+    "title": "Request to join as a provider",
+    "subtitle": "Tell us about your business and review the provider agreement. An admin reviews every application before approval.",
     "businessNameEnLabel": "Business name (English)",
     "businessNameEnPlaceholder": "Pixel Studio",
     "businessNameArLabel": "Business name (Arabic)",
@@ -228,13 +228,32 @@
     "descriptionEnPlaceholder": "What do you offer?",
     "descriptionArLabel": "Description (Arabic, optional)",
     "descriptionArPlaceholder": "ما هي خدماتك؟",
-    "submit": "Register",
-    "submitting": "Registering…",
-    "pendingNote": "Your profile stays private until an admin verifies it.",
+    "contractLabel": "Provider agreement",
+    "contractAgree": "I have read and agree to the Provider Agreement, including the 300 KWD annual access fee.",
+    "signatureLabel": "Full legal name (as your signature)",
+    "signaturePlaceholder": "Your full name",
+    "submit": "Submit request",
+    "submitting": "Submitting…",
+    "pendingNote": "You'll be notified once an admin reviews your application. The annual fee is invoiced separately after approval.",
     "errors": {
       "invalid": "Please check the required fields.",
+      "contract_required": "Please agree to the provider agreement and sign with your full name.",
       "slug_taken": "That business name is already taken. Try a slightly different name.",
-      "failed": "Couldn't register your business. Please try again."
+      "failed": "Couldn't submit your request. Please try again."
+    }
+  },
+  "providerPendingScreen": {
+    "pending": {
+      "title": "Application under review",
+      "subtitle": "Thanks for applying, {businessName}. We're reviewing your request and signed agreement — you'll be notified once approved."
+    },
+    "rejected": {
+      "title": "Application not approved",
+      "subtitle": "Your application for {businessName} wasn't approved. Contact support if you think this is a mistake."
+    },
+    "suspended": {
+      "title": "Account suspended",
+      "subtitle": "{businessName} is currently suspended. Contact support for details."
     }
   },
   "providerServicesScreen": {

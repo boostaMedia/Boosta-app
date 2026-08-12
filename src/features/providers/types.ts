@@ -29,6 +29,9 @@ export interface Provider {
   cityId: string | null;
   areaId: string | null;
   commissionRate: number;
+  contractAcceptedAt: string | null;
+  contractVersion: string | null;
+  contractSignedName: string | null;
   createdAt: string;
   updatedAt: string;
 }

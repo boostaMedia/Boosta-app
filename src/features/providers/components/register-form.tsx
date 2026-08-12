@@ -10,11 +10,20 @@ import { useRouter } from "@/i18n/navigation";
 
 import { registerProviderAction } from "../actions";
 import type { RegisterProviderResult } from "../actions";
+import {
+  PROVIDER_CONTRACT_TEXT_AR,
+  PROVIDER_CONTRACT_TEXT_EN,
+} from "../contract";
 
 const fieldClasses =
   "border-input bg-transparent placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 w-full min-w-0 rounded-lg border px-2.5 py-2 text-sm outline-none transition-colors focus-visible:ring-3 dark:bg-input/30";
 
-const ERROR_KEYS = new Set(["invalid", "slug_taken", "failed"]);
+const ERROR_KEYS = new Set([
+  "invalid",
+  "contract_required",
+  "slug_taken",
+  "failed",
+]);
 
 export function RegisterProviderForm({
   cities,
@@ -32,9 +41,14 @@ export function RegisterProviderForm({
   const [descriptionEn, setDescriptionEn] = useState("");
   const [descriptionAr, setDescriptionAr] = useState("");
   const [cityId, setCityId] = useState("");
+  const [contractAgreed, setContractAgreed] = useState(false);
+  const [contractSignedName, setContractSignedName] = useState("");
 
   const canSubmit =
-    businessNameEn.trim().length > 0 && businessNameAr.trim().length > 0;
+    businessNameEn.trim().length > 0 &&
+    businessNameAr.trim().length > 0 &&
+    contractAgreed &&
+    contractSignedName.trim().length > 0;
 
   function resolveError(
     result: Extract<RegisterProviderResult, { ok: false }>,
@@ -56,6 +70,8 @@ export function RegisterProviderForm({
         descriptionEn: descriptionEn.trim(),
         descriptionAr: descriptionAr.trim(),
         cityId: cityId || undefined,
+        contractAgreed,
+        contractSignedName: contractSignedName.trim(),
       });
       if (result.ok) {
         router.refresh();
@@ -138,6 +154,38 @@ export function RegisterProviderForm({
             placeholder={t("descriptionArPlaceholder")}
             onChange={(e) => setDescriptionAr(e.target.value)}
           />
+        </div>
+
+        {/* Provider agreement */}
+        <div className="flex flex-col gap-2 pt-2">
+          <Label>{t("contractLabel")}</Label>
+          <div
+            dir={locale === "ar" ? "rtl" : "ltr"}
+            className="border-input bg-muted/40 h-40 overflow-y-auto rounded-lg border p-3 text-xs whitespace-pre-line"
+          >
+            {locale === "ar"
+              ? PROVIDER_CONTRACT_TEXT_AR
+              : PROVIDER_CONTRACT_TEXT_EN}
+          </div>
+          <label className="mt-1 flex items-start gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={contractAgreed}
+              onChange={(e) => setContractAgreed(e.target.checked)}
+              className="accent-primary mt-0.5 size-4 shrink-0"
+            />
+            {t("contractAgree")}
+          </label>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="contractSignedName">{t("signatureLabel")}</Label>
+            <Input
+              id="contractSignedName"
+              required
+              value={contractSignedName}
+              placeholder={t("signaturePlaceholder")}
+              onChange={(e) => setContractSignedName(e.target.value)}
+            />
+          </div>
         </div>
 
         {error && (

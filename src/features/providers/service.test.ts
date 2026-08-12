@@ -23,6 +23,9 @@ const sample: Provider = {
   cityId: null,
   areaId: null,
   commissionRate: 10,
+  contractAcceptedAt: "2026-01-01T00:00:00Z",
+  contractVersion: "2026-08-1",
+  contractSignedName: "Reem Al-Otaibi",
   createdAt: "2026-01-01T00:00:00Z",
   updatedAt: "2026-01-01T00:00:00Z",
 };
@@ -67,6 +70,9 @@ describe("ProvidersService", () => {
       slug: "shiny-clean",
       businessNameEn: "Shiny Clean",
       businessNameAr: "شايني كلين",
+      contractAcceptedAt: "2026-01-01T00:00:00Z",
+      contractVersion: "2026-08-1",
+      contractSignedName: "Reem Al-Otaibi",
     });
     expect(create).toHaveBeenCalledWith(
       "u1",

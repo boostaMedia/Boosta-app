@@ -4,7 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { requireProvider } from "@/features/auth";
 import { getCategoriesService } from "@/features/categories";
-import { getCurrentProviderId } from "@/features/providers";
+import { getCurrentProvider } from "@/features/providers";
 import { CreateServiceForm } from "@/features/services/components/create-service-form";
 import { Link } from "@/i18n/navigation";
 
@@ -17,8 +17,10 @@ export default async function NewServicePage({
   setRequestLocale(locale);
   await requireProvider();
 
-  const providerId = await getCurrentProviderId();
-  if (!providerId) redirect(`/${locale}/dashboard`);
+  const provider = await getCurrentProvider();
+  if (!provider || provider.status !== "verified") {
+    redirect(`/${locale}/dashboard`);
+  }
 
   const categoriesService = await getCategoriesService();
   const { items: categories } = await categoriesService.list({

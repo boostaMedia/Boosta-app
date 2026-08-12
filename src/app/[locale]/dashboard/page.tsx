@@ -11,7 +11,8 @@ import { setRequestLocale } from "next-intl/server";
 
 import { ProviderBottomNav } from "@/components/app/provider-bottom-nav";
 import { requireProvider } from "@/features/auth";
-import { getCurrentProviderId } from "@/features/providers";
+import { getCurrentProvider } from "@/features/providers";
+import { PendingApprovalScreen } from "@/features/providers/components/pending-approval";
 import { RegisterProviderForm } from "@/features/providers/components/register-form";
 import { listCities } from "@/features/reference";
 import { Link } from "@/i18n/navigation";
@@ -26,11 +27,23 @@ export default async function DashboardPage({
   await requireProvider();
 
   // A provider-role account has no `providers` row until they complete this
-  // one-time registration — show that instead of the (currently mock) stats.
-  const providerId = await getCurrentProviderId();
-  if (!providerId) {
+  // one-time registration request — show that instead of the (currently
+  // mock) stats. Having a row isn't the same as being approved: only
+  // status='verified' gets the real dashboard, everything else (pending,
+  // rejected, suspended) sees the matching status screen.
+  const provider = await getCurrentProvider();
+  if (!provider) {
     const cities = await listCities();
     return <RegisterProviderForm cities={cities} />;
+  }
+  if (provider.status !== "verified") {
+    return (
+      <PendingApprovalScreen
+        status={provider.status}
+        businessNameEn={provider.businessNameEn}
+        businessNameAr={provider.businessNameAr}
+      />
+    );
   }
 
   return <Dashboard />;

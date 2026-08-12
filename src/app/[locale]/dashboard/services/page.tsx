@@ -5,7 +5,7 @@ import { setRequestLocale } from "next-intl/server";
 
 import { ProviderBottomNav } from "@/components/app/provider-bottom-nav";
 import { requireProvider } from "@/features/auth";
-import { getCurrentProviderId } from "@/features/providers";
+import { getCurrentProvider } from "@/features/providers";
 import { getServicesService } from "@/features/services";
 import type { Service } from "@/features/services";
 import { Link } from "@/i18n/navigation";
@@ -45,10 +45,14 @@ export default async function ProviderServicesPage({
   setRequestLocale(locale);
   await requireProvider();
 
-  const providerId = await getCurrentProviderId();
-  if (!providerId) redirect(`/${locale}/dashboard`);
+  // Not registered yet, or registered but not yet admin-approved — both
+  // cases show the matching state on /dashboard, not this list.
+  const provider = await getCurrentProvider();
+  if (!provider || provider.status !== "verified") {
+    redirect(`/${locale}/dashboard`);
+  }
 
-  const services = await loadMyServices(providerId);
+  const services = await loadMyServices(provider.id);
   return <ServicesList services={services} />;
 }
 
