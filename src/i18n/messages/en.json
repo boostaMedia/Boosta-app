@@ -237,10 +237,57 @@
       "failed": "Couldn't register your business. Please try again."
     }
   },
+  "providerServicesScreen": {
+    "title": "My services",
+    "addService": "Add",
+    "emptyTitle": "No services yet",
+    "emptySubtitle": "Add your first service so customers can find and book it.",
+    "status": {
+      "draft": "Draft",
+      "active": "Active",
+      "inactive": "Inactive",
+      "archived": "Archived"
+    }
+  },
+  "addServiceScreen": {
+    "title": "Add a service",
+    "back": "Back",
+    "categoryLabel": "Category",
+    "categoryPlaceholder": "Select a category",
+    "titleEnLabel": "Title (English)",
+    "titleEnPlaceholder": "Social media content package",
+    "titleArLabel": "Title (Arabic)",
+    "titleArPlaceholder": "باقة محتوى سوشيال ميديا",
+    "priceLabel": "Price (KWD)",
+    "priceTypeLabel": "Price type",
+    "priceTypes": {
+      "fixed": "Fixed",
+      "starting_from": "Starting from",
+      "hourly": "Hourly",
+      "quote": "Custom quote"
+    },
+    "durationLabel": "Duration in minutes (optional)",
+    "durationPlaceholder": "e.g. 60",
+    "descriptionEnLabel": "Description (English, optional)",
+    "descriptionEnPlaceholder": "What's included?",
+    "descriptionArLabel": "Description (Arabic, optional)",
+    "descriptionArPlaceholder": "ما الذي يشمله؟",
+    "publishNow": "Publish this service now",
+    "submit": "Add service",
+    "submitting": "Adding…",
+    "errors": {
+      "invalid": "Please check the required fields.",
+      "no_provider": "Finish registering your business first.",
+      "slug_taken": "A service with a similar title already exists. Try a slightly different title.",
+      "failed": "Couldn't add this service. Please try again."
+    }
+  },
   "dashboardScreen": {
     "welcome": "Welcome back",
     "studio": "Pixel Studio",
     "online": "Online",
+    "myServices": "My services",
+    "myServicesSubtitle": "Add and manage what you offer",
     "stats": {
       "todayBookings": "Today's bookings",
       "revenue": "Revenue",

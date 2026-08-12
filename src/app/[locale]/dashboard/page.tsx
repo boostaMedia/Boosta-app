@@ -1,4 +1,11 @@
-import { CalendarDays, Star, TrendingUp, Wallet } from "lucide-react";
+import {
+  CalendarDays,
+  ChevronRight,
+  Star,
+  Sparkles,
+  TrendingUp,
+  Wallet,
+} from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 
@@ -7,6 +14,7 @@ import { requireProvider } from "@/features/auth";
 import { getCurrentProviderId } from "@/features/providers";
 import { RegisterProviderForm } from "@/features/providers/components/register-form";
 import { listCities } from "@/features/reference";
+import { Link } from "@/i18n/navigation";
 
 export default async function DashboardPage({
   params,
@@ -98,6 +106,26 @@ function Dashboard() {
             </div>
           ))}
         </div>
+
+        {/* Services */}
+        <Link
+          href="/dashboard/services"
+          className="bg-card hover:border-brand/40 flex items-center gap-3 rounded-2xl border p-4 shadow-sm transition-colors"
+        >
+          <span className="bg-brand-gradient grid size-11 shrink-0 place-items-center rounded-xl text-white">
+            <Sparkles className="size-5" aria-hidden />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block font-bold">{t("myServices")}</span>
+            <span className="text-muted-foreground block text-xs">
+              {t("myServicesSubtitle")}
+            </span>
+          </span>
+          <ChevronRight
+            className="text-muted-foreground size-5 shrink-0 rtl:rotate-180"
+            aria-hidden
+          />
+        </Link>
 
         {/* New requests */}
         <section className="space-y-3">

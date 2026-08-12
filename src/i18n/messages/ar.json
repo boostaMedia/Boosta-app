@@ -237,10 +237,57 @@
       "failed": "تعذّر تسجيل نشاطك. يرجى المحاولة مرة أخرى."
     }
   },
+  "providerServicesScreen": {
+    "title": "خدماتي",
+    "addService": "إضافة",
+    "emptyTitle": "لا توجد خدمات بعد",
+    "emptySubtitle": "أضف أول خدمة لك حتى يتمكّن العملاء من إيجادها وحجزها.",
+    "status": {
+      "draft": "مسودة",
+      "active": "نشطة",
+      "inactive": "غير نشطة",
+      "archived": "مؤرشفة"
+    }
+  },
+  "addServiceScreen": {
+    "title": "إضافة خدمة",
+    "back": "رجوع",
+    "categoryLabel": "التصنيف",
+    "categoryPlaceholder": "اختر تصنيفًا",
+    "titleEnLabel": "العنوان (بالإنجليزية)",
+    "titleEnPlaceholder": "Social media content package",
+    "titleArLabel": "العنوان (بالعربية)",
+    "titleArPlaceholder": "باقة محتوى سوشيال ميديا",
+    "priceLabel": "السعر (د.ك)",
+    "priceTypeLabel": "نوع التسعير",
+    "priceTypes": {
+      "fixed": "سعر ثابت",
+      "starting_from": "يبدأ من",
+      "hourly": "بالساعة",
+      "quote": "عرض سعر مخصص"
+    },
+    "durationLabel": "المدة بالدقائق (اختياري)",
+    "durationPlaceholder": "مثال: 60",
+    "descriptionEnLabel": "الوصف (بالإنجليزية، اختياري)",
+    "descriptionEnPlaceholder": "ما الذي تتضمّنه الخدمة؟",
+    "descriptionArLabel": "الوصف (بالعربية، اختياري)",
+    "descriptionArPlaceholder": "ما الذي تتضمّنه الخدمة؟",
+    "publishNow": "نشر هذه الخدمة الآن",
+    "submit": "إضافة الخدمة",
+    "submitting": "جارٍ الإضافة…",
+    "errors": {
+      "invalid": "يرجى التحقق من الحقول المطلوبة.",
+      "no_provider": "أكمل تسجيل نشاطك التجاري أولًا.",
+      "slug_taken": "توجد خدمة بعنوان مشابه بالفعل. جرّب عنوانًا مختلفًا قليلًا.",
+      "failed": "تعذّرت إضافة هذه الخدمة. يرجى المحاولة مرة أخرى."
+    }
+  },
   "dashboardScreen": {
     "welcome": "أهلًا بعودتك",
     "studio": "بيكسل ستوديو",
     "online": "متصل",
+    "myServices": "خدماتي",
+    "myServicesSubtitle": "أضف وأدر ما تقدّمه من خدمات",
     "stats": {
       "todayBookings": "حجوزات اليوم",
       "revenue": "الإيرادات",
