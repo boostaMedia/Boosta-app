@@ -47,6 +47,7 @@
     "backHome": "العودة إلى الرئيسية"
   },
   "auth": {
+    "backToHome": "الرجوع للرئيسية",
     "title": "تسجيل الدخول إلى بوستا",
     "subtitle": "أدخل بريدك الإلكتروني أو رقم هاتفك وسنرسل لك رمزًا لمرة واحدة.",
     "signingUpAsIndividual": "التسجيل كفرد",
@@ -212,6 +213,28 @@
       "language": "اللغة",
       "help": "المساعدة والدعم",
       "signOut": "تسجيل الخروج"
+    }
+  },
+  "providerRegisterScreen": {
+    "title": "سجّل نشاطك التجاري",
+    "subtitle": "عرّف العملاء بنشاطك. يراجع الأدمن حسابات المزوّدين الجدد قبل ظهورها في البحث.",
+    "businessNameEnLabel": "اسم النشاط (بالإنجليزية)",
+    "businessNameEnPlaceholder": "Pixel Studio",
+    "businessNameArLabel": "اسم النشاط (بالعربية)",
+    "businessNameArPlaceholder": "بيكسل ستوديو",
+    "cityLabel": "المدينة",
+    "cityPlaceholder": "اختر مدينة",
+    "descriptionEnLabel": "الوصف (بالإنجليزية، اختياري)",
+    "descriptionEnPlaceholder": "ما الذي تقدّمه؟",
+    "descriptionArLabel": "الوصف (بالعربية، اختياري)",
+    "descriptionArPlaceholder": "ما هي خدماتك؟",
+    "submit": "تسجيل",
+    "submitting": "جارٍ التسجيل…",
+    "pendingNote": "يبقى ملفك خاصًا حتى يوثّقه الأدمن.",
+    "errors": {
+      "invalid": "يرجى التحقق من الحقول المطلوبة.",
+      "slug_taken": "اسم النشاط هذا مُستخدم بالفعل. جرّب اسمًا مختلفًا قليلًا.",
+      "failed": "تعذّر تسجيل نشاطك. يرجى المحاولة مرة أخرى."
     }
   },
   "dashboardScreen": {

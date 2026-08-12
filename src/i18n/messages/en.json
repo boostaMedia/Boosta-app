@@ -47,6 +47,7 @@
     "backHome": "Back to home"
   },
   "auth": {
+    "backToHome": "Back to home",
     "title": "Sign in to Boosta",
     "subtitle": "Enter your email or phone and we'll send you a one-time code.",
     "signingUpAsIndividual": "Signing up as an individual",
@@ -212,6 +213,28 @@
       "language": "Language",
       "help": "Help & support",
       "signOut": "Sign out"
+    }
+  },
+  "providerRegisterScreen": {
+    "title": "Register your business",
+    "subtitle": "Tell customers who you are. An admin reviews new providers before you appear in search.",
+    "businessNameEnLabel": "Business name (English)",
+    "businessNameEnPlaceholder": "Pixel Studio",
+    "businessNameArLabel": "Business name (Arabic)",
+    "businessNameArPlaceholder": "بيكسل ستوديو",
+    "cityLabel": "City",
+    "cityPlaceholder": "Select a city",
+    "descriptionEnLabel": "Description (English, optional)",
+    "descriptionEnPlaceholder": "What do you offer?",
+    "descriptionArLabel": "Description (Arabic, optional)",
+    "descriptionArPlaceholder": "ما هي خدماتك؟",
+    "submit": "Register",
+    "submitting": "Registering…",
+    "pendingNote": "Your profile stays private until an admin verifies it.",
+    "errors": {
+      "invalid": "Please check the required fields.",
+      "slug_taken": "That business name is already taken. Try a slightly different name.",
+      "failed": "Couldn't register your business. Please try again."
     }
   },
   "dashboardScreen": {

@@ -3,6 +3,10 @@ import { useLocale, useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 
 import { ProviderBottomNav } from "@/components/app/provider-bottom-nav";
+import { requireProvider } from "@/features/auth";
+import { getCurrentProviderId } from "@/features/providers";
+import { RegisterProviderForm } from "@/features/providers/components/register-form";
+import { listCities } from "@/features/reference";
 
 export default async function DashboardPage({
   params,
@@ -11,6 +15,16 @@ export default async function DashboardPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  await requireProvider();
+
+  // A provider-role account has no `providers` row until they complete this
+  // one-time registration — show that instead of the (currently mock) stats.
+  const providerId = await getCurrentProviderId();
+  if (!providerId) {
+    const cities = await listCities();
+    return <RegisterProviderForm cities={cities} />;
+  }
+
   return <Dashboard />;
 }
 
