@@ -1,107 +1,188 @@
 import { SlidersHorizontal, Star } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { ScreenHeader } from "@/components/app/screen-header";
-import { cn } from "@/lib/utils";
+import { getCategoriesService } from "@/features/categories";
+import { getProvidersService } from "@/features/providers";
+import type { Provider } from "@/features/providers";
+import { getServicesService } from "@/features/services";
+import type { Service } from "@/features/services";
+import { Link } from "@/i18n/navigation";
+import { logger } from "@/lib/logger";
+import { cn, initials } from "@/lib/utils";
+
+const log = logger.child({ module: "search-screen" });
+
+const SORTS = ["sortNearest", "sortTopRated", "sortPrice"] as const;
+type Sort = (typeof SORTS)[number];
+
+function isSort(value: string | undefined): value is Sort {
+  return SORTS.includes(value as Sort);
+}
+
+type SearchListing = {
+  serviceId: string;
+  title: string;
+  providerName: string;
+  providerSlug: string;
+  rating: string;
+  reviewsCount: number;
+  price: string;
+  currency: string;
+};
+
+/**
+ * Load active services whose owning provider is verified, optionally scoped
+ * to a category and a free-text query. Sorting by rating comes for free from
+ * the repository's default order; "price" is re-sorted client-side since the
+ * repository doesn't support it. There's no geo data model yet, so
+ * "sortNearest" falls back to the same default order as "sortTopRated".
+ */
+async function loadListings(
+  locale: string,
+  categoryId: string | undefined,
+  query: string | undefined,
+  sort: Sort,
+): Promise<SearchListing[]> {
+  try {
+    const services = await getServicesService();
+    const { items } = await services.list({
+      page: 1,
+      pageSize: 50,
+      status: "active",
+      categoryId,
+      search: query,
+    });
+    if (items.length === 0) return [];
+
+    const providers = await getProvidersService();
+    const providerById = new Map(
+      (
+        await providers.listByIds([...new Set(items.map((s) => s.providerId))])
+      ).map((p) => [p.id, p]),
+    );
+
+    const listings = items
+      .filter((s) => providerById.get(s.providerId)?.status === "verified")
+      .map((s) => toListing(s, locale, providerById));
+
+    if (sort === "sortPrice") {
+      return listings.sort((a, b) => Number(a.price) - Number(b.price));
+    }
+    return listings;
+  } catch (error) {
+    log.warn("services.search_load_failed", { error });
+    return [];
+  }
+}
+
+function toListing(
+  service: Service,
+  locale: string,
+  providerById: Map<string, Provider>,
+): SearchListing {
+  const provider = providerById.get(service.providerId);
+  return {
+    serviceId: service.id,
+    title: locale === "ar" ? service.titleAr : service.titleEn,
+    providerName: provider
+      ? locale === "ar"
+        ? provider.businessNameAr
+        : provider.businessNameEn
+      : "",
+    providerSlug: provider?.slug ?? "",
+    rating: service.rating.toFixed(1),
+    reviewsCount: service.reviewsCount,
+    price: service.basePrice.toFixed(3),
+    currency: service.currency,
+  };
+}
 
 export default async function SearchPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ category?: string; q?: string; sort?: string }>;
 }) {
   const { locale } = await params;
+  const { category, q, sort: sortParam } = await searchParams;
   setRequestLocale(locale);
-  return <SearchResults />;
+
+  const sort: Sort = isSort(sortParam) ? sortParam : "sortTopRated";
+
+  let title: string | null = null;
+  if (category) {
+    try {
+      const categories = await getCategoriesService();
+      const found = await categories.get(category);
+      title = locale === "ar" ? found.nameAr : found.nameEn;
+    } catch (error) {
+      log.warn("categories.title_load_failed", { error, category });
+    }
+  }
+  if (!title) {
+    const t = await getTranslations({ locale, namespace: "searchScreen" });
+    title = t("title");
+  }
+
+  const listings = await loadListings(locale, category, q, sort);
+
+  return (
+    <SearchResults
+      title={title}
+      listings={listings}
+      activeSort={sort}
+      category={category}
+      query={q}
+    />
+  );
 }
 
-const SORTS = ["sortNearest", "sortTopRated", "sortPrice"] as const;
+function sortHref(sort: Sort, category?: string, query?: string): string {
+  const params = new URLSearchParams({ sort });
+  if (category) params.set("category", category);
+  if (query) params.set("q", query);
+  return `/search?${params.toString()}`;
+}
 
-// Placeholder listings — real data comes from /api/services & /api/providers.
-const PROVIDERS_EN = [
-  {
-    initials: "PX",
-    name: "Pixel Studio",
-    available: true,
-    rating: "4.7",
-    reviews: 340,
-    km: "2.1",
-    price: "45.000",
-  },
-  {
-    initials: "LH",
-    name: "Lens House",
-    available: false,
-    rating: "4.9",
-    reviews: 512,
-    km: "3.4",
-    price: "60.000",
-  },
-  {
-    initials: "ML",
-    name: "Motion Lab",
-    available: true,
-    rating: "4.5",
-    reviews: 201,
-    km: "1.2",
-    price: "38.000",
-  },
-];
-const PROVIDERS_AR = [
-  {
-    initials: "بك",
-    name: "بيكسل ستوديو",
-    available: true,
-    rating: "4.7",
-    reviews: 340,
-    km: "2.1",
-    price: "45.000",
-  },
-  {
-    initials: "لن",
-    name: "لينس هاوس",
-    available: false,
-    rating: "4.9",
-    reviews: 512,
-    km: "3.4",
-    price: "60.000",
-  },
-  {
-    initials: "مو",
-    name: "موشن لاب",
-    available: true,
-    rating: "4.5",
-    reviews: 201,
-    km: "1.2",
-    price: "38.000",
-  },
-];
-
-function SearchResults() {
+function SearchResults({
+  title,
+  listings,
+  activeSort,
+  category,
+  query,
+}: {
+  title: string;
+  listings: SearchListing[];
+  activeSort: Sort;
+  category?: string;
+  query?: string;
+}) {
   const t = useTranslations("searchScreen");
   const locale = useLocale();
   const currency = locale === "ar" ? "د.ك" : "KWD";
-  const providers = locale === "ar" ? PROVIDERS_AR : PROVIDERS_EN;
 
   return (
     <div className="bg-background mx-auto flex min-h-dvh w-full max-w-md flex-col">
-      <ScreenHeader title={t("title")} backHref="/categories" />
+      <ScreenHeader title={title} backHref="/categories" />
 
       {/* Sort + filter row */}
       <div className="border-border flex items-center gap-2 overflow-x-auto border-b px-4 py-2.5">
-        {SORTS.map((s, i) => (
-          <button
+        {SORTS.map((s) => (
+          <Link
             key={s}
-            type="button"
+            href={sortHref(s, category, query)}
             className={cn(
               "shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium",
-              i === 0
+              activeSort === s
                 ? "bg-primary text-primary-foreground"
                 : "bg-card border-border text-muted-foreground border",
             )}
           >
             {t(s)}
-          </button>
+          </Link>
         ))}
         <button
           type="button"
@@ -113,47 +194,48 @@ function SearchResults() {
       </div>
 
       <main className="flex-1 space-y-3 px-4 py-4">
-        {providers.map((p) => (
-          <article
-            key={p.name}
-            className="bg-card border-border flex items-center gap-3 rounded-2xl border p-3 shadow-sm"
-          >
-            <div className="bg-brand-gradient grid size-12 shrink-0 place-items-center rounded-xl text-sm font-bold text-white">
-              {p.initials}
-            </div>
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2">
-                <h2 className="truncate font-bold">{p.name}</h2>
-                <span
-                  className={cn(
-                    "shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold",
-                    p.available
-                      ? "bg-success/12 text-success"
-                      : "bg-warning/15 text-warning",
-                  )}
-                >
-                  {t(p.available ? "available" : "busy")}
+        {listings.length === 0 ? (
+          <div className="border-border bg-card mt-6 rounded-2xl border border-dashed p-6 text-center">
+            <p className="font-bold">{t("emptyTitle")}</p>
+            <p className="text-muted-foreground mt-1 text-sm">
+              {t("emptySubtitle")}
+            </p>
+          </div>
+        ) : (
+          listings.map((l) => (
+            <Link
+              key={l.serviceId}
+              href={l.providerSlug ? `/provider/${l.providerSlug}` : "/search"}
+              className="bg-card border-border flex items-center gap-3 rounded-2xl border p-3 shadow-sm"
+            >
+              <div className="bg-brand-gradient grid size-12 shrink-0 place-items-center rounded-xl text-sm font-bold text-white">
+                {initials(l.providerName)}
+              </div>
+              <div className="min-w-0 flex-1">
+                <h2 className="truncate font-bold">{l.title}</h2>
+                <p className="text-muted-foreground truncate text-xs">
+                  {l.providerName}
+                </p>
+                <p className="text-muted-foreground mt-0.5 flex items-center gap-1 text-xs">
+                  <Star
+                    className="size-3.5 fill-amber-400 text-amber-400"
+                    aria-hidden
+                  />
+                  <span className="text-foreground font-medium">
+                    {l.rating}
+                  </span>
+                  <span>({t("reviews", { count: l.reviewsCount })})</span>
+                </p>
+              </div>
+              <div className="text-primary shrink-0 text-end text-sm font-bold">
+                {l.price}
+                <span className="text-muted-foreground block text-[10px] font-normal">
+                  {currency}
                 </span>
               </div>
-              <p className="text-muted-foreground mt-0.5 flex items-center gap-1 text-xs">
-                <Star
-                  className="size-3.5 fill-amber-400 text-amber-400"
-                  aria-hidden
-                />
-                <span className="text-foreground font-medium">{p.rating}</span>
-                <span>({t("reviews", { count: p.reviews })})</span>
-                <span aria-hidden>·</span>
-                <span>{t("km", { km: p.km })}</span>
-              </p>
-            </div>
-            <div className="text-primary shrink-0 text-end text-sm font-bold">
-              {p.price}
-              <span className="text-muted-foreground block text-[10px] font-normal">
-                {currency}
-              </span>
-            </div>
-          </article>
-        ))}
+            </Link>
+          ))
+        )}
       </main>
     </div>
   );

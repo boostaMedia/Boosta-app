@@ -6,6 +6,7 @@ import { BottomNav } from "@/components/app/bottom-nav";
 import { CATEGORY_ITEMS, resolveCategoryIcon } from "@/config/categories";
 import { getCategoriesService } from "@/features/categories";
 import { getServicesService } from "@/features/services";
+import { Link } from "@/i18n/navigation";
 import { logger } from "@/lib/logger";
 
 const log = logger.child({ module: "categories-screen" });
@@ -94,9 +95,9 @@ function Categories({ categories }: { categories: ScreenCategory[] }) {
 
       <main className="flex-1 space-y-3 px-4 pt-3 pb-6">
         {categories.map(({ id, name, Icon, count }) => (
-          <button
+          <Link
             key={id}
-            type="button"
+            href={`/search?category=${id}`}
             className="bg-card border-border hover:border-brand/40 flex w-full items-center gap-3 rounded-2xl border p-3 text-start shadow-sm transition-colors"
           >
             <span className="bg-brand-gradient grid size-12 shrink-0 place-items-center rounded-xl text-white">
@@ -112,7 +113,7 @@ function Categories({ categories }: { categories: ScreenCategory[] }) {
               className="text-muted-foreground size-5 rtl:rotate-180"
               aria-hidden
             />
-          </button>
+          </Link>
         ))}
       </main>
 

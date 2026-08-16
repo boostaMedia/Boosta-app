@@ -1,12 +1,15 @@
 "use server";
 
-import { requireProvider } from "@/features/auth";
-import { ConflictError } from "@/lib/errors";
+import { revalidatePath } from "next/cache";
+
+import { requireAdmin, requireProvider } from "@/features/auth";
+import { ConflictError, NotFoundError } from "@/lib/errors";
 import { logger } from "@/lib/logger";
 
 import { PROVIDER_CONTRACT_VERSION } from "./contract";
 import { getProvidersService } from "./index";
 import { createProviderSchema } from "./schemas";
+import type { ProviderStatus } from "./types";
 
 const log = logger.child({ module: "providers" });
 
@@ -97,4 +100,35 @@ export async function registerProviderAction(input: {
   }
 
   return { ok: false, error: "failed" };
+}
+
+export type SetProviderStatusResult =
+  { ok: true } | { ok: false; error: "not_found" | "failed" };
+
+/**
+ * Admin-only provider lifecycle transition (approve/reject/suspend/
+ * reinstate). `requireAdmin()` plus the "providers update own" RLS policy
+ * (which grants admins unconditional write, not just owners) both enforce
+ * this — a non-admin calling this action gets redirected before it ever
+ * reaches the database.
+ */
+export async function setProviderStatusAction(
+  providerId: string,
+  status: ProviderStatus,
+): Promise<SetProviderStatusResult> {
+  await requireAdmin();
+
+  try {
+    const services = await getProvidersService();
+    await services.updateAdmin(providerId, { status });
+    revalidatePath("/admin");
+    revalidatePath(`/admin/providers/${providerId}`);
+    return { ok: true };
+  } catch (error) {
+    if (error instanceof NotFoundError) {
+      return { ok: false, error: "not_found" };
+    }
+    log.warn("set_provider_status.failed", { error, providerId, status });
+    return { ok: false, error: "failed" };
+  }
 }

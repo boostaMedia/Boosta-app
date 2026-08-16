@@ -124,27 +124,28 @@
     "services": "{count} services"
   },
   "searchScreen": {
-    "title": "Content Design",
+    "title": "Search results",
     "sortNearest": "Nearest",
     "sortTopRated": "Top rated",
     "sortPrice": "Price",
     "filter": "Filter",
-    "available": "Available",
-    "busy": "Busy",
     "reviews": "{count} reviews",
-    "km": "{km} km"
+    "emptyTitle": "No matches yet",
+    "emptySubtitle": "Try a different category or search term."
   },
   "providerScreen": {
     "verified": "Verified",
     "reviews": "{count} reviews",
     "stats": {
-      "bookings": "Bookings",
-      "years": "Years",
-      "acceptance": "Acceptance"
+      "reviews": "Reviews",
+      "services": "Services",
+      "since": "Since"
     },
     "services": "Services",
     "bookNow": "Book now",
-    "startingFrom": "From"
+    "startingFrom": "From",
+    "noServicesTitle": "No services yet",
+    "noServicesSubtitle": "This provider hasn't listed any services yet."
   },
   "bookingScreen": {
     "title": "Confirm booking",
@@ -336,5 +337,53 @@
     "s2Sub": "From content and video to marketing, legal, and accounting.",
     "s3Title": "Book securely in seconds",
     "s3Sub": "Request, compare, and pay — all inside Boosta."
+  },
+  "adminProvidersScreen": {
+    "title": "Provider applications",
+    "subtitle": "Review and approve businesses requesting to join Boosta.",
+    "tabs": {
+      "pending": "Pending",
+      "verified": "Verified",
+      "rejected": "Rejected",
+      "suspended": "Suspended"
+    },
+    "status": {
+      "pending": "Pending",
+      "verified": "Verified",
+      "rejected": "Rejected",
+      "suspended": "Suspended"
+    },
+    "emptyTitle": "No providers here",
+    "emptySubtitle": "There are no providers with this status right now.",
+    "showingCount": "Showing {shown} of {total}"
+  },
+  "adminProviderDetailScreen": {
+    "back": "Back to providers",
+    "businessInfoTitle": "Business information",
+    "nameEnLabel": "Business name (English)",
+    "nameArLabel": "Business name (Arabic)",
+    "descriptionLabel": "Description",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "contractTitle": "Provider agreement",
+    "signedNameLabel": "Signed by",
+    "contractVersionLabel": "Agreement version",
+    "acceptedAtLabel": "Accepted at",
+    "status": {
+      "pending": "Pending",
+      "verified": "Verified",
+      "rejected": "Rejected",
+      "suspended": "Suspended"
+    },
+    "approve": "Approve",
+    "reject": "Reject",
+    "suspend": "Suspend",
+    "reconsider": "Reconsider",
+    "reinstate": "Reinstate",
+    "updating": "Updating…",
+    "errors": {
+      "not_found": "This provider no longer exists.",
+      "failed": "Couldn't update the status. Please try again."
+    }
   }
 }

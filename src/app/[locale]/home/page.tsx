@@ -7,6 +7,7 @@ import { CATEGORY_ITEMS, resolveCategoryIcon } from "@/config/categories";
 import { getCategoriesService } from "@/features/categories";
 import { getProvidersService } from "@/features/providers";
 import { getServicesService } from "@/features/services";
+import { Link } from "@/i18n/navigation";
 import { logger } from "@/lib/logger";
 
 const log = logger.child({ module: "customer-home" });
@@ -19,6 +20,7 @@ type HomeService = {
   id: string;
   title: string;
   providerName: string;
+  providerSlug: string;
   rating: string;
   price: string;
   currency: string;
@@ -84,22 +86,25 @@ async function loadTopRatedServices(
       (await providers.listByIds(providerIds)).map((p) => [p.id, p]),
     );
 
-    return items.map((s) => {
-      const provider = providerById.get(s.providerId);
-      return {
-        id: s.id,
-        title: locale === "ar" ? s.titleAr : s.titleEn,
-        providerName: provider
-          ? locale === "ar"
-            ? provider.businessNameAr
-            : provider.businessNameEn
-          : "",
-        rating: s.rating.toFixed(1),
-        price: s.basePrice.toFixed(3),
-        currency: s.currency,
-        Icon: iconByCategoryId.get(s.categoryId) ?? Shapes,
-      };
-    });
+    return items
+      .filter((s) => providerById.get(s.providerId)?.status === "verified")
+      .map((s) => {
+        const provider = providerById.get(s.providerId);
+        return {
+          id: s.id,
+          title: locale === "ar" ? s.titleAr : s.titleEn,
+          providerName: provider
+            ? locale === "ar"
+              ? provider.businessNameAr
+              : provider.businessNameEn
+            : "",
+          providerSlug: provider?.slug ?? "",
+          rating: s.rating.toFixed(1),
+          price: s.basePrice.toFixed(3),
+          currency: s.currency,
+          Icon: iconByCategoryId.get(s.categoryId) ?? Shapes,
+        };
+      });
   } catch (error) {
     log.warn("services.top_rated_load_failed", { error });
     return [];
@@ -151,13 +156,17 @@ function CustomerHome({
         </div>
 
         {/* Search */}
-        <div className="border-input bg-card mt-3 flex items-center gap-2 rounded-full border px-4 py-2.5">
+        <form
+          action={`/${locale}/search`}
+          className="border-input bg-card mt-3 flex items-center gap-2 rounded-full border px-4 py-2.5"
+        >
           <Search className="text-muted-foreground size-4" aria-hidden />
           <input
+            name="q"
             className="placeholder:text-muted-foreground w-full bg-transparent text-sm outline-none"
             placeholder={t("searchPlaceholder")}
           />
-        </div>
+        </form>
       </header>
 
       <main className="flex-1 space-y-6 px-4 pt-2 pb-6">
@@ -172,15 +181,18 @@ function CustomerHome({
         <section className="space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="font-heading font-bold">{t("categories")}</h2>
-            <button type="button" className="text-primary text-sm font-medium">
+            <Link
+              href="/categories"
+              className="text-primary text-sm font-medium"
+            >
               {t("seeAll")}
-            </button>
+            </Link>
           </div>
           <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1">
             {categories.map(({ id, name, Icon }) => (
-              <button
+              <Link
                 key={id}
-                type="button"
+                href={`/search?category=${id}`}
                 className="flex w-16 shrink-0 flex-col items-center gap-1.5"
               >
                 <span className="bg-brand-gradient grid size-16 place-items-center rounded-2xl text-white shadow-sm">
@@ -189,7 +201,7 @@ function CustomerHome({
                 <span className="w-full truncate text-center text-xs font-medium">
                   {name}
                 </span>
-              </button>
+              </Link>
             ))}
           </div>
         </section>
@@ -198,9 +210,9 @@ function CustomerHome({
         <section className="space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="font-heading font-bold">{t("topRated")}</h2>
-            <button type="button" className="text-primary text-sm font-medium">
+            <Link href="/search" className="text-primary text-sm font-medium">
               {t("seeAll")}
-            </button>
+            </Link>
           </div>
           {topRated.length > 0 ? (
             <div className="grid grid-cols-2 gap-3">
@@ -209,13 +221,17 @@ function CustomerHome({
                   id,
                   title,
                   providerName,
+                  providerSlug,
                   rating,
                   price,
                   currency,
                   Icon,
                 }) => (
-                  <article
+                  <Link
                     key={id}
+                    href={
+                      providerSlug ? `/provider/${providerSlug}` : "/search"
+                    }
                     className="bg-card border-border overflow-hidden rounded-2xl border shadow-sm"
                   >
                     <div className="bg-brand-gradient grid h-24 place-items-center text-white">
@@ -242,7 +258,7 @@ function CustomerHome({
                         </span>
                       </div>
                     </div>
-                  </article>
+                  </Link>
                 ),
               )}
             </div>

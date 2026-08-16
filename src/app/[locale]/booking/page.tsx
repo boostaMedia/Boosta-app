@@ -26,7 +26,7 @@ function Booking() {
 
   return (
     <div className="bg-background mx-auto flex min-h-dvh w-full max-w-md flex-col">
-      <ScreenHeader title={t("title")} backHref="/provider" />
+      <ScreenHeader title={t("title")} backHref="/search" />
 
       <main className="flex-1 space-y-6 px-4 py-4">
         {/* Date & time */}

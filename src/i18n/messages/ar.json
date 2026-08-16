@@ -124,27 +124,28 @@
     "services": "{count} خدمة"
   },
   "searchScreen": {
-    "title": "تصميم المحتوى",
+    "title": "نتائج البحث",
     "sortNearest": "الأقرب",
     "sortTopRated": "الأعلى تقييمًا",
     "sortPrice": "السعر",
     "filter": "تصفية",
-    "available": "متاح",
-    "busy": "مشغول",
     "reviews": "{count} تقييم",
-    "km": "{km} كم"
+    "emptyTitle": "لا توجد نتائج",
+    "emptySubtitle": "جرّب فئة مختلفة أو كلمة بحث أخرى."
   },
   "providerScreen": {
     "verified": "موثّق",
     "reviews": "{count} تقييم",
     "stats": {
-      "bookings": "حجز",
-      "years": "سنوات",
-      "acceptance": "القبول"
+      "reviews": "التقييمات",
+      "services": "الخدمات",
+      "since": "منذ"
     },
     "services": "الخدمات",
     "bookNow": "احجز الآن",
-    "startingFrom": "من"
+    "startingFrom": "من",
+    "noServicesTitle": "لا توجد خدمات بعد",
+    "noServicesSubtitle": "لم يضِف هذا المزوّد أي خدمات حتى الآن."
   },
   "bookingScreen": {
     "title": "تأكيد الحجز",
@@ -336,5 +337,53 @@
     "s2Sub": "من المحتوى والفيديو إلى التسويق والقانون والمحاسبة.",
     "s3Title": "احجز بأمان خلال ثوانٍ",
     "s3Sub": "اطلب، قارن، وادفع — كل ذلك داخل بوستا."
+  },
+  "adminProvidersScreen": {
+    "title": "طلبات مزوّدي الخدمة",
+    "subtitle": "راجع ووافق على الشركات التي تطلب الانضمام إلى Boosta.",
+    "tabs": {
+      "pending": "قيد المراجعة",
+      "verified": "موثّق",
+      "rejected": "مرفوض",
+      "suspended": "موقوف"
+    },
+    "status": {
+      "pending": "قيد المراجعة",
+      "verified": "موثّق",
+      "rejected": "مرفوض",
+      "suspended": "موقوف"
+    },
+    "emptyTitle": "لا يوجد مزوّدون هنا",
+    "emptySubtitle": "لا يوجد مزوّدو خدمة بهذه الحالة حاليًا.",
+    "showingCount": "عرض {shown} من {total}"
+  },
+  "adminProviderDetailScreen": {
+    "back": "العودة إلى المزوّدين",
+    "businessInfoTitle": "معلومات النشاط التجاري",
+    "nameEnLabel": "اسم النشاط (إنجليزي)",
+    "nameArLabel": "اسم النشاط (عربي)",
+    "descriptionLabel": "الوصف",
+    "emailLabel": "البريد الإلكتروني",
+    "phoneLabel": "رقم الهاتف",
+    "contractTitle": "اتفاقية مزوّد الخدمة",
+    "signedNameLabel": "تم التوقيع بواسطة",
+    "contractVersionLabel": "إصدار الاتفاقية",
+    "acceptedAtLabel": "تاريخ الموافقة",
+    "status": {
+      "pending": "قيد المراجعة",
+      "verified": "موثّق",
+      "rejected": "مرفوض",
+      "suspended": "موقوف"
+    },
+    "approve": "موافقة",
+    "reject": "رفض",
+    "suspend": "إيقاف",
+    "reconsider": "إعادة النظر",
+    "reinstate": "إعادة التفعيل",
+    "updating": "جارٍ التحديث…",
+    "errors": {
+      "not_found": "هذا المزوّد لم يعد موجودًا.",
+      "failed": "تعذّر تحديث الحالة. حاول مرة أخرى."
+    }
   }
 }
