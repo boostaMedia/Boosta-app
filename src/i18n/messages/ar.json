@@ -433,5 +433,121 @@
     "emptyTitle": "لا توجد حجوزات بعد",
     "emptySubtitle": "طلبات العملاء الجديدة ستظهر هنا.",
     "noDate": "الوقت يُتفق عليه"
+  },
+  "adminNav": {
+    "label": "أقسام الإدارة",
+    "dashboard": "لوحة التحكم",
+    "providers": "طلبات المزوّدين",
+    "categories": "الأقسام",
+    "finance": "المالية والتقارير"
+  },
+  "adminDashboard": {
+    "title": "لوحة التحكم",
+    "subtitle": "وضع المنصة اليوم.",
+    "activeSubscriptions": "اشتراكات سارية",
+    "pendingProviders": "بانتظار الموافقة",
+    "needsReview": "تحتاج مراجعة",
+    "monthRevenue": "إيراد الاشتراكات (الشهر)",
+    "bookingsThisMonth": "حجوزات هذا الشهر",
+    "inProgress": "{count} قيد التنفيذ",
+    "verifiedProviders": "مزوّدون موثّقون",
+    "suspended": "{count} موقوفون",
+    "customers": "العملاء",
+    "expiringSoon": "تنتهي خلال 30 يوم",
+    "expiringHint": "اشتراكات للتجديد",
+    "overdue": "فواتير متأخرة",
+    "byCountry": "الاشتراكات حسب الدولة",
+    "noSubscriptions": "لا توجد اشتراكات سارية بعد.",
+    "todoTitle": "بحاجة لإجراء منك",
+    "todo": {
+      "pendingProviders": "{count} طلبات مزوّدين للمراجعة",
+      "overdueInvoices": "{count} فواتير متأخرة",
+      "expiringSoon": "{count} اشتراكات تنتهي قريبًا"
+    },
+    "recent": "آخر الحركات",
+    "noActivity": "لا يوجد شي بعد.",
+    "activity": {
+      "provider": "طلب مزوّد جديد: {label}",
+      "payment": "دفعة مستلمة: {label}",
+      "booking": "حجز جديد {label}"
+    }
+  },
+  "adminCategories": {
+    "title": "الأقسام",
+    "subtitle": "أضف الأقسام اللي يتصفحها العملاء أو عدّل اسمها أو أخفِها أو احذفها.",
+    "hint": "تعديل الاسم يتحدّث بالعربي والإنجليزي بكل مكان.",
+    "add": "قسم جديد",
+    "nameEn": "الاسم (إنجليزي)",
+    "nameAr": "الاسم (عربي)",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "empty": "لا توجد أقسام بعد.",
+    "confirmDelete": "حذف \"{name}\"؟ ما تقدر تتراجع.",
+    "servicesCount": "{count} خدمات",
+    "visible": "ظاهر",
+    "hidden": "مخفي",
+    "edit": "تعديل",
+    "hide": "إخفاء",
+    "show": "إظهار",
+    "delete": "حذف",
+    "errors": {
+      "invalid": "اكتب الاسم بالعربي والإنجليزي.",
+      "exists": "يوجد قسم بنفس الاسم.",
+      "not_found": "هذا القسم لم يعد موجودًا.",
+      "has_services": "هذا القسم فيه خدمات فما ينحذف. أخفِه بدل الحذف.",
+      "failed": "صار خطأ. حاول مرة أخرى."
+    }
+  },
+  "adminFinance": {
+    "title": "المالية والتقارير",
+    "subtitle": "فواتير الاشتراكات والإيرادات بالدولار الأمريكي.",
+    "exportCsv": "تصدير CSV",
+    "yearRevenue": "إيراد السنة",
+    "monthCollected": "المحصّل هذا الشهر",
+    "upcoming": "مستحق قريبًا",
+    "overdue": "متأخر",
+    "invoicesCount": "{count} فواتير",
+    "monthly": "الإيراد الشهري (آخر 6 شهور)",
+    "byCountry": "الإيراد حسب الدولة",
+    "noPayments": "لا توجد دفعات مسجّلة بعد.",
+    "unknownCountry": "بدون دولة",
+    "invoices": "فواتير الاشتراك",
+    "filters": {
+      "all": "الكل",
+      "due": "مستحقة",
+      "overdue": "متأخرة",
+      "paid": "مدفوعة",
+      "void": "ملغاة"
+    },
+    "allCountries": "كل الدول",
+    "empty": "لا توجد فواتير مطابقة.",
+    "cols": {
+      "provider": "المزوّد",
+      "country": "الدولة",
+      "amount": "المبلغ",
+      "due": "الاستحقاق / الدفع",
+      "status": "الحالة"
+    },
+    "status": {
+      "paid": "مدفوعة",
+      "due": "مستحقة",
+      "overdue": "متأخرة",
+      "void": "ملغاة"
+    },
+    "recordPayment": "تسجيل دفعة",
+    "method": "طريقة الدفع",
+    "methods": {
+      "bank_transfer": "تحويل بنكي",
+      "cash": "نقدًا",
+      "card": "بطاقة",
+      "other": "أخرى"
+    },
+    "reference": "المرجع",
+    "confirmPayment": "تأكيد الدفع",
+    "cancel": "إلغاء",
+    "void": "إلغاء الفاتورة",
+    "confirmVoid": "إلغاء هذه الفاتورة؟",
+    "actionFailed": "تعذّر تحديث الفاتورة. حاول مرة أخرى.",
+    "manualNote": "الدفعات تُسجَّل يدويًا لين نربط بوابة دفع إلكترونية. تسجيل الدفعة يبدأ اشتراك المزوّد أو يمدّده سنة."
   }
 }

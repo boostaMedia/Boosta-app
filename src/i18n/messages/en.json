@@ -433,5 +433,121 @@
     "emptyTitle": "No bookings yet",
     "emptySubtitle": "New requests from customers will appear here.",
     "noDate": "Time to be agreed"
+  },
+  "adminNav": {
+    "label": "Admin sections",
+    "dashboard": "Dashboard",
+    "providers": "Provider requests",
+    "categories": "Categories",
+    "finance": "Finance & reports"
+  },
+  "adminDashboard": {
+    "title": "Dashboard",
+    "subtitle": "Where the platform stands today.",
+    "activeSubscriptions": "Active subscriptions",
+    "pendingProviders": "Awaiting approval",
+    "needsReview": "Needs review",
+    "monthRevenue": "Subscription revenue (month)",
+    "bookingsThisMonth": "Bookings this month",
+    "inProgress": "{count} in progress",
+    "verifiedProviders": "Verified providers",
+    "suspended": "{count} suspended",
+    "customers": "Customers",
+    "expiringSoon": "Expiring in 30 days",
+    "expiringHint": "Subscriptions to renew",
+    "overdue": "Overdue invoices",
+    "byCountry": "Subscriptions by country",
+    "noSubscriptions": "No active subscriptions yet.",
+    "todoTitle": "Needs your attention",
+    "todo": {
+      "pendingProviders": "{count} provider requests to review",
+      "overdueInvoices": "{count} overdue invoices",
+      "expiringSoon": "{count} subscriptions expiring soon"
+    },
+    "recent": "Latest activity",
+    "noActivity": "Nothing yet.",
+    "activity": {
+      "provider": "New provider request: {label}",
+      "payment": "Payment received: {label}",
+      "booking": "New booking {label}"
+    }
+  },
+  "adminCategories": {
+    "title": "Categories",
+    "subtitle": "Add, rename, hide or delete the categories customers browse.",
+    "hint": "Renaming updates both languages everywhere.",
+    "add": "New category",
+    "nameEn": "Name (English)",
+    "nameAr": "Name (Arabic)",
+    "save": "Save",
+    "cancel": "Cancel",
+    "empty": "No categories yet.",
+    "confirmDelete": "Delete \"{name}\"? This can't be undone.",
+    "servicesCount": "{count} services",
+    "visible": "Visible",
+    "hidden": "Hidden",
+    "edit": "Edit",
+    "hide": "Hide",
+    "show": "Show",
+    "delete": "Delete",
+    "errors": {
+      "invalid": "Enter a name in both languages.",
+      "exists": "A category with this name already exists.",
+      "not_found": "That category no longer exists.",
+      "has_services": "This category still has services, so it can't be deleted. Hide it instead.",
+      "failed": "Something went wrong. Please try again."
+    }
+  },
+  "adminFinance": {
+    "title": "Finance & reports",
+    "subtitle": "Subscription invoices and revenue, in US dollars.",
+    "exportCsv": "Export CSV",
+    "yearRevenue": "Revenue this year",
+    "monthCollected": "Collected this month",
+    "upcoming": "Due soon",
+    "overdue": "Overdue",
+    "invoicesCount": "{count} invoices",
+    "monthly": "Monthly revenue (last 6 months)",
+    "byCountry": "Revenue by country",
+    "noPayments": "No payments recorded yet.",
+    "unknownCountry": "No country",
+    "invoices": "Subscription invoices",
+    "filters": {
+      "all": "All",
+      "due": "Due",
+      "overdue": "Overdue",
+      "paid": "Paid",
+      "void": "Cancelled"
+    },
+    "allCountries": "All countries",
+    "empty": "No invoices match.",
+    "cols": {
+      "provider": "Provider",
+      "country": "Country",
+      "amount": "Amount",
+      "due": "Due / paid",
+      "status": "Status"
+    },
+    "status": {
+      "paid": "Paid",
+      "due": "Due",
+      "overdue": "Overdue",
+      "void": "Cancelled"
+    },
+    "recordPayment": "Record payment",
+    "method": "Payment method",
+    "methods": {
+      "bank_transfer": "Bank transfer",
+      "cash": "Cash",
+      "card": "Card",
+      "other": "Other"
+    },
+    "reference": "Reference",
+    "confirmPayment": "Confirm paid",
+    "cancel": "Cancel",
+    "void": "Cancel invoice",
+    "confirmVoid": "Cancel this invoice?",
+    "actionFailed": "Couldn't update the invoice. Please try again.",
+    "manualNote": "Payments are recorded by hand until an online payment gateway is connected. Recording a payment starts or extends the provider's subscription for a year."
   }
 }

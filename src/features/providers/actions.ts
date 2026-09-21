@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { requireAdmin, requireProvider } from "@/features/auth";
+import { issueSubscriptionInvoice } from "@/features/billing";
 import { ConflictError, NotFoundError } from "@/lib/errors";
 import { logger } from "@/lib/logger";
 
@@ -123,7 +124,21 @@ export async function setProviderStatusAction(
   try {
     const services = await getProvidersService();
     await services.updateAdmin(providerId, { status });
+
+    // Approval is when the annual membership falls due. Best-effort: a
+    // billing hiccup shouldn't undo the approval — the admin can still open
+    // the invoice later — so it's logged rather than surfaced as a failure.
+    if (status === "verified") {
+      try {
+        await issueSubscriptionInvoice(providerId);
+      } catch (error) {
+        log.warn("issue_invoice.failed", { error, providerId });
+      }
+    }
+
     revalidatePath("/admin");
+    revalidatePath("/admin/providers");
+    revalidatePath("/admin/finance");
     revalidatePath(`/admin/providers/${providerId}`);
     return { ok: true };
   } catch (error) {

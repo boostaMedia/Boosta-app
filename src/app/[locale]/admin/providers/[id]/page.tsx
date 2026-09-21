@@ -52,7 +52,7 @@ export default async function AdminProviderDetailPage({
   const owner = await loadOwnerContact(provider.userId);
 
   return (
-    <div className="mx-auto min-h-dvh w-full max-w-2xl px-4 py-8">
+    <div className="mx-auto w-full max-w-2xl">
       <BackLink />
       <ProviderDetail
         provider={provider}
@@ -67,7 +67,7 @@ function BackLink() {
   const t = useTranslations("adminProviderDetailScreen");
   return (
     <Link
-      href="/admin"
+      href="/admin/providers"
       className="text-muted-foreground hover:text-foreground mb-5 inline-flex items-center gap-1.5 text-sm font-medium"
     >
       <ArrowLeft className="size-4 rtl:rotate-180" aria-hidden />
