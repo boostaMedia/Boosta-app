@@ -147,24 +147,30 @@
     "bookNow": "احجز الآن",
     "startingFrom": "من",
     "noServicesTitle": "لا توجد خدمات بعد",
-    "noServicesSubtitle": "لم يضِف هذا المزوّد أي خدمات حتى الآن."
+    "noServicesSubtitle": "لم يضِف هذا المزوّد أي خدمات حتى الآن.",
+    "bookThis": "احجز هذه الخدمة"
   },
   "bookingScreen": {
-    "title": "تأكيد الحجز",
-    "dateTime": "التاريخ والوقت",
-    "today": "اليوم",
-    "address": "العنوان",
-    "addressValue": "المكتب — حولي، شارع تونس",
-    "change": "تغيير",
-    "invoice": "ملخص الفاتورة",
+    "title": "طلب حجز",
+    "dateTime": "التاريخ والوقت المفضّل",
+    "invoice": "الملخّص",
     "servicePrice": "سعر الخدمة",
-    "platformFee": "رسوم المنصة",
     "total": "الإجمالي",
-    "confirmPay": "تأكيد ودفع"
+    "confirmPay": "إرسال طلب الحجز",
+    "dateTimeHint": "اختياري — يمكنك الاتفاق على الوقت مع المزوّد عبر الدردشة.",
+    "notes": "ملاحظات للمزوّد",
+    "notesPlaceholder": "اشرح ما تحتاجه، روابط، مواعيد التسليم…",
+    "submitting": "جارٍ الإرسال…",
+    "paymentNote": "لن يتم خصم أي مبلغ الآن. يؤكد المزوّد طلبك أولًا.",
+    "errors": {
+      "invalid_time": "اختر وقتًا في المستقبل.",
+      "unavailable": "هذه الخدمة غير متاحة للحجز حاليًا.",
+      "failed": "تعذّر إرسال طلبك. حاول مرة أخرى."
+    }
   },
   "confirmScreen": {
-    "title": "تم تأكيد حجزك",
-    "subtitle": "بيكسل ستوديو سيؤكد حجزك قريبًا.",
+    "title": "تم إرسال الطلب",
+    "subtitle": "سيراجع المزوّد طلبك ويؤكده قريبًا.",
     "bookingNo": "رقم الحجز",
     "amount": "المبلغ",
     "track": "تتبع الحجز",
@@ -177,10 +183,18 @@
       "completed": "مكتملة",
       "cancelled": "ملغاة"
     },
-    "confirmed": "مؤكد",
-    "awaiting": "بانتظار المزوّد",
-    "today": "اليوم",
-    "tomorrow": "غدًا"
+    "emptyTitle": "لا توجد حجوزات هنا",
+    "emptySubtitle": "الحجوزات التي تطلبها من المزوّدين ستظهر هنا.",
+    "noDate": "الوقت يُتفق عليه",
+    "status": {
+      "pending": "بانتظار المزوّد",
+      "confirmed": "مؤكّد",
+      "in_progress": "قيد التنفيذ",
+      "completed": "مكتمل",
+      "cancelled": "ملغي",
+      "refunded": "مسترجع",
+      "disputed": "متنازع عليه"
+    }
   },
   "messagesScreen": {
     "title": "الرسائل",
@@ -396,5 +410,24 @@
       "not_found": "هذا المزوّد لم يعد موجودًا.",
       "failed": "تعذّر تحديث الحالة. حاول مرة أخرى."
     }
+  },
+  "bookingActions": {
+    "confirmed": "قبول",
+    "cancelled": "إلغاء",
+    "in_progress": "بدء العمل",
+    "completed": "تحديد كمكتمل",
+    "updating": "جارٍ التحديث…",
+    "errors": {
+      "not_allowed": "هذا التغيير غير مسموح لهذا الحجز.",
+      "not_found": "هذا الحجز لم يعد موجودًا.",
+      "failed": "تعذّر تحديث الحجز. حاول مرة أخرى."
+    }
+  },
+  "providerBookingsScreen": {
+    "title": "طلبات الحجز",
+    "subtitle": "اقبل الحجوزات من العملاء أو ارفضها أو أكملها.",
+    "emptyTitle": "لا توجد حجوزات بعد",
+    "emptySubtitle": "طلبات العملاء الجديدة ستظهر هنا.",
+    "noDate": "الوقت يُتفق عليه"
   }
 }

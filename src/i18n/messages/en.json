@@ -147,24 +147,30 @@
     "bookNow": "Book now",
     "startingFrom": "From",
     "noServicesTitle": "No services yet",
-    "noServicesSubtitle": "This provider hasn't listed any services yet."
+    "noServicesSubtitle": "This provider hasn't listed any services yet.",
+    "bookThis": "Book this service"
   },
   "bookingScreen": {
-    "title": "Confirm booking",
-    "dateTime": "Date & time",
-    "today": "Today",
-    "address": "Address",
-    "addressValue": "Office — Hawalli, Tunis St.",
-    "change": "Change",
-    "invoice": "Invoice summary",
+    "title": "Request booking",
+    "dateTime": "Preferred date & time",
+    "invoice": "Summary",
     "servicePrice": "Service price",
-    "platformFee": "Platform fee",
     "total": "Total",
-    "confirmPay": "Confirm & pay"
+    "confirmPay": "Send booking request",
+    "dateTimeHint": "Optional — you can agree the exact time with the provider in chat.",
+    "notes": "Notes for the provider",
+    "notesPlaceholder": "Describe what you need, links, deadlines…",
+    "submitting": "Sending…",
+    "paymentNote": "Nothing is charged now. The provider confirms your request first.",
+    "errors": {
+      "invalid_time": "Please pick a time in the future.",
+      "unavailable": "This service isn't available for booking right now.",
+      "failed": "Couldn't send your request. Please try again."
+    }
   },
   "confirmScreen": {
-    "title": "Booking confirmed",
-    "subtitle": "Pixel Studio will confirm your booking shortly.",
+    "title": "Request sent",
+    "subtitle": "The provider will review and confirm your booking shortly.",
     "bookingNo": "Booking number",
     "amount": "Amount",
     "track": "Track booking",
@@ -177,10 +183,18 @@
       "completed": "Completed",
       "cancelled": "Cancelled"
     },
-    "confirmed": "Confirmed",
-    "awaiting": "Awaiting provider",
-    "today": "Today",
-    "tomorrow": "Tomorrow"
+    "emptyTitle": "No bookings here",
+    "emptySubtitle": "Bookings you request from providers will show up here.",
+    "noDate": "Time to be agreed",
+    "status": {
+      "pending": "Awaiting provider",
+      "confirmed": "Confirmed",
+      "in_progress": "In progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "refunded": "Refunded",
+      "disputed": "Disputed"
+    }
   },
   "messagesScreen": {
     "title": "Messages",
@@ -396,5 +410,24 @@
       "not_found": "This provider no longer exists.",
       "failed": "Couldn't update the status. Please try again."
     }
+  },
+  "bookingActions": {
+    "confirmed": "Accept",
+    "cancelled": "Cancel",
+    "in_progress": "Start work",
+    "completed": "Mark completed",
+    "updating": "Updating…",
+    "errors": {
+      "not_allowed": "That change isn't allowed for this booking.",
+      "not_found": "This booking no longer exists.",
+      "failed": "Couldn't update the booking. Please try again."
+    }
+  },
+  "providerBookingsScreen": {
+    "title": "Booking requests",
+    "subtitle": "Accept, decline and complete bookings from customers.",
+    "emptyTitle": "No bookings yet",
+    "emptySubtitle": "New requests from customers will appear here.",
+    "noDate": "Time to be agreed"
   }
 }

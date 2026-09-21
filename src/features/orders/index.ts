@@ -16,5 +16,5 @@ export {
   updateOrderStatusSchema,
   listOrdersQuerySchema,
 } from "./schemas";
-export type { Order } from "./types";
+export type { Order, OrderStatus } from "./types";
 export type { OrdersService } from "./service";

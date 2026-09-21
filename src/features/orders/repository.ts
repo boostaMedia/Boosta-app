@@ -68,6 +68,8 @@ export function createOrdersRepository(
         .is("deleted_at", null);
 
       if (params.status) query = query.eq("status", params.status);
+      if (params.customerId) query = query.eq("customer_id", params.customerId);
+      if (params.providerId) query = query.eq("provider_id", params.providerId);
 
       const { data, error, count } = await query
         .order("created_at", { ascending: false })

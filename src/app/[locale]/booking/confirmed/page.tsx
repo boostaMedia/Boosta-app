@@ -1,23 +1,37 @@
 import { Check } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import { requireCustomer } from "@/features/auth";
+import { getOrdersService } from "@/features/orders";
+import type { Order } from "@/features/orders";
 import { Link } from "@/i18n/navigation";
+import { currencySymbol, formatAmount } from "@/lib/currency";
+import { NotFoundError } from "@/lib/errors";
 
 export default async function BookingConfirmedPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ order?: string }>;
 }) {
   const { locale } = await params;
+  const { order: orderId } = await searchParams;
   setRequestLocale(locale);
-  return <Confirmed />;
-}
+  const user = await requireCustomer();
+  if (!orderId) notFound();
 
-function Confirmed() {
-  const t = useTranslations("confirmScreen");
-  const locale = useLocale();
-  const currency = locale === "ar" ? "د.ك" : "KWD";
+  let order: Order;
+  try {
+    order = await (await getOrdersService()).get(orderId);
+  } catch (error) {
+    if (error instanceof NotFoundError) notFound();
+    throw error;
+  }
+  if (order.customerId !== user.id) notFound();
+
+  const t = await getTranslations({ locale, namespace: "confirmScreen" });
 
   return (
     <div className="bg-background mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 py-10">
@@ -38,18 +52,23 @@ function Confirmed() {
             <span className="text-muted-foreground text-sm">
               {t("bookingNo")}
             </span>
-            <span className="font-heading font-bold">#BK-58213</span>
+            <span className="font-heading font-bold" dir="ltr">
+              #{order.orderNumber}
+            </span>
           </div>
           <div className="border-border flex items-center justify-between border-t pt-3">
             <span className="text-muted-foreground text-sm">{t("amount")}</span>
-            <span className="text-primary font-bold">46.000 {currency}</span>
+            <span className="text-primary font-bold">
+              {formatAmount(order.totalAmount, order.currency)}{" "}
+              {currencySymbol(order.currency, locale)}
+            </span>
           </div>
         </div>
       </div>
 
       <div className="space-y-3">
         <Link
-          href="/booking/confirmed"
+          href="/bookings"
           className="bg-brand-gradient flex h-12 w-full items-center justify-center rounded-xl font-semibold text-white shadow-md hover:opacity-90"
         >
           {t("track")}

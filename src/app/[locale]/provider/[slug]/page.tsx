@@ -4,14 +4,15 @@ import { useLocale, useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 
 import { ScreenHeader } from "@/components/app/screen-header";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { getProvidersService } from "@/features/providers";
 import type { Provider } from "@/features/providers";
 import { getServicesService } from "@/features/services";
 import type { Service } from "@/features/services";
 import { currencySymbol, formatAmount } from "@/lib/currency";
+import { Link } from "@/i18n/navigation";
 import { NotFoundError } from "@/lib/errors";
-import { initials } from "@/lib/utils";
+import { cn, initials } from "@/lib/utils";
 
 export default async function ProviderProfilePage({
   params,
@@ -139,13 +140,13 @@ function ProviderProfile({
                       </span>
                     </p>
                   </div>
-                  <button
-                    type="button"
-                    aria-label="Add"
+                  <Link
+                    href={`/booking?service=${svc.id}`}
+                    aria-label={t("bookThis")}
                     className="bg-accent text-primary grid size-9 shrink-0 place-items-center rounded-full"
                   >
                     <Plus className="size-5" aria-hidden />
-                  </button>
+                  </Link>
                 </div>
               ))}
             </div>
@@ -166,9 +167,15 @@ function ProviderProfile({
                 {currencySymbol(cheapest.currency, locale)}
               </span>
             </div>
-            <Button className="bg-brand-gradient border-0 px-6 text-white shadow-md hover:opacity-90">
+            <Link
+              href={`/booking?service=${cheapest.id}`}
+              className={cn(
+                buttonVariants(),
+                "bg-brand-gradient border-0 px-6 text-white shadow-md hover:opacity-90",
+              )}
+            >
               {t("bookNow")}
-            </Button>
+            </Link>
           </div>
         </div>
       )}

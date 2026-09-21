@@ -46,4 +46,8 @@ export type CreateOrderData = CreateOrderInput & { totalAmount: number };
 
 export interface ListOrdersParams extends PaginationQuery {
   status?: OrderStatus;
+  /** Narrow to orders the user placed (RLS also shows the provider side). */
+  customerId?: string;
+  /** Narrow to orders received by a provider. */
+  providerId?: string;
 }
