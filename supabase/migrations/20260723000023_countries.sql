@@ -10,7 +10,7 @@
 -- to live only in the contract text.
 -- ============================================================================
 
-create table public.countries (
+create table if not exists public.countries (
   id                  uuid primary key default gen_random_uuid(),
   code                text not null unique,
   name_en             text not null,
@@ -24,6 +24,7 @@ create table public.countries (
   updated_at          timestamptz not null default now()
 );
 
+drop trigger if exists set_countries_updated_at on public.countries;
 create trigger set_countries_updated_at before update on public.countries
   for each row execute function public.set_updated_at();
 
@@ -36,7 +37,8 @@ values
   ('QA', 'Qatar',                'قطر',       'QAR', 'QAR', 'ر.ق', 4),
   ('BH', 'Bahrain',              'البحرين',   'BHD', 'BHD', 'د.ب', 5),
   ('OM', 'Oman',                 'عُمان',     'OMR', 'OMR', 'ر.ع', 6),
-  ('EG', 'Egypt',                'مصر',       'EGP', 'EGP', 'ج.م', 7);
+  ('EG', 'Egypt',                'مصر',       'EGP', 'EGP', 'ج.م', 7)
+on conflict (code) do nothing;
 
 -- Cities/providers each get an optional country; customers get one via their
 -- profile (mirroring how profiles.city_id already models customer location,
@@ -44,21 +46,23 @@ values
 -- than NOT NULL: existing rows are backfilled to Kuwait below, but the
 -- column isn't required at the DB level so app-level validation (not a
 -- migration) governs when it must be set (e.g. provider registration).
-alter table public.cities    add column country_id uuid references public.countries(id);
-alter table public.providers add column country_id uuid references public.countries(id);
-alter table public.profiles  add column country_id uuid references public.countries(id);
+alter table public.cities    add column if not exists country_id uuid references public.countries(id);
+alter table public.providers add column if not exists country_id uuid references public.countries(id);
+alter table public.profiles  add column if not exists country_id uuid references public.countries(id);
 
 update public.cities    set country_id = (select id from public.countries where code = 'KW') where country_id is null;
 update public.providers set country_id = (select id from public.countries where code = 'KW') where country_id is null;
 
-create index cities_country_id_idx    on public.cities(country_id);
-create index providers_country_id_idx on public.providers(country_id);
-create index profiles_country_id_idx  on public.profiles(country_id);
+create index if not exists cities_country_id_idx    on public.cities(country_id);
+create index if not exists providers_country_id_idx on public.providers(country_id);
+create index if not exists profiles_country_id_idx  on public.profiles(country_id);
 
 alter table public.countries enable row level security;
 
+drop policy if exists "countries public read" on public.countries;
 create policy "countries public read" on public.countries
   for select to anon, authenticated using (is_active or public.is_admin());
+drop policy if exists "countries admin write" on public.countries;
 create policy "countries admin write" on public.countries
   for all to authenticated using (public.is_admin()) with check (public.is_admin());
 
@@ -84,4 +88,12 @@ values (
   'yearly',
   true,
   1
-);
+)
+on conflict (slug) do nothing;
+
+-- The catalog already had a 300 KWD 'annual' plan from before the USD
+-- decision. Retire it so only the USD plan is offered; the row stays for
+-- any subscription that already references it.
+update public.provider_packages
+   set is_active = false
+ where slug = 'annual';
