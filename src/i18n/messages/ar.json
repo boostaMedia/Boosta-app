@@ -333,25 +333,26 @@
   },
   "dashboardScreen": {
     "welcome": "أهلًا بعودتك",
-    "studio": "بيكسل ستوديو",
-    "online": "متصل",
     "myServices": "خدماتي",
     "myServicesSubtitle": "أضف وأدر ما تقدّمه من خدمات",
     "stats": {
-      "todayBookings": "حجوزات اليوم",
-      "revenue": "الإيرادات",
+      "bookingsThisMonth": "حجوزات هذا الشهر",
+      "revenue": "إيراد هذا الشهر",
       "rating": "التقييم",
-      "acceptance": "معدل القبول"
+      "completed": "أعمال مكتملة"
     },
     "newRequests": "طلبات جديدة",
-    "accept": "قبول",
     "nav": {
       "dashboard": "لوحتي",
       "orders": "الطلبات",
       "wallet": "المحفظة",
       "messages": "الرسائل",
       "account": "حسابي"
-    }
+    },
+    "seeAll": "عرض الكل ({count})",
+    "noRequestsTitle": "لا توجد طلبات جديدة",
+    "noRequestsSubtitle": "طلبات الحجز من العملاء ستظهر هنا.",
+    "noDate": "الوقت يُتفق عليه"
   },
   "splashScreen": {
     "tagline": "خدماتك، بلمسة واحدة"

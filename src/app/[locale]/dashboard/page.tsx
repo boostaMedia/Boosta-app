@@ -1,9 +1,9 @@
 import {
   CalendarDays,
+  CheckCircle2,
   ChevronRight,
   Star,
   Sparkles,
-  TrendingUp,
   Wallet,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
@@ -11,11 +11,65 @@ import { setRequestLocale } from "next-intl/server";
 
 import { ProviderBottomNav } from "@/components/app/provider-bottom-nav";
 import { requireProvider } from "@/features/auth";
+import { getOrdersService } from "@/features/orders";
+import type { Order } from "@/features/orders";
+import { BookingActions } from "@/features/orders/components/booking-actions";
+import { summarizeProviderOrders } from "@/features/orders/provider-stats";
+import type { ProviderOrderSummary } from "@/features/orders/provider-stats";
+import { nextStatuses } from "@/features/orders/transitions";
 import { getCurrentProvider } from "@/features/providers";
+import type { Provider } from "@/features/providers";
 import { PendingApprovalScreen } from "@/features/providers/components/pending-approval";
 import { RegisterProviderForm } from "@/features/providers/components/register-form";
 import { listCities, listCountries } from "@/features/reference";
+import { getServicesService } from "@/features/services";
 import { Link } from "@/i18n/navigation";
+import { currencySymbol, formatAmount } from "@/lib/currency";
+import { logger } from "@/lib/logger";
+
+const log = logger.child({ module: "provider-dashboard" });
+
+type Request = { order: Order; titleEn: string; titleAr: string };
+
+const EMPTY_SUMMARY: ProviderOrderSummary = {
+  bookingsThisMonth: 0,
+  completedTotal: 0,
+  revenueThisMonth: [],
+  pendingRequests: [],
+};
+
+async function loadDashboard(
+  providerId: string,
+): Promise<{ summary: ProviderOrderSummary; requests: Request[] }> {
+  try {
+    const { items } = await (
+      await getOrdersService()
+    ).list({ page: 1, pageSize: 100, providerId });
+    const summary = summarizeProviderOrders(items, new Date());
+
+    const services = await getServicesService();
+    const requests = await Promise.all(
+      summary.pendingRequests.slice(0, 3).map(async (order) => {
+        let titleEn: string = order.orderNumber;
+        let titleAr: string = order.orderNumber;
+        if (order.serviceId) {
+          try {
+            const service = await services.get(order.serviceId);
+            titleEn = service.titleEn;
+            titleAr = service.titleAr;
+          } catch {
+            // Removed service: keep the order number.
+          }
+        }
+        return { order, titleEn, titleAr };
+      }),
+    );
+    return { summary, requests };
+  } catch (error) {
+    log.warn("dashboard.load_failed", { error });
+    return { summary: EMPTY_SUMMARY, requests: [] };
+  }
+}
 
 export default async function DashboardPage({
   params,
@@ -27,10 +81,10 @@ export default async function DashboardPage({
   await requireProvider();
 
   // A provider-role account has no `providers` row until they complete this
-  // one-time registration request — show that instead of the (currently
-  // mock) stats. Having a row isn't the same as being approved: only
-  // status='verified' gets the real dashboard, everything else (pending,
-  // rejected, suspended) sees the matching status screen.
+  // one-time registration request — show that instead of the stats. Having a
+  // row isn't the same as being approved: only status='verified' gets the real
+  // dashboard, everything else (pending, rejected, suspended) sees the
+  // matching status screen.
   const provider = await getCurrentProvider();
   if (!provider) {
     const [cities, countries] = await Promise.all([
@@ -49,32 +103,50 @@ export default async function DashboardPage({
     );
   }
 
-  return <Dashboard />;
+  const { summary, requests } = await loadDashboard(provider.id);
+  return (
+    <Dashboard provider={provider} summary={summary} requests={requests} />
+  );
 }
 
-const REQUESTS = {
-  en: [
-    { title: "Social Media Content — 3 reels", when: "Tomorrow 11:00 AM" },
-    { title: "Product Photography", when: "Thursday 2:00 PM" },
-  ],
-  ar: [
-    { title: "محتوى سوشيال ميديا — ٣ ريلز", when: "غدًا ١١:٠٠ ص" },
-    { title: "تصوير المنتجات", when: "الخميس ٢:٠٠ م" },
-  ],
-};
-
-function Dashboard() {
+function Dashboard({
+  provider,
+  summary,
+  requests,
+}: {
+  provider: Provider;
+  summary: ProviderOrderSummary;
+  requests: Request[];
+}) {
   const t = useTranslations("dashboardScreen");
   const locale = useLocale();
-  const currency = locale === "ar" ? "د.ك" : "KWD";
-  const requests = locale === "ar" ? REQUESTS.ar : REQUESTS.en;
-  const initial = locale === "ar" ? "بك" : "PX";
+  const isAr = locale === "ar";
+  const name = isAr ? provider.businessNameAr : provider.businessNameEn;
+  const initial = name.trim().charAt(0).toUpperCase() || "B";
+
+  const revenue =
+    summary.revenueThisMonth.length === 0
+      ? "0"
+      : summary.revenueThisMonth
+          .map(
+            (r) =>
+              `${formatAmount(r.amount, r.currency)} ${currencySymbol(r.currency, locale)}`,
+          )
+          .join(" + ");
 
   const stats = [
-    { key: "todayBookings", value: "5", Icon: CalendarDays, suffix: "" },
-    { key: "revenue", value: "142.750", Icon: Wallet, suffix: currency },
-    { key: "rating", value: "4.7", Icon: Star, suffix: "" },
-    { key: "acceptance", value: "96%", Icon: TrendingUp, suffix: "" },
+    {
+      key: "bookingsThisMonth",
+      value: String(summary.bookingsThisMonth),
+      Icon: CalendarDays,
+    },
+    { key: "revenue", value: revenue, Icon: Wallet },
+    { key: "rating", value: provider.rating.toFixed(1), Icon: Star },
+    {
+      key: "completed",
+      value: String(summary.completedTotal),
+      Icon: CheckCircle2,
+    },
   ] as const;
 
   return (
@@ -85,14 +157,10 @@ function Dashboard() {
           <div className="grid size-12 place-items-center rounded-2xl bg-white/15 text-sm font-bold backdrop-blur">
             {initial}
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="text-sm text-white/80">{t("welcome")}</p>
-            <p className="font-heading flex items-center gap-2 text-lg font-extrabold">
-              {t("studio")}
-              <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2 py-0.5 text-[11px] font-medium">
-                <span className="size-1.5 rounded-full bg-green-300" />
-                {t("online")}
-              </span>
+            <p className="font-heading truncate text-lg font-extrabold">
+              {name}
             </p>
           </div>
         </div>
@@ -101,20 +169,14 @@ function Dashboard() {
       <main className="flex-1 space-y-6 px-4 py-4">
         {/* Stats */}
         <div className="grid grid-cols-2 gap-3">
-          {stats.map(({ key, value, Icon, suffix }) => (
+          {stats.map(({ key, value, Icon }) => (
             <div
               key={key}
               className="bg-card border-border rounded-2xl border p-4 shadow-sm"
             >
               <Icon className="text-primary mb-2 size-5" aria-hidden />
-              <p className="font-heading text-xl font-extrabold">
+              <p className="font-heading text-xl font-extrabold break-words">
                 {value}
-                {suffix ? (
-                  <span className="text-muted-foreground text-xs font-normal">
-                    {" "}
-                    {suffix}
-                  </span>
-                ) : null}
               </p>
               <p className="text-muted-foreground text-xs">
                 {t(`stats.${key}`)}
@@ -145,26 +207,50 @@ function Dashboard() {
 
         {/* New requests */}
         <section className="space-y-3">
-          <h2 className="font-heading font-bold">{t("newRequests")}</h2>
-          <div className="space-y-2">
-            {requests.map((r) => (
-              <div
-                key={r.title}
-                className="bg-card border-border flex items-center gap-3 rounded-2xl border p-4 shadow-sm"
+          <div className="flex items-center justify-between">
+            <h2 className="font-heading font-bold">{t("newRequests")}</h2>
+            {summary.pendingRequests.length > requests.length && (
+              <Link
+                href="/dashboard/bookings"
+                className="text-primary text-sm font-medium"
               >
-                <div className="min-w-0 flex-1">
-                  <p className="truncate font-medium">{r.title}</p>
-                  <p className="text-muted-foreground text-xs">{r.when}</p>
-                </div>
-                <button
-                  type="button"
-                  className="bg-brand-gradient shrink-0 rounded-full px-4 py-2 text-sm font-semibold text-white shadow-sm"
-                >
-                  {t("accept")}
-                </button>
-              </div>
-            ))}
+                {t("seeAll", { count: summary.pendingRequests.length })}
+              </Link>
+            )}
           </div>
+          {requests.length === 0 ? (
+            <div className="border-border bg-card rounded-2xl border border-dashed p-6 text-center">
+              <p className="font-bold">{t("noRequestsTitle")}</p>
+              <p className="text-muted-foreground mt-1 text-sm">
+                {t("noRequestsSubtitle")}
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {requests.map(({ order, titleEn, titleAr }) => (
+                <div
+                  key={order.id}
+                  className="bg-card border-border rounded-2xl border p-4 shadow-sm"
+                >
+                  <p className="truncate font-medium">
+                    {isAr ? titleAr : titleEn}
+                  </p>
+                  <p className="text-muted-foreground text-xs">
+                    {order.scheduledAt
+                      ? new Date(order.scheduledAt).toLocaleString(
+                          isAr ? "ar-KW" : "en-KW",
+                          { dateStyle: "medium", timeStyle: "short" },
+                        )
+                      : t("noDate")}
+                  </p>
+                  <BookingActions
+                    orderId={order.id}
+                    options={nextStatuses("provider", order.status)}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </section>
       </main>
 

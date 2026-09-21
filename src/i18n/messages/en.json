@@ -333,25 +333,26 @@
   },
   "dashboardScreen": {
     "welcome": "Welcome back",
-    "studio": "Pixel Studio",
-    "online": "Online",
     "myServices": "My services",
     "myServicesSubtitle": "Add and manage what you offer",
     "stats": {
-      "todayBookings": "Today's bookings",
-      "revenue": "Revenue",
+      "bookingsThisMonth": "Bookings this month",
+      "revenue": "Revenue this month",
       "rating": "Rating",
-      "acceptance": "Acceptance"
+      "completed": "Completed jobs"
     },
     "newRequests": "New requests",
-    "accept": "Accept",
     "nav": {
       "dashboard": "Dashboard",
       "orders": "Orders",
       "wallet": "Wallet",
       "messages": "Messages",
       "account": "Account"
-    }
+    },
+    "seeAll": "See all ({count})",
+    "noRequestsTitle": "No new requests",
+    "noRequestsSubtitle": "Booking requests from customers will show up here.",
+    "noDate": "Time to be agreed"
   },
   "splashScreen": {
     "tagline": "Your services, one tap"
