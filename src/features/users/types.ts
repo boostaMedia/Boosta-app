@@ -34,6 +34,7 @@ export interface Profile {
   dateOfBirth: string | null;
   locale: string;
   cityId: string | null;
+  countryId: string | null;
   updatedAt: string;
 }
 

@@ -131,7 +131,9 @@
     "filter": "Filter",
     "reviews": "{count} reviews",
     "emptyTitle": "No matches yet",
-    "emptySubtitle": "Try a different category or search term."
+    "emptySubtitle": "Try a different category or search term.",
+    "scopedToCountry": "Showing providers in your country.",
+    "showAllCountries": "Show all countries"
   },
   "providerScreen": {
     "verified": "Verified",
@@ -214,6 +216,13 @@
       "language": "Language",
       "help": "Help & support",
       "signOut": "Sign out"
+    },
+    "country": {
+      "title": "Country",
+      "placeholder": "Select your country",
+      "hint": "Search shows providers in your country, priced in local currency.",
+      "saved": "Saved.",
+      "error": "Couldn't save. Please try again."
     }
   },
   "providerRegisterScreen": {
@@ -230,7 +239,7 @@
     "descriptionArLabel": "Description (Arabic, optional)",
     "descriptionArPlaceholder": "ما هي خدماتك؟",
     "contractLabel": "Provider agreement",
-    "contractAgree": "I have read and agree to the Provider Agreement, including the 300 KWD annual access fee.",
+    "contractAgree": "I have read and agree to the Provider Agreement, including the $975 USD annual access fee.",
     "signatureLabel": "Full legal name (as your signature)",
     "signaturePlaceholder": "Your full name",
     "submit": "Submit request",
@@ -241,7 +250,9 @@
       "contract_required": "Please agree to the provider agreement and sign with your full name.",
       "slug_taken": "That business name is already taken. Try a slightly different name.",
       "failed": "Couldn't submit your request. Please try again."
-    }
+    },
+    "countryLabel": "Country",
+    "countryPlaceholder": "Select a country"
   },
   "providerPendingScreen": {
     "pending": {

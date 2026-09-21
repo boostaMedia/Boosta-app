@@ -9,6 +9,7 @@ import { getProvidersService } from "@/features/providers";
 import type { Provider } from "@/features/providers";
 import { getServicesService } from "@/features/services";
 import type { Service } from "@/features/services";
+import { currencySymbol, formatAmount } from "@/lib/currency";
 import { NotFoundError } from "@/lib/errors";
 import { initials } from "@/lib/utils";
 
@@ -52,7 +53,6 @@ function ProviderProfile({
 }) {
   const t = useTranslations("providerScreen");
   const locale = useLocale();
-  const currency = locale === "ar" ? "د.ك" : "KWD";
   const name =
     locale === "ar" ? provider.businessNameAr : provider.businessNameEn;
   const memberSinceYear = new Date(provider.createdAt).getFullYear();
@@ -63,8 +63,10 @@ function ProviderProfile({
     { value: String(memberSinceYear), label: t("stats.since") },
   ];
 
-  const cheapest =
-    services.length > 0 ? Math.min(...services.map((s) => s.basePrice)) : null;
+  const cheapest = services.reduce<Service | null>(
+    (min, s) => (min === null || s.basePrice < min.basePrice ? s : min),
+    null,
+  );
 
   return (
     <div className="bg-background mx-auto flex min-h-dvh w-full max-w-md flex-col">
@@ -131,9 +133,9 @@ function ProviderProfile({
                       {locale === "ar" ? svc.titleAr : svc.titleEn}
                     </p>
                     <p className="text-primary text-sm font-bold">
-                      {svc.basePrice.toFixed(3)}{" "}
+                      {formatAmount(svc.basePrice, svc.currency)}{" "}
                       <span className="text-muted-foreground text-xs font-normal">
-                        {currency}
+                        {currencySymbol(svc.currency, locale)}
                       </span>
                     </p>
                   </div>
@@ -160,7 +162,8 @@ function ProviderProfile({
                 {t("startingFrom")}{" "}
               </span>
               <span className="text-primary font-bold">
-                {cheapest.toFixed(3)} {currency}
+                {formatAmount(cheapest.basePrice, cheapest.currency)}{" "}
+                {currencySymbol(cheapest.currency, locale)}
               </span>
             </div>
             <Button className="bg-brand-gradient border-0 px-6 text-white shadow-md hover:opacity-90">

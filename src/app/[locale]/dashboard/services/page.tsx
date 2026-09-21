@@ -9,6 +9,7 @@ import { getCurrentProvider } from "@/features/providers";
 import { getServicesService } from "@/features/services";
 import type { Service } from "@/features/services";
 import { Link } from "@/i18n/navigation";
+import { currencySymbol, formatAmount } from "@/lib/currency";
 import { logger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
 
@@ -59,7 +60,6 @@ export default async function ProviderServicesPage({
 function ServicesList({ services }: { services: Service[] }) {
   const t = useTranslations("providerServicesScreen");
   const locale = useLocale();
-  const currency = locale === "ar" ? "د.ك" : "KWD";
 
   return (
     <div className="bg-background mx-auto flex min-h-dvh w-full max-w-md flex-col">
@@ -97,7 +97,8 @@ function ServicesList({ services }: { services: Service[] }) {
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-bold">{title}</p>
                   <p className="text-muted-foreground text-xs">
-                    {s.basePrice.toFixed(3)} {currency}
+                    {formatAmount(s.basePrice, s.currency)}{" "}
+                    {currencySymbol(s.currency, locale)}
                   </p>
                 </div>
                 <span

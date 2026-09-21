@@ -47,6 +47,7 @@ export async function registerProviderAction(input: {
   businessNameAr: string;
   descriptionEn?: string;
   descriptionAr?: string;
+  countryId?: string;
   cityId?: string;
   contractAgreed: boolean;
   contractSignedName: string;
@@ -78,6 +79,7 @@ export async function registerProviderAction(input: {
       businessNameAr: input.businessNameAr,
       descriptionEn: input.descriptionEn || undefined,
       descriptionAr: input.descriptionAr || undefined,
+      countryId: input.countryId || undefined,
       cityId: input.cityId || undefined,
       contractAcceptedAt: new Date().toISOString(),
       contractVersion: PROVIDER_CONTRACT_VERSION,

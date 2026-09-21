@@ -8,6 +8,7 @@ import { getCategoriesService } from "@/features/categories";
 import { getProvidersService } from "@/features/providers";
 import { getServicesService } from "@/features/services";
 import { Link } from "@/i18n/navigation";
+import { currencySymbol, formatAmount } from "@/lib/currency";
 import { logger } from "@/lib/logger";
 
 const log = logger.child({ module: "customer-home" });
@@ -100,7 +101,7 @@ async function loadTopRatedServices(
             : "",
           providerSlug: provider?.slug ?? "",
           rating: s.rating.toFixed(1),
-          price: s.basePrice.toFixed(3),
+          price: formatAmount(s.basePrice, s.currency),
           currency: s.currency,
           Icon: iconByCategoryId.get(s.categoryId) ?? Shapes,
         };
@@ -253,7 +254,7 @@ function CustomerHome({
                         <span className="text-primary text-sm font-bold">
                           {price}{" "}
                           <span className="text-muted-foreground text-xs font-normal">
-                            {currency}
+                            {currencySymbol(currency, locale)}
                           </span>
                         </span>
                       </div>

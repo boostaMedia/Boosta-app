@@ -131,7 +131,9 @@
     "filter": "تصفية",
     "reviews": "{count} تقييم",
     "emptyTitle": "لا توجد نتائج",
-    "emptySubtitle": "جرّب فئة مختلفة أو كلمة بحث أخرى."
+    "emptySubtitle": "جرّب فئة مختلفة أو كلمة بحث أخرى.",
+    "scopedToCountry": "يعرض المزوّدين في دولتك.",
+    "showAllCountries": "عرض كل الدول"
   },
   "providerScreen": {
     "verified": "موثّق",
@@ -214,6 +216,13 @@
       "language": "اللغة",
       "help": "المساعدة والدعم",
       "signOut": "تسجيل الخروج"
+    },
+    "country": {
+      "title": "الدولة",
+      "placeholder": "اختر دولتك",
+      "hint": "يعرض البحث المزوّدين في دولتك بعملتها المحلية.",
+      "saved": "تم الحفظ.",
+      "error": "تعذّر الحفظ. حاول مرة أخرى."
     }
   },
   "providerRegisterScreen": {
@@ -230,7 +239,7 @@
     "descriptionArLabel": "الوصف (بالعربية، اختياري)",
     "descriptionArPlaceholder": "ما هي خدماتك؟",
     "contractLabel": "اتفاقية المزوّدين",
-    "contractAgree": "لقد قرأت ووافقت على اتفاقية المزوّدين، بما في ذلك رسوم الاشتراك السنوية 300 د.ك.",
+    "contractAgree": "لقد قرأت واوافق على اتفاقية مزوّد الخدمة، بما في ذلك رسوم الوصول السنوية 975 دولارًا أمريكيًا.",
     "signatureLabel": "الاسم الكامل (كتوقيع)",
     "signaturePlaceholder": "اسمك الكامل",
     "submit": "إرسال الطلب",
@@ -241,7 +250,9 @@
       "contract_required": "يرجى الموافقة على اتفاقية المزوّدين والتوقيع باسمك الكامل.",
       "slug_taken": "اسم النشاط هذا مُستخدم بالفعل. جرّب اسمًا مختلفًا قليلًا.",
       "failed": "تعذّر إرسال طلبك. يرجى المحاولة مرة أخرى."
-    }
+    },
+    "countryLabel": "الدولة",
+    "countryPlaceholder": "اختر الدولة"
   },
   "providerPendingScreen": {
     "pending": {

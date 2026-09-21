@@ -33,6 +33,7 @@ export const profileRowSchema = z.object({
   date_of_birth: z.string().nullable(),
   locale: z.string(),
   city_id: z.string().nullable(),
+  country_id: z.string().nullable(),
   updated_at: z.string(),
 });
 
@@ -46,6 +47,7 @@ export const updateProfileSchema = z
     dateOfBirth: z.iso.date(),
     locale: z.enum(["ar", "en"]),
     cityId: z.uuid(),
+    countryId: z.uuid(),
   })
   .partial()
   .refine((v) => Object.keys(v).length > 0, {

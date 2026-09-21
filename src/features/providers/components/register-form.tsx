@@ -27,8 +27,20 @@ const ERROR_KEYS = new Set([
 
 export function RegisterProviderForm({
   cities,
+  countries,
 }: {
-  cities: { id: string; nameEn: string; nameAr: string }[];
+  cities: {
+    id: string;
+    nameEn: string;
+    nameAr: string;
+    countryId: string | null;
+  }[];
+  countries: {
+    id: string;
+    nameEn: string;
+    nameAr: string;
+    currencyCode: string;
+  }[];
 }) {
   const t = useTranslations("providerRegisterScreen");
   const locale = useLocale();
@@ -40,13 +52,19 @@ export function RegisterProviderForm({
   const [businessNameAr, setBusinessNameAr] = useState("");
   const [descriptionEn, setDescriptionEn] = useState("");
   const [descriptionAr, setDescriptionAr] = useState("");
+  const [countryId, setCountryId] = useState("");
   const [cityId, setCityId] = useState("");
   const [contractAgreed, setContractAgreed] = useState(false);
   const [contractSignedName, setContractSignedName] = useState("");
 
+  const citiesInCountry = countryId
+    ? cities.filter((c) => c.countryId === countryId)
+    : cities;
+
   const canSubmit =
     businessNameEn.trim().length > 0 &&
     businessNameAr.trim().length > 0 &&
+    countryId.length > 0 &&
     contractAgreed &&
     contractSignedName.trim().length > 0;
 
@@ -69,6 +87,7 @@ export function RegisterProviderForm({
         businessNameAr: businessNameAr.trim(),
         descriptionEn: descriptionEn.trim(),
         descriptionAr: descriptionAr.trim(),
+        countryId: countryId || undefined,
         cityId: cityId || undefined,
         contractAgreed,
         contractSignedName: contractSignedName.trim(),
@@ -114,15 +133,38 @@ export function RegisterProviderForm({
         </div>
 
         <div className="flex flex-col gap-2">
+          <Label htmlFor="countryId">{t("countryLabel")}</Label>
+          <select
+            id="countryId"
+            required
+            className={fieldClasses}
+            value={countryId}
+            onChange={(e) => {
+              setCountryId(e.target.value);
+              setCityId("");
+            }}
+          >
+            <option value="">{t("countryPlaceholder")}</option>
+            {countries.map((country) => (
+              <option key={country.id} value={country.id}>
+                {locale === "ar" ? country.nameAr : country.nameEn} (
+                {country.currencyCode})
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex flex-col gap-2">
           <Label htmlFor="cityId">{t("cityLabel")}</Label>
           <select
             id="cityId"
             className={fieldClasses}
             value={cityId}
             onChange={(e) => setCityId(e.target.value)}
+            disabled={citiesInCountry.length === 0}
           >
             <option value="">{t("cityPlaceholder")}</option>
-            {cities.map((city) => (
+            {citiesInCountry.map((city) => (
               <option key={city.id} value={city.id}>
                 {locale === "ar" ? city.nameAr : city.nameEn}
               </option>

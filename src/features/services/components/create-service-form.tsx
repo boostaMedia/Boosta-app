@@ -19,8 +19,10 @@ const ERROR_KEYS = new Set(["invalid", "no_provider", "slug_taken", "failed"]);
 
 export function CreateServiceForm({
   categories,
+  currencyCode,
 }: {
   categories: { id: string; nameEn: string; nameAr: string }[];
+  currencyCode: string;
 }) {
   const t = useTranslations("addServiceScreen");
   const locale = useLocale();
@@ -124,7 +126,9 @@ export function CreateServiceForm({
 
       <div className="grid grid-cols-2 gap-3">
         <div className="flex flex-col gap-2">
-          <Label htmlFor="basePrice">{t("priceLabel")}</Label>
+          <Label htmlFor="basePrice">
+            {t("priceLabel")} ({currencyCode})
+          </Label>
           <Input
             id="basePrice"
             required

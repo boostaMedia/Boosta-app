@@ -17,6 +17,7 @@ import { CATEGORY_ITEMS } from "@/config/categories";
 import { getBusinessListingsService } from "@/features/business-listings";
 import type { BusinessListing } from "@/features/business-listings";
 import { Link } from "@/i18n/navigation";
+import { currencySymbol } from "@/lib/currency";
 import { logger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
 
@@ -60,7 +61,6 @@ function Home({ listings }: { listings: BusinessListing[] }) {
   const tCommon = useTranslations("common");
   const tCat = useTranslations("customerHome.cat");
   const locale = useLocale();
-  const currency = locale === "ar" ? "د.ك" : "KWD";
 
   const features = [
     { key: "rtl", Icon: Sparkles },
@@ -239,7 +239,7 @@ function Home({ listings }: { listings: BusinessListing[] }) {
                         { minimumFractionDigits: 0, maximumFractionDigits: 0 },
                       )}{" "}
                       <span className="text-muted-foreground text-sm font-normal">
-                        {currency}
+                        {currencySymbol(listing.currency, locale)}
                       </span>
                     </p>
                   </li>

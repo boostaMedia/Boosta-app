@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { requireProvider } from "@/features/auth";
 import { getCategoriesService } from "@/features/categories";
 import { getCurrentProvider } from "@/features/providers";
+import { listCountries } from "@/features/reference";
 import { CreateServiceForm } from "@/features/services/components/create-service-form";
 import { Link } from "@/i18n/navigation";
 
@@ -29,6 +30,10 @@ export default async function NewServicePage({
     activeOnly: true,
   });
 
+  const countries = await listCountries();
+  const currencyCode =
+    countries.find((c) => c.id === provider.countryId)?.currencyCode ?? "KWD";
+
   const t = await getTranslations({ locale, namespace: "addServiceScreen" });
 
   return (
@@ -50,6 +55,7 @@ export default async function NewServicePage({
           nameEn: c.nameEn,
           nameAr: c.nameAr,
         }))}
+        currencyCode={currencyCode}
       />
     </div>
   );

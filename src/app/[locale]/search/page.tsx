@@ -6,9 +6,12 @@ import { ScreenHeader } from "@/components/app/screen-header";
 import { getCategoriesService } from "@/features/categories";
 import { getProvidersService } from "@/features/providers";
 import type { Provider } from "@/features/providers";
+import { getAppUser } from "@/features/auth";
+import { getUsersService } from "@/features/users";
 import { getServicesService } from "@/features/services";
 import type { Service } from "@/features/services";
 import { Link } from "@/i18n/navigation";
+import { currencySymbol, formatAmount } from "@/lib/currency";
 import { logger } from "@/lib/logger";
 import { cn, initials } from "@/lib/utils";
 
@@ -44,6 +47,7 @@ async function loadListings(
   categoryId: string | undefined,
   query: string | undefined,
   sort: Sort,
+  countryId: string | null,
 ): Promise<SearchListing[]> {
   try {
     const services = await getServicesService();
@@ -64,7 +68,11 @@ async function loadListings(
     );
 
     const listings = items
-      .filter((s) => providerById.get(s.providerId)?.status === "verified")
+      .filter((s) => {
+        const provider = providerById.get(s.providerId);
+        if (provider?.status !== "verified") return false;
+        return countryId === null || provider.countryId === countryId;
+      })
       .map((s) => toListing(s, locale, providerById));
 
     if (sort === "sortPrice") {
@@ -94,7 +102,7 @@ function toListing(
     providerSlug: provider?.slug ?? "",
     rating: service.rating.toFixed(1),
     reviewsCount: service.reviewsCount,
-    price: service.basePrice.toFixed(3),
+    price: formatAmount(service.basePrice, service.currency),
     currency: service.currency,
   };
 }
@@ -104,10 +112,15 @@ export default async function SearchPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ category?: string; q?: string; sort?: string }>;
+  searchParams: Promise<{
+    category?: string;
+    q?: string;
+    sort?: string;
+    country?: string;
+  }>;
 }) {
   const { locale } = await params;
-  const { category, q, sort: sortParam } = await searchParams;
+  const { category, q, sort: sortParam, country } = await searchParams;
   setRequestLocale(locale);
 
   const sort: Sort = isSort(sortParam) ? sortParam : "sortTopRated";
@@ -127,7 +140,23 @@ export default async function SearchPage({
     title = t("title");
   }
 
-  const listings = await loadListings(locale, category, q, sort);
+  // Scope to the signed-in customer's own country by default; anonymous
+  // visitors and customers without a country set see everything, and
+  // `?country=all` lets anyone widen the scope explicitly.
+  let countryId: string | null = null;
+  if (country !== "all") {
+    const appUser = await getAppUser();
+    if (appUser) {
+      try {
+        const users = await getUsersService();
+        countryId = (await users.getMe(appUser.id)).profile?.countryId ?? null;
+      } catch (error) {
+        log.warn("search.country_load_failed", { error });
+      }
+    }
+  }
+
+  const listings = await loadListings(locale, category, q, sort, countryId);
 
   return (
     <SearchResults
@@ -136,14 +165,22 @@ export default async function SearchPage({
       activeSort={sort}
       category={category}
       query={q}
+      scopedToCountry={countryId !== null}
+      allCountries={country === "all"}
     />
   );
 }
 
-function sortHref(sort: Sort, category?: string, query?: string): string {
+function sortHref(
+  sort: Sort,
+  category?: string,
+  query?: string,
+  allCountries?: boolean,
+): string {
   const params = new URLSearchParams({ sort });
   if (category) params.set("category", category);
   if (query) params.set("q", query);
+  if (allCountries) params.set("country", "all");
   return `/search?${params.toString()}`;
 }
 
@@ -153,16 +190,19 @@ function SearchResults({
   activeSort,
   category,
   query,
+  scopedToCountry,
+  allCountries,
 }: {
   title: string;
   listings: SearchListing[];
   activeSort: Sort;
   category?: string;
   query?: string;
+  scopedToCountry: boolean;
+  allCountries: boolean;
 }) {
   const t = useTranslations("searchScreen");
   const locale = useLocale();
-  const currency = locale === "ar" ? "د.ك" : "KWD";
 
   return (
     <div className="bg-background mx-auto flex min-h-dvh w-full max-w-md flex-col">
@@ -173,7 +213,7 @@ function SearchResults({
         {SORTS.map((s) => (
           <Link
             key={s}
-            href={sortHref(s, category, query)}
+            href={sortHref(s, category, query, allCountries)}
             className={cn(
               "shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium",
               activeSort === s
@@ -194,6 +234,17 @@ function SearchResults({
       </div>
 
       <main className="flex-1 space-y-3 px-4 py-4">
+        {scopedToCountry && (
+          <p className="text-muted-foreground text-xs">
+            {t("scopedToCountry")}{" "}
+            <Link
+              href={sortHref(activeSort, category, query, true)}
+              className="text-primary font-medium"
+            >
+              {t("showAllCountries")}
+            </Link>
+          </p>
+        )}
         {listings.length === 0 ? (
           <div className="border-border bg-card mt-6 rounded-2xl border border-dashed p-6 text-center">
             <p className="font-bold">{t("emptyTitle")}</p>
@@ -230,7 +281,7 @@ function SearchResults({
               <div className="text-primary shrink-0 text-end text-sm font-bold">
                 {l.price}
                 <span className="text-muted-foreground block text-[10px] font-normal">
-                  {currency}
+                  {currencySymbol(l.currency, locale)}
                 </span>
               </div>
             </Link>

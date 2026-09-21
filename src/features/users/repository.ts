@@ -41,6 +41,7 @@ function toProfile(row: ProfileRow): Profile {
     dateOfBirth: row.date_of_birth,
     locale: row.locale,
     cityId: row.city_id,
+    countryId: row.country_id,
     updatedAt: row.updated_at,
   };
 }
@@ -55,6 +56,7 @@ function profileToRow(input: UpdateProfileInput): Record<string, unknown> {
   if (input.dateOfBirth !== undefined) row.date_of_birth = input.dateOfBirth;
   if (input.locale !== undefined) row.locale = input.locale;
   if (input.cityId !== undefined) row.city_id = input.cityId;
+  if (input.countryId !== undefined) row.country_id = input.countryId;
   return row;
 }
 

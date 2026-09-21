@@ -22,6 +22,7 @@ const sample: Provider = {
   reviewsCount: 12,
   cityId: null,
   areaId: null,
+  countryId: null,
   commissionRate: 10,
   contractAcceptedAt: "2026-01-01T00:00:00Z",
   contractVersion: "2026-08-1",

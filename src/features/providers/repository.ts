@@ -35,6 +35,7 @@ function toEntity(row: ProviderRow): Provider {
     reviewsCount: row.reviews_count,
     cityId: row.city_id,
     areaId: row.area_id,
+    countryId: row.country_id,
     commissionRate: row.commission_rate,
     contractAcceptedAt: row.contract_accepted_at,
     contractVersion: row.contract_version,
@@ -59,6 +60,7 @@ function toRow(patch: Partial<ProviderPatch>): Record<string, unknown> {
   if (patch.coverUrl !== undefined) row.cover_url = patch.coverUrl;
   if (patch.cityId !== undefined) row.city_id = patch.cityId;
   if (patch.areaId !== undefined) row.area_id = patch.areaId;
+  if (patch.countryId !== undefined) row.country_id = patch.countryId;
   if (patch.contractAcceptedAt !== undefined)
     row.contract_accepted_at = patch.contractAcceptedAt;
   if (patch.contractVersion !== undefined)

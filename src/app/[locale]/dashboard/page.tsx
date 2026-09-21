@@ -14,7 +14,7 @@ import { requireProvider } from "@/features/auth";
 import { getCurrentProvider } from "@/features/providers";
 import { PendingApprovalScreen } from "@/features/providers/components/pending-approval";
 import { RegisterProviderForm } from "@/features/providers/components/register-form";
-import { listCities } from "@/features/reference";
+import { listCities, listCountries } from "@/features/reference";
 import { Link } from "@/i18n/navigation";
 
 export default async function DashboardPage({
@@ -33,8 +33,11 @@ export default async function DashboardPage({
   // rejected, suspended) sees the matching status screen.
   const provider = await getCurrentProvider();
   if (!provider) {
-    const cities = await listCities();
-    return <RegisterProviderForm cities={cities} />;
+    const [cities, countries] = await Promise.all([
+      listCities(),
+      listCountries(),
+    ]);
+    return <RegisterProviderForm cities={cities} countries={countries} />;
   }
   if (provider.status !== "verified") {
     return (

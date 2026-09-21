@@ -16,6 +16,9 @@ import { setRequestLocale } from "next-intl/server";
 import { BottomNav } from "@/components/app/bottom-nav";
 import { requireUser, signOut } from "@/features/auth";
 import { getUsersService } from "@/features/users";
+import { CountrySelect } from "@/features/users/components/country-select";
+import { listCountries } from "@/features/reference";
+import type { Country } from "@/features/reference";
 import type { Me } from "@/features/users";
 import { Link } from "@/i18n/navigation";
 
@@ -40,6 +43,7 @@ export default async function AccountPage({
 
   const users = await getUsersService();
   const me = await users.getMe(user.id);
+  const countries = await listCountries().catch(() => []);
 
   async function signOutAction() {
     "use server";
@@ -47,14 +51,18 @@ export default async function AccountPage({
     redirect(`/${locale}`);
   }
 
-  return <Account me={me} signOutAction={signOutAction} />;
+  return (
+    <Account me={me} countries={countries} signOutAction={signOutAction} />
+  );
 }
 
 function Account({
   me,
+  countries,
   signOutAction,
 }: {
   me: Me;
+  countries: Country[];
   signOutAction: () => Promise<void>;
 }) {
   const t = useTranslations("accountScreen");
@@ -91,6 +99,10 @@ function Account({
       </header>
 
       <main className="flex-1 px-4 py-4">
+        <CountrySelect
+          countries={countries}
+          value={me.profile?.countryId ?? null}
+        />
         <ul className="bg-card border-border divide-border overflow-hidden rounded-2xl border shadow-sm">
           {MENU.map(({ key, Icon, href }) => (
             <li key={key} className="divide-y">

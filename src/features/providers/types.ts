@@ -28,6 +28,7 @@ export interface Provider {
   reviewsCount: number;
   cityId: string | null;
   areaId: string | null;
+  countryId: string | null;
   commissionRate: number;
   contractAcceptedAt: string | null;
   contractVersion: string | null;

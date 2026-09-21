@@ -3,7 +3,8 @@
 import { revalidatePath } from "next/cache";
 
 import { requireProvider } from "@/features/auth";
-import { getCurrentProviderId } from "@/features/providers";
+import { getCurrentProvider } from "@/features/providers";
+import { listCountries } from "@/features/reference";
 import { ConflictError } from "@/lib/errors";
 import { logger } from "@/lib/logger";
 
@@ -45,11 +46,19 @@ export async function createServiceAction(input: {
   publish: boolean;
 }): Promise<CreateServiceResult> {
   await requireProvider();
-  const providerId = await getCurrentProviderId();
-  if (!providerId) return { ok: false, error: "no_provider" };
+  const provider = await getCurrentProvider();
+  if (!provider) return { ok: false, error: "no_provider" };
 
   const base = slugify(input.titleEn);
   if (!base) return { ok: false, error: "invalid" };
+
+  // A service is priced in its provider's own country currency — never a
+  // hardcoded default — so a Saudi provider's price is stored as SAR, not
+  // silently as KWD. Falls back to KWD only if the provider (an old row
+  // predating country selection) has no country set.
+  const countries = await listCountries();
+  const currency =
+    countries.find((c) => c.id === provider.countryId)?.currencyCode ?? "KWD";
 
   const services = await getServicesService();
 
@@ -71,6 +80,7 @@ export async function createServiceAction(input: {
       descriptionEn: input.descriptionEn || undefined,
       descriptionAr: input.descriptionAr || undefined,
       basePrice: input.basePrice,
+      currency,
       priceType: input.priceType,
       durationMinutes: input.durationMinutes || undefined,
       status: input.publish ? "active" : "draft",
@@ -78,7 +88,7 @@ export async function createServiceAction(input: {
     if (!parsed.success) return { ok: false, error: "invalid" };
 
     try {
-      await services.create(providerId, parsed.data);
+      await services.create(provider.id, parsed.data);
       revalidatePath("/dashboard/services");
       return { ok: true };
     } catch (error) {

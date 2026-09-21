@@ -7,15 +7,15 @@
  * legal text reviewed by counsel. Replace it with Boosta's actual vetted
  * agreement before this flow is used with real businesses.
  */
-export const PROVIDER_CONTRACT_VERSION = "2026-08-1";
+export const PROVIDER_CONTRACT_VERSION = "2026-08-2";
 
 export const PROVIDER_CONTRACT_TEXT_EN = `Boosta Provider Agreement
 
 By submitting this application, you agree to the following terms as a service provider on Boosta:
 
-1. Eligibility. You confirm the business information you submit is accurate and that you are authorized to represent this business in Kuwait.
+1. Eligibility. You confirm the business information you submit is accurate and that you are authorized to represent this business in the country you registered.
 
-2. Annual access fee. Providers pay an annual platform access fee of 300 KWD. Boosta will invoice you separately after your application is approved; your account will not be activated until this fee is settled.
+2. Annual access fee. Providers pay an annual platform access fee of $975 USD, billed in US Dollars regardless of your country so the fee's real value is the same everywhere Boosta operates. Boosta will invoice you separately after your application is approved; your account will not be activated until this fee is settled.
 
 3. Commission. Boosta charges a commission on sales made through the platform. The applicable rate is shown in your dashboard and may be updated from time to time; changes never apply retroactively to sales already completed.
 
@@ -31,9 +31,9 @@ export const PROVIDER_CONTRACT_TEXT_AR = `اتفاقية مزوّدي خدمات
 
 بتقديمك لهذا الطلب، فإنك توافق على الشروط التالية كمزوّد خدمة على منصة بوستا:
 
-١. الأهلية. تؤكد أن المعلومات التجارية التي تقدّمها دقيقة، وأنك مخوّل بتمثيل هذا النشاط التجاري في الكويت.
+١. الأهلية. تؤكد أن المعلومات التجارية التي تقدّمها دقيقة، وأنك مخوّل بتمثيل هذا النشاط التجاري في الدولة التي سجّلت بها.
 
-٢. رسوم الاشتراك السنوية. يدفع المزوّدون رسوم وصول سنوية للمنصة قدرها 300 د.ك. سترسل بوستا فاتورة منفصلة بعد الموافقة على طلبك، ولن يُفعَّل حسابك حتى تسوية هذه الرسوم.
+٢. رسوم الاشتراك السنوية. يدفع المزوّدون رسوم وصول سنوية للمنصة قدرها 975 دولارًا أمريكيًا، تُحتسب بالدولار الأمريكي بغض النظر عن دولتك حتى تبقى القيمة الحقيقية للرسوم موحّدة في كل دول عمل بوستا. سترسل بوستا فاتورة منفصلة بعد الموافقة على طلبك، ولن يُفعَّل حسابك حتى تسوية هذه الرسوم.
 
 ٣. العمولة. تحصّل بوستا عمولة على المبيعات التي تتم عبر المنصة. تظهر النسبة المطبّقة في لوحة التحكم الخاصة بك وقد تُحدَّث من وقت لآخر؛ لا تُطبَّق أي تغييرات بأثر رجعي على المبيعات المكتملة بالفعل.
 
