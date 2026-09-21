@@ -33,5 +33,7 @@ export type UpdateReviewInput = z.infer<typeof updateReviewSchema>;
 export interface ListReviewsParams extends PaginationQuery {
   providerId?: string;
   serviceId?: string;
+  /** Narrow to reviews the user wrote. */
+  customerId?: string;
   status?: ReviewStatus;
 }

@@ -152,7 +152,10 @@
     "startingFrom": "From",
     "noServicesTitle": "No services yet",
     "noServicesSubtitle": "This provider hasn't listed any services yet.",
-    "bookThis": "Book this service"
+    "bookThis": "Book this service",
+    "reviewsTitle": "Reviews",
+    "noReviews": "No reviews yet.",
+    "providerReply": "Reply from the provider"
   },
   "bookingScreen": {
     "title": "Request booking",
@@ -198,7 +201,8 @@
       "cancelled": "Cancelled",
       "refunded": "Refunded",
       "disputed": "Disputed"
-    }
+    },
+    "providerReply": "Reply from the provider"
   },
   "messagesScreen": {
     "title": "Messages",
@@ -352,7 +356,9 @@
     "seeAll": "See all ({count})",
     "noRequestsTitle": "No new requests",
     "noRequestsSubtitle": "Booking requests from customers will show up here.",
-    "noDate": "Time to be agreed"
+    "noDate": "Time to be agreed",
+    "reviews": "Reviews",
+    "reviewsSubtitle": "{count} reviews — read and reply"
   },
   "splashScreen": {
     "tagline": "Your services, one tap"
@@ -550,5 +556,30 @@
     "confirmVoid": "Cancel this invoice?",
     "actionFailed": "Couldn't update the invoice. Please try again.",
     "manualNote": "Payments are recorded by hand until an online payment gateway is connected. Recording a payment starts or extends the provider's subscription for a year."
+  },
+  "reviews": {
+    "rateThis": "Rate this booking",
+    "commentPlaceholder": "Tell others how it went (optional)",
+    "submit": "Submit review",
+    "submitting": "Sending…",
+    "providerReply": "Reply from the provider",
+    "yourReply": "Your reply",
+    "reply": "Reply",
+    "editReply": "Edit reply",
+    "replyPlaceholder": "Write a reply…",
+    "sendReply": "Send reply",
+    "cancel": "Cancel",
+    "providerTitle": "Reviews",
+    "providerSubtitle": "What customers say about your work.",
+    "emptyTitle": "No reviews yet",
+    "emptySubtitle": "Reviews appear here after customers rate a completed booking.",
+    "errors": {
+      "pickRating": "Pick a star rating first.",
+      "invalid": "Check your review and try again.",
+      "not_allowed": "You can only review your own completed bookings.",
+      "already_reviewed": "You've already reviewed this booking.",
+      "not_found": "That booking no longer exists.",
+      "failed": "Couldn't send. Please try again."
+    }
   }
 }

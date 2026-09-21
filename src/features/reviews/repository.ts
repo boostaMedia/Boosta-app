@@ -65,6 +65,7 @@ export function createReviewsRepository(
 
       if (params.providerId) query = query.eq("provider_id", params.providerId);
       if (params.serviceId) query = query.eq("service_id", params.serviceId);
+      if (params.customerId) query = query.eq("customer_id", params.customerId);
       if (params.status) query = query.eq("status", params.status);
 
       const { data, error, count } = await query

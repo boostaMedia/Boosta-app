@@ -152,7 +152,10 @@
     "startingFrom": "من",
     "noServicesTitle": "لا توجد خدمات بعد",
     "noServicesSubtitle": "لم يضِف هذا المزوّد أي خدمات حتى الآن.",
-    "bookThis": "احجز هذه الخدمة"
+    "bookThis": "احجز هذه الخدمة",
+    "reviewsTitle": "التقييمات",
+    "noReviews": "لا توجد تقييمات بعد.",
+    "providerReply": "ردّ المزوّد"
   },
   "bookingScreen": {
     "title": "طلب حجز",
@@ -198,7 +201,8 @@
       "cancelled": "ملغي",
       "refunded": "مسترجع",
       "disputed": "متنازع عليه"
-    }
+    },
+    "providerReply": "ردّ المزوّد"
   },
   "messagesScreen": {
     "title": "الرسائل",
@@ -352,7 +356,9 @@
     "seeAll": "عرض الكل ({count})",
     "noRequestsTitle": "لا توجد طلبات جديدة",
     "noRequestsSubtitle": "طلبات الحجز من العملاء ستظهر هنا.",
-    "noDate": "الوقت يُتفق عليه"
+    "noDate": "الوقت يُتفق عليه",
+    "reviews": "التقييمات",
+    "reviewsSubtitle": "{count} تقييمات — اقرأ وردّ"
   },
   "splashScreen": {
     "tagline": "خدماتك، بلمسة واحدة"
@@ -550,5 +556,30 @@
     "confirmVoid": "إلغاء هذه الفاتورة؟",
     "actionFailed": "تعذّر تحديث الفاتورة. حاول مرة أخرى.",
     "manualNote": "الدفعات تُسجَّل يدويًا لين نربط بوابة دفع إلكترونية. تسجيل الدفعة يبدأ اشتراك المزوّد أو يمدّده سنة."
+  },
+  "reviews": {
+    "rateThis": "قيّم هذا الحجز",
+    "commentPlaceholder": "احكِ للآخرين كيف كانت التجربة (اختياري)",
+    "submit": "إرسال التقييم",
+    "submitting": "جارٍ الإرسال…",
+    "providerReply": "ردّ المزوّد",
+    "yourReply": "ردّك",
+    "reply": "رد",
+    "editReply": "تعديل الرد",
+    "replyPlaceholder": "اكتب ردًّا…",
+    "sendReply": "إرسال الرد",
+    "cancel": "إلغاء",
+    "providerTitle": "التقييمات",
+    "providerSubtitle": "رأي العملاء بعملك.",
+    "emptyTitle": "لا توجد تقييمات بعد",
+    "emptySubtitle": "تظهر التقييمات هنا بعد ما يقيّم العملاء حجزًا مكتملًا.",
+    "errors": {
+      "pickRating": "اختر عدد النجوم أول.",
+      "invalid": "راجع تقييمك وحاول مرة أخرى.",
+      "not_allowed": "تقدر تقيّم فقط حجوزاتك المكتملة.",
+      "already_reviewed": "سبق وقيّمت هذا الحجز.",
+      "not_found": "هذا الحجز لم يعد موجودًا.",
+      "failed": "تعذّر الإرسال. حاول مرة أخرى."
+    }
   }
 }

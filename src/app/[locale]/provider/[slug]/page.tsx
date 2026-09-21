@@ -7,6 +7,9 @@ import { ScreenHeader } from "@/components/app/screen-header";
 import { buttonVariants } from "@/components/ui/button";
 import { getProvidersService } from "@/features/providers";
 import type { Provider } from "@/features/providers";
+import { getReviewsService } from "@/features/reviews";
+import type { Review } from "@/features/reviews";
+import { StarRating } from "@/features/reviews/components/star-rating";
 import { getServicesService } from "@/features/services";
 import type { Service } from "@/features/services";
 import { currencySymbol, formatAmount } from "@/lib/currency";
@@ -42,15 +45,33 @@ export default async function ProviderProfilePage({
     status: "active",
   });
 
-  return <ProviderProfile provider={provider} services={items} />;
+  let reviews: Review[] = [];
+  try {
+    ({ items: reviews } = await (
+      await getReviewsService()
+    ).list({
+      page: 1,
+      pageSize: 20,
+      providerId: provider.id,
+      status: "published",
+    }));
+  } catch {
+    // Reviews are a nice-to-have on this page; render without them.
+  }
+
+  return (
+    <ProviderProfile provider={provider} services={items} reviews={reviews} />
+  );
 }
 
 function ProviderProfile({
   provider,
   services,
+  reviews,
 }: {
   provider: Provider;
   services: Service[];
+  reviews: Review[];
 }) {
   const t = useTranslations("providerScreen");
   const locale = useLocale();
@@ -148,6 +169,43 @@ function ProviderProfile({
                     <Plus className="size-5" aria-hidden />
                   </Link>
                 </div>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* Reviews */}
+        <section className="space-y-3">
+          <h2 className="font-heading font-bold">{t("reviewsTitle")}</h2>
+          {reviews.length === 0 ? (
+            <p className="text-muted-foreground text-sm">{t("noReviews")}</p>
+          ) : (
+            <div className="space-y-2">
+              {reviews.map((r) => (
+                <article
+                  key={r.id}
+                  className="bg-card border-border space-y-1.5 rounded-2xl border p-3 shadow-sm"
+                >
+                  <div className="flex items-center justify-between">
+                    <StarRating value={r.rating} />
+                    <span className="text-muted-foreground text-xs">
+                      {new Date(r.createdAt).toLocaleDateString(
+                        locale === "ar" ? "ar-KW" : "en-KW",
+                      )}
+                    </span>
+                  </div>
+                  {r.comment && (
+                    <p className="text-sm whitespace-pre-line">{r.comment}</p>
+                  )}
+                  {r.providerReply && (
+                    <p className="bg-muted/50 rounded-lg p-2 text-sm">
+                      <span className="text-muted-foreground block text-xs">
+                        {t("providerReply")}
+                      </span>
+                      {r.providerReply}
+                    </p>
+                  )}
+                </article>
               ))}
             </div>
           )}

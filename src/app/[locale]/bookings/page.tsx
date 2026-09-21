@@ -10,6 +10,10 @@ import { OrderStatusPill } from "@/features/orders/components/order-status-pill"
 import { nextStatuses, tabForStatus } from "@/features/orders/transitions";
 import type { BookingTab } from "@/features/orders/transitions";
 import { getProvidersService } from "@/features/providers";
+import { getReviewsService } from "@/features/reviews";
+import type { Review } from "@/features/reviews";
+import { ReviewForm } from "@/features/reviews/components/review-form";
+import { StarRating } from "@/features/reviews/components/star-rating";
 import type { Provider } from "@/features/providers";
 import { getServicesService } from "@/features/services";
 import type { Service } from "@/features/services";
@@ -31,6 +35,7 @@ type BookingRow = {
   serviceTitleEn: string;
   serviceTitleAr: string;
   provider: Provider | null;
+  review: Review | null;
 };
 
 async function loadBookings(customerId: string): Promise<BookingRow[]> {
@@ -65,6 +70,18 @@ async function loadBookings(customerId: string): Promise<BookingRow[]> {
       ).map((p) => [p.id, p]),
     );
 
+    // The customer's own reviews, by booking, so completed bookings show
+    // either their rating or the form to leave one.
+    const reviewByOrder = new Map<string, Review>();
+    try {
+      const { items: reviews } = await (
+        await getReviewsService()
+      ).list({ page: 1, pageSize: 100, customerId });
+      for (const r of reviews) if (r.orderId) reviewByOrder.set(r.orderId, r);
+    } catch (error) {
+      log.warn("bookings.reviews_load_failed", { error });
+    }
+
     return items.map((order) => {
       const service = order.serviceId ? serviceById.get(order.serviceId) : null;
       return {
@@ -72,6 +89,7 @@ async function loadBookings(customerId: string): Promise<BookingRow[]> {
         serviceTitleEn: service?.titleEn ?? order.orderNumber,
         serviceTitleAr: service?.titleAr ?? order.orderNumber,
         provider: providerById.get(order.providerId) ?? null,
+        review: reviewByOrder.get(order.id) ?? null,
       };
     });
   } catch (error) {
@@ -142,54 +160,77 @@ function Bookings({
             </p>
           </div>
         ) : (
-          rows.map(({ order, serviceTitleEn, serviceTitleAr, provider }) => {
-            const providerName = provider
-              ? isAr
-                ? provider.businessNameAr
-                : provider.businessNameEn
-              : "";
-            return (
-              <article
-                key={order.id}
-                className="bg-card border-border rounded-2xl border p-4 shadow-sm"
-              >
-                <div className="mb-3 flex items-center justify-between text-xs">
-                  <span className="text-muted-foreground font-medium">
-                    {order.scheduledAt
-                      ? new Date(order.scheduledAt).toLocaleString(
-                          isAr ? "ar-KW" : "en-KW",
-                          { dateStyle: "medium", timeStyle: "short" },
-                        )
-                      : t("noDate")}
-                  </span>
-                  <OrderStatusPill status={order.status} />
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="bg-brand-gradient grid size-11 shrink-0 place-items-center rounded-xl text-sm font-bold text-white">
-                    {initials(providerName)}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate font-bold">
-                      {isAr ? serviceTitleAr : serviceTitleEn}
-                    </p>
-                    <p className="text-muted-foreground truncate text-sm">
-                      {providerName}
-                    </p>
-                  </div>
-                  <p className="text-primary shrink-0 text-end text-sm font-bold">
-                    {formatAmount(order.totalAmount, order.currency)}
-                    <span className="text-muted-foreground block text-[10px] font-normal">
-                      {currencySymbol(order.currency, locale)}
+          rows.map(
+            ({ order, serviceTitleEn, serviceTitleAr, provider, review }) => {
+              const providerName = provider
+                ? isAr
+                  ? provider.businessNameAr
+                  : provider.businessNameEn
+                : "";
+              return (
+                <article
+                  key={order.id}
+                  className="bg-card border-border rounded-2xl border p-4 shadow-sm"
+                >
+                  <div className="mb-3 flex items-center justify-between text-xs">
+                    <span className="text-muted-foreground font-medium">
+                      {order.scheduledAt
+                        ? new Date(order.scheduledAt).toLocaleString(
+                            isAr ? "ar-KW" : "en-KW",
+                            { dateStyle: "medium", timeStyle: "short" },
+                          )
+                        : t("noDate")}
                     </span>
-                  </p>
-                </div>
-                <BookingActions
-                  orderId={order.id}
-                  options={nextStatuses("customer", order.status)}
-                />
-              </article>
-            );
-          })
+                    <OrderStatusPill status={order.status} />
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="bg-brand-gradient grid size-11 shrink-0 place-items-center rounded-xl text-sm font-bold text-white">
+                      {initials(providerName)}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-bold">
+                        {isAr ? serviceTitleAr : serviceTitleEn}
+                      </p>
+                      <p className="text-muted-foreground truncate text-sm">
+                        {providerName}
+                      </p>
+                    </div>
+                    <p className="text-primary shrink-0 text-end text-sm font-bold">
+                      {formatAmount(order.totalAmount, order.currency)}
+                      <span className="text-muted-foreground block text-[10px] font-normal">
+                        {currencySymbol(order.currency, locale)}
+                      </span>
+                    </p>
+                  </div>
+                  <BookingActions
+                    orderId={order.id}
+                    options={nextStatuses("customer", order.status)}
+                  />
+                  {order.status === "completed" &&
+                    (review ? (
+                      <div className="border-border mt-3 space-y-1 border-t pt-3">
+                        <StarRating value={review.rating} />
+                        {review.comment && (
+                          <p className="text-sm whitespace-pre-line">
+                            {review.comment}
+                          </p>
+                        )}
+                        {review.providerReply && (
+                          <p className="bg-muted/50 rounded-lg p-2 text-sm">
+                            <span className="text-muted-foreground block text-xs">
+                              {t("providerReply")}
+                            </span>
+                            {review.providerReply}
+                          </p>
+                        )}
+                      </div>
+                    ) : (
+                      <ReviewForm orderId={order.id} />
+                    ))}
+                </article>
+              );
+            },
+          )
         )}
       </main>
 

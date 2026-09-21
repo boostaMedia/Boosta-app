@@ -205,6 +205,26 @@ function Dashboard({
           />
         </Link>
 
+        {/* Reviews */}
+        <Link
+          href="/dashboard/reviews"
+          className="bg-card hover:border-brand/40 flex items-center gap-3 rounded-2xl border p-4 shadow-sm transition-colors"
+        >
+          <span className="bg-brand-gradient grid size-11 shrink-0 place-items-center rounded-xl text-white">
+            <Star className="size-5" aria-hidden />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block font-bold">{t("reviews")}</span>
+            <span className="text-muted-foreground block text-xs">
+              {t("reviewsSubtitle", { count: provider.reviewsCount })}
+            </span>
+          </span>
+          <ChevronRight
+            className="text-muted-foreground size-5 shrink-0 rtl:rotate-180"
+            aria-hidden
+          />
+        </Link>
+
         {/* New requests */}
         <section className="space-y-3">
           <div className="flex items-center justify-between">
