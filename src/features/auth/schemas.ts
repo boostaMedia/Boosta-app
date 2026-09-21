@@ -31,6 +31,11 @@ export const requestPhoneOtpSchema = z.object({
   signupRole: signupRoleSchema.optional(),
 });
 
+export const signInPasswordSchema = z.object({
+  email: emailSchema,
+  password: z.string().min(1).max(200),
+});
+
 export const verifyEmailOtpSchema = z.object({
   email: emailSchema,
   token: otpTokenSchema,

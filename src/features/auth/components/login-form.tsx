@@ -11,19 +11,21 @@ import { useRouter } from "@/i18n/navigation";
 import {
   requestEmailOtp,
   requestPhoneOtp,
+  signInWithPassword,
   verifyEmailOtp,
   verifyPhoneOtp,
 } from "../actions";
 import type { AuthActionResult } from "../types";
 import { OAuthButtons } from "./oauth-buttons";
 
-type Method = "email" | "phone";
+type Method = "email" | "phone" | "password";
 type Step = "request" | "verify";
 
 const ERROR_KEYS = new Set([
   "invalid_email",
   "invalid_phone",
   "invalid_otp",
+  "invalid_credentials",
   "otp_request_failed",
   "otp_verify_failed",
 ]);
@@ -41,6 +43,7 @@ export function LoginForm({
   const [step, setStep] = useState<Step>("request");
   const [contact, setContact] = useState("");
   const [token, setToken] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const resolveError = (result: Extract<AuthActionResult, { ok: false }>) =>
@@ -51,6 +54,16 @@ export function LoginForm({
     setError(null);
     startTransition(async () => {
       try {
+        if (method === "password") {
+          const signedIn = await signInWithPassword(contact, password);
+          if (signedIn.ok) {
+            router.replace(signedIn.redirectTo ?? "/home");
+            router.refresh();
+          } else {
+            setError(resolveError(signedIn));
+          }
+          return;
+        }
         const result =
           method === "email"
             ? await requestEmailOtp(contact, signupRole)
@@ -92,6 +105,7 @@ export function LoginForm({
     setStep("request");
     setContact("");
     setToken("");
+    setPassword("");
     setError(null);
   }
 
@@ -132,9 +146,9 @@ export function LoginForm({
           <div
             role="tablist"
             aria-label={t("title")}
-            className="bg-muted grid grid-cols-2 gap-1 rounded-lg p-1"
+            className="bg-muted grid grid-cols-3 gap-1 rounded-lg p-1"
           >
-            {(["email", "phone"] as const).map((m) => (
+            {(["email", "phone", "password"] as const).map((m) => (
               <button
                 key={m}
                 type="button"
@@ -147,7 +161,11 @@ export function LoginForm({
                     : "text-muted-foreground"
                 }`}
               >
-                {m === "email" ? t("emailTab") : t("phoneTab")}
+                {m === "email"
+                  ? t("emailTab")
+                  : m === "phone"
+                    ? t("phoneTab")
+                    : t("passwordTab")}
               </button>
             ))}
           </div>
@@ -155,32 +173,54 @@ export function LoginForm({
           <form onSubmit={handleRequest} className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <Label htmlFor="contact">
-                {method === "email" ? t("emailLabel") : t("phoneLabel")}
+                {method === "phone" ? t("phoneLabel") : t("emailLabel")}
               </Label>
               <Input
                 id="contact"
                 name="contact"
-                type={method === "email" ? "email" : "tel"}
-                inputMode={method === "email" ? "email" : "tel"}
-                autoComplete={method === "email" ? "email" : "tel"}
+                type={method === "phone" ? "tel" : "email"}
+                inputMode={method === "phone" ? "tel" : "email"}
+                autoComplete={method === "phone" ? "tel" : "email"}
                 dir="ltr"
                 required
                 value={contact}
                 placeholder={
-                  method === "email"
-                    ? t("emailPlaceholder")
-                    : t("phonePlaceholder")
+                  method === "phone"
+                    ? t("phonePlaceholder")
+                    : t("emailPlaceholder")
                 }
                 onChange={(e) => setContact(e.target.value)}
               />
             </div>
+            {method === "password" && (
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="password">{t("passwordLabel")}</Label>
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  dir="ltr"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+            )}
             {error && (
               <p role="alert" className="text-destructive text-sm">
                 {error}
               </p>
             )}
-            <Button type="submit" disabled={isPending || contact.length === 0}>
-              {t("sendCode")}
+            <Button
+              type="submit"
+              disabled={
+                isPending ||
+                contact.length === 0 ||
+                (method === "password" && password.length === 0)
+              }
+            >
+              {method === "password" ? t("signIn") : t("sendCode")}
             </Button>
           </form>
         </>

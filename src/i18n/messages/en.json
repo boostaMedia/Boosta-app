@@ -78,8 +78,12 @@
       "otp_request_failed": "Could not send the code. Please try again.",
       "otp_verify_failed": "That code is invalid or expired. Please try again.",
       "oauth_failed": "Could not sign in. Please try again.",
-      "generic": "Something went wrong. Please try again."
-    }
+      "generic": "Something went wrong. Please try again.",
+      "invalid_credentials": "Wrong email or password."
+    },
+    "passwordTab": "Password",
+    "passwordLabel": "Password",
+    "signIn": "Sign in"
   },
   "customerHome": {
     "searchPlaceholder": "Search for a service or provider",

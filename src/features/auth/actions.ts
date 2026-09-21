@@ -8,6 +8,7 @@ import { postLoginPath } from "./routes";
 import {
   requestEmailOtpSchema,
   requestPhoneOtpSchema,
+  signInPasswordSchema,
   verifyEmailOtpSchema,
   verifyPhoneOtpSchema,
 } from "./schemas";
@@ -114,6 +115,28 @@ export async function verifyPhoneOtp(
   if (error) {
     log.warn("phone_otp.verify_failed", { error });
     return { ok: false, error: "otp_verify_failed" };
+  }
+  const user = await getAppUser();
+  return { ok: true, redirectTo: user ? postLoginPath(user.role) : "/home" };
+}
+
+/**
+ * Sign in with email + password. Accounts created through OTP or OAuth have
+ * no password, so this only works for accounts an admin created in Supabase
+ * with one (e.g. the platform admin) — it can't be used to sign up.
+ */
+export async function signInWithPassword(
+  email: string,
+  password: string,
+): Promise<AuthActionResult> {
+  const parsed = signInPasswordSchema.safeParse({ email, password });
+  if (!parsed.success) return { ok: false, error: "invalid_credentials" };
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signInWithPassword(parsed.data);
+  if (error) {
+    log.warn("password_sign_in.failed", { code: error.code });
+    return { ok: false, error: "invalid_credentials" };
   }
   const user = await getAppUser();
   return { ok: true, redirectTo: user ? postLoginPath(user.role) : "/home" };

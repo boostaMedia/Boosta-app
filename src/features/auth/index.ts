@@ -9,6 +9,7 @@ export {
   requestPhoneOtp,
   verifyEmailOtp,
   verifyPhoneOtp,
+  signInWithPassword,
   signOut,
 } from "./actions";
 export { getAppUser, getAuthUser } from "./queries";

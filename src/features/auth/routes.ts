@@ -4,8 +4,9 @@ import type { UserRole } from "@/lib/constants";
 export function postLoginPath(role: UserRole): string {
   switch (role) {
     case "provider":
-    case "admin":
       return "/dashboard";
+    case "admin":
+      return "/admin";
     case "customer":
       return "/home";
   }
